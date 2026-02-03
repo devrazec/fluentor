@@ -1,0 +1,34 @@
+{
+  "extends": ["next", "next/core-web-vitals", "plugin:prettier/recommended"],
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "public/",
+    "out/",
+    "build/",
+    "dist/",
+    "next-env.d.ts"
+  ],
+  "plugins": ["prettier", "react", "react-hooks"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "semi": true,
+        "singleQuote": true,
+        "printWidth": 80,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "arrowParens": "avoid"
+      }
+    ],
+    // Relaxed rules added
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}

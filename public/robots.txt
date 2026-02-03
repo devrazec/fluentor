@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fluentor.app/sitemap.xml

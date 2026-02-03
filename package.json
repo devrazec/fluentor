@@ -1,0 +1,34 @@
+{
+  "name": "fluentor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "predeploy": "echo > out/.nojekyll && echo > out/_next/.nojekyll",
+    "deploy": "gh-pages -d out"
+  },
+  "dependencies": {
+    "@iconify/react": "^6.0.2",
+    "better-sqlite3": "^12.6.2",
+    "next": "15.5.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devrazec/fluentor.git"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.6",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "gh-pages": "^6.3.0",
+    "prettier": "^3.8.1"
+  }
+}
