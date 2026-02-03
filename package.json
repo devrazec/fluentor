@@ -12,8 +12,16 @@
     "deploy": "gh-pages -d out"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fontsource/roboto": "^5.2.9",
     "@iconify/react": "^6.0.2",
+    "@mui/icons-material": "^7.3.7",
+    "@mui/material": "^7.3.7",
+    "@mui/x-data-grid": "^8.27.0",
+    "@mui/x-date-pickers": "^8.27.0",
     "better-sqlite3": "^12.6.2",
+    "dayjs": "^1.11.19",
     "next": "15.5.6",
     "react": "19.1.0",
     "react-dom": "19.1.0"
