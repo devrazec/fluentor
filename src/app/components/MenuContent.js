@@ -15,6 +15,7 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import CategoryIcon from '@mui/icons-material/Category';
+import Divider from '@mui/material/Divider';
 
 const mainListItems = [
   { text: 'Home', icon: <HomeRoundedIcon /> },
@@ -56,6 +57,7 @@ export default function MenuContent() {
           </ListItem>
         ))}
       </List>
+      <Divider />
       <List dense>
         {secondaryListItems.map((item, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }}>

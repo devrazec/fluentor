@@ -87,7 +87,7 @@ export default function SideMenu() {
             Fluentor User
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            devrazec@gmail.com
+            user@fluentor.app
           </Typography>
         </Box>
         <OptionsMenu />

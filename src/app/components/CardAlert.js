@@ -12,13 +12,13 @@ export default function CardAlert() {
       <CardContent>
         <AutoAwesomeRoundedIcon fontSize="small" />
         <Typography gutterBottom sx={{ fontWeight: 600 }}>
-          Explore courses
+          Analyzes your speaking skills
         </Typography>
         <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
-          Advance your language with guided tutor.
+          and builds a personalized improvement plan tailored to your goals.
         </Typography>
         <Button variant="contained" size="small" fullWidth>
-          See Courses
+          See more
         </Button>
       </CardContent>
     </Card>
