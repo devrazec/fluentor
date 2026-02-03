@@ -123,6 +123,11 @@ npm run lint
 npm run build
 npm run deploy
 
+-- Create Files
+
+gh-pages/.nojekyll
+gh-pages/_next/.nojekyll
+
 -- Deploy
 npm run predeploy
 npm run deploy
