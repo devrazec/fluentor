@@ -12,7 +12,7 @@ export default function CardAlert() {
       <CardContent>
         <AutoAwesomeRoundedIcon fontSize="small" />
         <Typography gutterBottom sx={{ fontWeight: 600 }}>
-          Analyzes your speaking skills
+          Fluentor analyzes your speaking skills
         </Typography>
         <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
           and builds a personalized improvement plan tailored to your goals.
