@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS settings (
 );
 
 CREATE TABLE IF NOT EXISTS category (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY,
   name TEXT,
   description TEXT,
   mp3 TEXT,
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS category (
 );
 
 CREATE TABLE IF NOT EXISTS training (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
+  id INTEGER PRIMARY KEY,
+  name TEXT UNIQUE,
   description TEXT,
   skill TEXT,
   mp3 TEXT,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS training (
 );
 
 CREATE TABLE IF NOT EXISTS exam (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY,
   name TEXT,
   description TEXT,
   mp3 TEXT,
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS exam (
 );
 
 CREATE TABLE IF NOT EXISTS verb_tense (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
+  id INTEGER PRIMARY KEY,
+  name TEXT UNIQUE,
   description TEXT,
   mp3 TEXT,
   image TEXT,
@@ -52,14 +52,14 @@ CREATE TABLE IF NOT EXISTS verb_tense (
 );
 
 CREATE TABLE IF NOT EXISTS type_question (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
+  id INTEGER PRIMARY KEY,
+  name TEXT UNIQUE,
   description TEXT,
   active TEXT
 );
 
 CREATE TABLE IF NOT EXISTS question (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY,
   id_type_question INTEGER,
   id_verb_tense INTEGER, 
   name TEXT,
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS question_category (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   id_question INTEGER,
   id_category INTEGER, 
-  name TEXT,
+  name TEXT UNIQUE,
   description TEXT,
   mp3 TEXT,
   image TEXT,

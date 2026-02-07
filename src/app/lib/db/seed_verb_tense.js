@@ -21,8 +21,8 @@ const jsonData = JSON.parse(
 
 // Prepare insert
 const insert = db.prepare(`
-  INSERT INTO verb_tense (name, description, mp3, image, active)
-  VALUES (@name, @description, @mp3, @image, @active)
+  INSERT INTO verb_tense (id, name, description, mp3, image, active)
+  VALUES (@id, @name, @description, @mp3, @image, @active)
 `);
 
 // Prevent double seeding

@@ -82,7 +82,7 @@
     {
         "id": 11,
         "name": "How often & Hobbies & Free Time",
-        "description": "read books, watch TV, listen to music, play video games, play sports, practice an instrument",
+        "description": "watch TV, listen to music, play video games, play sports, practice an instrument",
         "mp3": "11.mp3",
         "image": "11.jpg",
         "active": "true"
@@ -98,7 +98,7 @@
     {
         "id": 13,
         "name": "How often & Health",
-        "description": "exercise, eat vegetables, drink water, go to the doctor, meditate",
+        "description": "eat vegetables, drink water, go to the doctor, meditate",
         "mp3": "13.mp3",
         "image": "13.jpg",
         "active": "true"
@@ -157,6 +157,134 @@
         "description": "comics, graphic novels, fan fiction, subtitles",
         "mp3": "20.mp3",
         "image": "20.jpg",
+        "active": "true"
+    },
+    {
+        "id": 21,
+        "name": "How often / Have you &  Personal & Everyday Texts",
+        "description": "recipes, instructions, labels, reviews, advertisements, product descriptions",
+        "mp3": "21.mp3",
+        "image": "21.jpg",
+        "active": "true"
+    },
+    {
+        "id": 22,
+        "name": "What do / What would & Social & Cultural Topics",
+        "description": "social media, technology, remote work, education, climate change, public transport, globalization, mental health, fashion trends, popular culture",
+        "mp3": "22.mp3",
+        "image": "22.jpg",
+        "active": "true"
+    },
+    {
+        "id": 23,
+        "name": "What do / What would & Work & Business",
+        "description": "company culture, leadership, teamwork, productivity, work-life balance, entrepreneurship",
+        "mp3": "23.mp3",
+        "image": "23.jpg",
+        "active": "true"
+    },
+    {
+        "id": 24,
+        "name": "What do / What would & Lifestyle & Personal Choices",
+        "description": "healthy eating, exercise, dieting, minimalism, digital detox, sustainable living, fashion, beauty routines",
+        "mp3": "24.mp3",
+        "image": "24.jpg",
+        "active": "true"
+    },
+    {
+        "id": 25,
+        "name": "What do / What would & Education & Learning",
+        "description": "online learning, online exams, homework, lifelong learning, skill development, learning languages, learning new technologies",
+        "mp3": "25.mp3",
+        "image": "25.jpg",
+        "active": "true"
+    },
+    {
+        "id": 26,
+        "name": "What do / What would & Technology & Innovation",
+        "description": "artificial intelligence, social networks, data privacy, automation, cybersecurity, virtual reality, space exploration",
+        "mp3": "26.mp3",
+        "image": "26.jpg",
+        "active": "true"
+    },
+    {
+        "id": 27,
+        "name": "What do / What would & Entertainment & Media",
+        "description": "streaming platforms, video games, reality TV, social influencers, advertising, movies, music, sports",
+        "mp3": "27.mp3",
+        "image": "27.jpg",
+        "active": "true"
+    },
+    {
+        "id": 28,
+        "name": "What do / What would & Abstract / Concepts & Policies",
+        "description": "rules, laws, policies, traditions, success, failure, freedom, happiness, beauty, justice",
+        "mp3": "28.mp3",
+        "image": "28.jpg",
+        "active": "true"
+    },
+    {
+        "id": 29,
+        "name": "Tell me about & Abstract / Personal Things",
+        "description": "experience, habit, tradition, way to relax, way to celebrate, way to stay healthy, way to stay productive",
+        "mp3": "29.mp3",
+        "image": "29.jpg",
+        "active": "true"
+    },
+    {
+        "id": 30,
+        "name": "Tell me about & Work & Learning",
+        "description": "subject, course, class, project, task, software, skill",
+        "mp3": "30.mp3",
+        "image": "30.jpg",
+        "active": "true"
+    },
+    {
+        "id": 31,
+        "name": "Tell me about & Objects & Possessions",
+        "description": "object, gadget, app, device, tool, piece of technology",
+        "mp3": "31.mp3",
+        "image": "31.jpg",
+        "active": "true"
+    },
+    {
+        "id": 32,
+        "name": "Tell me about & Places & Travel",
+        "description": "place, city, country, destination, vacation spot, travel experience",
+        "mp3": "32.mp3",
+        "image": "32.jpg",
+        "active": "true"
+    },
+    {
+        "id": 33,
+        "name": "Tell me about & People",
+        "description": "person, teacher, athlete, actor, actress, musician, writer, historical figure, celebrity",
+        "mp3": "33.mp3",
+        "image": "33.jpg",
+        "active": "true"
+    },
+    {
+        "id": 34,
+        "name": "Tell me about & Entertainment & Media",
+        "description": "movie, film, TV show, TV series, song, music, band, artist, book, author, podcast, video game",
+        "mp3": "34.mp3",
+        "image": "34.jpg",
+        "active": "true"
+    },
+    {
+        "id": 35,
+        "name": "Tell me about & Hobbies",
+        "description": "hobby, activity, sport, game, pastime, creative pursuit, leisure activity",
+        "mp3": "35.mp3",
+        "image": "35.jpg",
+        "active": "true"
+    },
+    {
+        "id": 36,
+        "name": "Tell me about & Food & Drink",
+        "description": "food, dish, meal, cuisine, restaurant, drink, snack, dessert, beverage, recipe",
+        "mp3": "36.mp3",
+        "image": "36.jpg",
         "active": "true"
     }
 ]

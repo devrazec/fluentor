@@ -21,8 +21,8 @@ const jsonData = JSON.parse(
 
 // Prepare insert
 const insert = db.prepare(`
-  INSERT INTO training (name, description, skill, mp3, image, time_range, active)
-  VALUES (@name, @description, @skill, @mp3, @image, @time_range, @active)
+  INSERT INTO training (id, name, description, skill, mp3, image, time_range, active)
+  VALUES (@id, @name, @description, @skill, @mp3, @image, @time_range, @active)
 `);
 
 // Prevent double seeding

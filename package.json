@@ -20,7 +20,8 @@
     "seed_type_question": "node src/app/lib/db/seed_type_question.js",
     "seed_question": "node src/app/lib/db/seed_question.js",
     "seed_exam_training": "node src/app/lib/db/seed_exam_training.js",
-    "seed_question_category": "node src/app/lib/db/seed_question_category.js"
+    "seed_question_category": "node src/app/lib/db/seed_question_category.js",
+    "create_question": "node src/app/lib/db/create_question.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

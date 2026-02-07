@@ -152,7 +152,17 @@ npm run seed_verb_tense
 npm run seed_type_question
 npm run seed_question
 npm run seed_exam_training
-npm run seed_question_category
+
+or
+
+npm run seed_category
+npm run seed_verb_tense
+npm run seed_type_question
+npm run seed_question
+
+-- Database Create Question
+
+npm run create_question
 
 ```
 

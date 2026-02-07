@@ -3,35 +3,35 @@
         "id": 1,
         "id_type_question": 1,
         "id_verb_tense": 14,
-        "name": "Tell me about your [1,2,3,4,5,6,7,8] .",
+        "name": "Tell me about your [1,2,3,4,5,6,7,8].",
         "active": "true"
     },
     {
         "id": 2,
         "id_type_question": 2,
         "id_verb_tense": 14,
-        "name": "Tell me about your favorite [29,30,31,32,33,34,35,36] .",
+        "name": "Tell me about your favorite [29,30,31,32,33,34,35,36].",
         "active": "true"
     },
     {
         "id": 3,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "How often do you [9,10,11,12,13,14,15] ?",
+        "name": "How often do you [9,10,11,12,13,14,15]?",
         "active": "true"
     },
     {
         "id": 4,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "How often do you read [16,17,18,19,20,21] ?",
+        "name": "How often do you read [16,17,18,19,20,21]?",
         "active": "true"
     },
     {
         "id": 5,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "What do you [64] [54] to do on [75,76,77,78] ?",
+        "name": "What do you [64] [54] to do on [75,76,77,78]?",
         "active": "true"
     },
     {
@@ -59,28 +59,28 @@
         "id": 9,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "What is your opinion regarding [22,23,24,25,26,27,28] ?",
+        "name": "What is your opinion regarding [22,23,24,25,26,27,28]?",
         "active": "true"
     },
     {
         "id": 10,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "What do you know about [22,23,24,25,26,27,28] ?",
+        "name": "What do you know about [22,23,24,25,26,27,28]?",
         "active": "true"
     },
     {
         "id": 11,
         "id_type_question": 2,
         "id_verb_tense": 5,
-        "name": "What kinds of sports did you play when you were growing up?",
+        "name": "What kinds of sports did you play when you were [187]?",
         "active": "true"
     },
     {
         "id": 12,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Why do some people [54] [37,38,39,40,41] ?",
+        "name": "Why do some people [54] [37,38,39,40,41]?",
         "active": "true"
     },
     {
@@ -94,35 +94,224 @@
         "id": 14,
         "id_type_question": 2,
         "id_verb_tense": 5,
-        "name": "What kinds of activities did you practice during your childhood?",
+        "name": "What kinds of activities did you practice during your [188]?",
         "active": "true"
     },
     {
         "id": 15,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Do you [54] any famous [58,59,60,61,62,63] ?",
+        "name": "Do you [54] any famous [58,59,60,61,62,63]?",
         "active": "true"
     },
     {
         "id": 16,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Do you follow any popular [58,59,60,61,62,63] ?",
+        "name": "Do you follow any popular [58,59,60,61,62,63]?",
         "active": "true"
     },
     {
         "id": 17,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Do you enjoy [66,67,68,69,70,71,72,73,74] ?",
+        "name": "Do you enjoy [66,67,68,69,70,71,72,73,74]?",
         "active": "true"
     },
     {
         "id": 18,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "What do you [54] about [22,23,24,25,26,27,28] ?",
+        "name": "What do you [54] about [22,23,24,25,26,27,28]?",
+        "active": "true"
+    },
+    {
+        "id": 19,
+        "id_type_question": 2,
+        "id_verb_tense": 3,
+        "name": "Have you read any [16,17,18,19,20,21] recently?",
+        "active": "true"
+    },
+    {
+        "id": 20,
+        "id_type_question": 1,
+        "id_verb_tense": 2,
+        "name": "What are you doing on [75] these days?",
+        "active": "true"
+    },
+    {
+        "id": 21,
+        "id_type_question": 4,
+        "id_verb_tense": 16,
+        "name": "What would you change about [22,23,24,25,26,27,28] if you could?",
+        "active": "true"
+    },
+    {
+        "id": 22,
+        "id_type_question": 2,
+        "id_verb_tense": 3,
+        "name": "Have you ever [64] [79] [66,70,71,72,73,74]?",
+        "active": "true"
+    },
+    {
+        "id": 23,
+        "id_type_question": 2,
+        "id_verb_tense": 3,
+        "name": "What activities have you continued practicing [189]?",
+        "active": "true"
+    },
+    {
+        "id": 24,
+        "id_type_question": 2,
+        "id_verb_tense": 3,
+        "name": "What sports have you played in your [188]?",
+        "active": "true"
+    },
+    {
+        "id": 25,
+        "id_type_question": 1,
+        "id_verb_tense": 2,
+        "name": "Are you [80] [66,67,68,69,70,71,72,73,74] these days?",
+        "active": "true"
+    },
+    {
+        "id": 26,
+        "id_type_question": 2,
+        "id_verb_tense": 3,
+        "name": "Have you ever [81,82,83,84,85,86,87,88,89,90]?",
+        "active": "true"
+    },
+    {
+        "id": 27,
+        "id_type_question": 3,
+        "id_verb_tense": 13,
+        "name": "Would you like to [91,92,93,94,95,96,97,98,99]?",
+        "active": "true"
+    },
+    {
+        "id": 28,
+        "id_type_question": 3,
+        "id_verb_tense": 10,
+        "name": "Will you be [100,101,102,103,104,105,106,107]?",
+        "active": "true"
+    },
+    {
+        "id": 29,
+        "id_type_question": 3,
+        "id_verb_tense": 12,
+        "name": "Will you have been [108,109,110,111,112,113,114] [139]?",
+        "active": "true"
+    },
+    {
+        "id": 30,
+        "id_type_question": 3,
+        "id_verb_tense": 11,
+        "name": "Will you have [115,116,117,118,119,120,121,122] [140]?",
+        "active": "true"
+    },
+    {
+        "id": 31,
+        "id_type_question": 3,
+        "id_verb_tense": 9,
+        "name": "Will you [123,124,125,126,127,128,129,130]?",
+        "active": "true"
+    },
+    {
+        "id": 32,
+        "id_type_question": 2,
+        "id_verb_tense": 6,
+        "name": "Were you [131,132,133,134,135,136,137,138]?",
+        "active": "true"
+    },
+    {
+        "id": 33,
+        "id_type_question": 2,
+        "id_verb_tense": 6,
+        "name": "Which [141,142,143,144,145,146,147,148] [150,151,152,153,154,155]?",
+        "active": "true"
+    },
+    {
+        "id": 34,
+        "id_type_question": 2,
+        "id_verb_tense": 6,
+        "name": "[149] were you [156,157,158,159,160,161,162,163,164] [150,151,152,153,154,155]?",
+        "active": "true"
+    },
+    {
+        "id": 35,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Do you admire any [48] [58,59,60,61,62,63]?",
+        "active": "true"
+    },
+    {
+        "id": 36,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Do you know any [49,51] [58,59,60,61,62,63]?",
+        "active": "true"
+    },
+    {
+        "id": 37,
+        "id_type_question": 3,
+        "id_verb_tense": 1,
+        "name": "Do you have any plans [181,182,183,184,185,186]?",
+        "active": "true"
+    },
+    {
+        "id": 38,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Is there [52] you respect in your field?",
+        "active": "true"
+    },
+    {
+        "id": 39,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Is there someone you respect and [53]?",
+        "active": "true"
+    },
+    {
+        "id": 40,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Are you [56] any famous [58,59,60,61,62,63]?",
+        "active": "true"
+    },
+    {
+        "id": 41,
+        "id_type_question": 1,
+        "id_verb_tense": 2,
+        "name": "Are you [55] any famous people?",
+        "active": "true"
+    },
+    {
+        "id": 42,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Do you [57] any famous public figure?",
+        "active": "true"
+    },
+    {
+        "id": 43,
+        "id_type_question": 3,
+        "id_verb_tense": 1,
+        "name": "What do you think about [65]?",
+        "active": "true"
+    },
+        {
+        "id": 44,
+        "id_type_question": 2,
+        "id_verb_tense": 8,
+        "name": "Had you been [165,166,167,168,169,170,171,172]?",
+        "active": "true"
+    },
+        {
+        "id": 45,
+        "id_type_question": 2,
+        "id_verb_tense": 8,
+        "name": "[149] had you been [173,174,175,176,177,178,179,180]?",
         "active": "true"
     }
 ]
