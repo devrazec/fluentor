@@ -8,6 +8,8 @@ import MainGrid from './components/MainGrid';
 import SideMenu from './components/SideMenu';
 
 export default function Home() {
+
+  
   return (
     <Box sx={{ display: 'flex' }}>
       <SideMenu />

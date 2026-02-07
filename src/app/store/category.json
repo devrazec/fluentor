@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "name": "Tell me about & Personal Life",
+        "description": "family, friends, childhood, background, daily routine, lifestyle, hometown",
+        "mp3": "1.mp3",
+        "image": "1.jpg",
+        "active": "true"
+    },
+    {
+        "id": 2,
+        "name": "Tell me about & Work & Education",
+        "description": "job, career, profession, studies, education, current projects",
+        "mp3": "2.mp3",
+        "image": "2.jpg",
+        "active": "true"
+    },
+    {
+        "id": 3,
+        "name": "Tell me about & Hobbies & Interests",
+        "description": "hobbies, interests, favorite activities, free time, passions",
+        "mp3": "3.mp3",
+        "image": "3.jpg",
+        "active": "true"
+    },
+    {
+        "id": 4,
+        "name": "Tell me about & Experiences & Life Events",
+        "description": "travel experiences, last vacation, most memorable experience, biggest challenge",
+        "mp3": "4.mp3",
+        "image": "4.jpg",
+        "active": "true"
+    },
+    {
+        "id": 5,
+        "name": "Tell me about & Skills & Abilities",
+        "description": "skills, talents, strengths",
+        "mp3": "5.mp3",
+        "image": "5.jpg",
+        "active": "true"
+    },
+    {
+        "id": 6,
+        "name": "Tell me about & Health & Lifestyle",
+        "description": "diet, exercise routine, healthy habits, well-being",
+        "mp3": "6.mp3",
+        "image": "6.jpg",
+        "active": "true"
+    },
+    {
+        "id": 7,
+        "name": "Tell me about & Opinions & Preferences",
+        "description": "opinion on climate change, opinion on remote work, opinion on online education, views on social media, views on artificial intelligence, views on teamwork, experience with online learning, experience with customer service, experience with Microsoft Software",
+        "mp3": "7.mp3",
+        "image": "7.jpg",
+        "active": "true"
+    },
+    {
+        "id": 8,
+        "name": "Tell me about & Goals & Future",
+        "description": "plans, goals, ambitions, dreams",
+        "mp3": "8.mp3",
+        "image": "8.jpg",
+        "active": "true"
+    },
+    {
+        "id": 9,
+        "name": "How often & Daily Life & Routines",
+        "description": "wake up early, go to bed late, cook at home, eat out, exercise, commute to work, clean your house",
+        "mp3": "9.mp3",
+        "image": "9.jpg",
+        "active": "true"
+    },
+    {
+        "id": 10,
+        "name": "How often & Work & Study",
+        "description": "work remotely, attend meetings, write reports, study English, learn new skills, use AI tools",
+        "mp3": "10.mp3",
+        "image": "10.jpg",
+        "active": "true"
+    },
+    {
+        "id": 11,
+        "name": "How often & Hobbies & Free Time",
+        "description": "read books, watch TV, listen to music, play video games, play sports, practice an instrument",
+        "mp3": "11.mp3",
+        "image": "11.jpg",
+        "active": "true"
+    },
+    {
+        "id": 12,
+        "name": "How often & Social & Communication",
+        "description": "meet friends, call your family, send messages, use social media, go out at night",
+        "mp3": "12.mp3",
+        "image": "12.jpg",
+        "active": "true"
+    },
+    {
+        "id": 13,
+        "name": "How often & Health",
+        "description": "exercise, eat vegetables, drink water, go to the doctor, meditate",
+        "mp3": "13.mp3",
+        "image": "13.jpg",
+        "active": "true"
+    },
+    {
+        "id": 14,
+        "name": "How often & Travel & Movement",
+        "description": "travel abroad, go on vacation, use public transport, drive, walk",
+        "mp3": "14.mp3",
+        "image": "14.jpg",
+        "active": "true"
+    },
+    {
+        "id": 15,
+        "name": "How often & Digital & Technology",
+        "description": "check email, browse the internet, update apps, back up data, use your phone",
+        "mp3": "15.mp3",
+        "image": "15.jpg",
+        "active": "true"
+    },
+    {
+        "id": 16,
+        "name": "How often / Have you & News & Informational Content",
+        "description": "newspapers, news articles, magazines, blogs, online articles",
+        "mp3": "16.mp3",
+        "image": "16.jpg",
+        "active": "true"
+    },
+    {
+        "id": 17,
+        "name": "How often / Have you &  Books & Long Texts",
+        "description": "books, novels, short stories, textbooks, biographies, non-fiction books",
+        "mp3": "17.mp3",
+        "image": "17.jpg",
+        "active": "true"
+    },
+    {
+        "id": 18,
+        "name": "How often & Work / Study Material",
+        "description": "emails, reports, documentation, manuals, research papers, academic articles",
+        "mp3": "18.mp3",
+        "image": "18.jpg",
+        "active": "true"
+    },
+    {
+        "id": 19,
+        "name": "How often / Have you &  Digital & Short-Form Content",
+        "description": "social media posts, messages, comments, forums, newsletters",
+        "mp3": "19.mp3",
+        "image": "19.jpg",
+        "active": "true"
+    },
+    {
+        "id": 20,
+        "name": "How often / Have you &  Entertainment & Casual Reading",
+        "description": "comics, graphic novels, fan fiction, subtitles",
+        "mp3": "20.mp3",
+        "image": "20.jpg",
+        "active": "true"
+    }
+]

@@ -78,7 +78,7 @@ const cards = [
   },
 ];
 
-function CardTask() {
+function CardTraining() {
   const [selectedCard, setSelectedCard] = React.useState(0);
   return (
     <Box
@@ -125,4 +125,4 @@ function CardTask() {
   );
 }
 
-export default CardTask;
+export default CardTraining;

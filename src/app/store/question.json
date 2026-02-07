@@ -1,0 +1,128 @@
+[
+    {
+        "id": 1,
+        "id_type_question": 1,
+        "id_verb_tense": 14,
+        "name": "Tell me about your [1,2,3,4,5,6,7,8] .",
+        "active": "true"
+    },
+    {
+        "id": 2,
+        "id_type_question": 2,
+        "id_verb_tense": 14,
+        "name": "Tell me about your favorite [29,30,31,32,33,34,35,36] .",
+        "active": "true"
+    },
+    {
+        "id": 3,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "How often do you [9,10,11,12,13,14,15] ?",
+        "active": "true"
+    },
+    {
+        "id": 4,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "How often do you read [16,17,18,19,20,21] ?",
+        "active": "true"
+    },
+    {
+        "id": 5,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "What do you [64] [54] to do on [75,76,77,78] ?",
+        "active": "true"
+    },
+    {
+        "id": 6,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "What kind of weather do you [54] most?",
+        "active": "true"
+    },
+    {
+        "id": 7,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Which season do you [54] most?",
+        "active": "true"
+    },
+    {
+        "id": 8,
+        "id_type_question": 3,
+        "id_verb_tense": 13,
+        "name": "Would you like to change your [44] in the future?",
+        "active": "true"
+    },
+    {
+        "id": 9,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "What is your opinion regarding [22,23,24,25,26,27,28] ?",
+        "active": "true"
+    },
+    {
+        "id": 10,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "What do you know about [22,23,24,25,26,27,28] ?",
+        "active": "true"
+    },
+    {
+        "id": 11,
+        "id_type_question": 2,
+        "id_verb_tense": 5,
+        "name": "What kinds of sports did you play when you were growing up?",
+        "active": "true"
+    },
+    {
+        "id": 12,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Why do some people [54] [37,38,39,40,41] ?",
+        "active": "true"
+    },
+    {
+        "id": 13,
+        "id_type_question": 2,
+        "id_verb_tense": 5,
+        "name": "Who did you play [37,38,39] with?",
+        "active": "true"
+    },
+    {
+        "id": 14,
+        "id_type_question": 2,
+        "id_verb_tense": 5,
+        "name": "What kinds of activities did you practice during your childhood?",
+        "active": "true"
+    },
+    {
+        "id": 15,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Do you [54] any famous [58,59,60,61,62,63] ?",
+        "active": "true"
+    },
+    {
+        "id": 16,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Do you follow any popular [58,59,60,61,62,63] ?",
+        "active": "true"
+    },
+    {
+        "id": 17,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "Do you enjoy [66,67,68,69,70,71,72,73,74] ?",
+        "active": "true"
+    },
+    {
+        "id": 18,
+        "id_type_question": 1,
+        "id_verb_tense": 1,
+        "name": "What do you [54] about [22,23,24,25,26,27,28] ?",
+        "active": "true"
+    }
+]

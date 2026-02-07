@@ -2,6 +2,7 @@
   "name": "fluentor",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
@@ -9,7 +10,17 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "predeploy": "echo > out/.nojekyll && echo > out/_next/.nojekyll",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out",
+    "clean-db": "node src/app/lib/db/clean_db.js",
+    "migrate": "node src/app/lib/db/migrate.js",
+    "seed_category": "node src/app/lib/db/seed_category.js",
+    "seed_training": "node src/app/lib/db/seed_training.js",
+    "seed_exam": "node src/app/lib/db/seed_exam.js",
+    "seed_verb_tense": "node src/app/lib/db/seed_verb_tense.js",
+    "seed_type_question": "node src/app/lib/db/seed_type_question.js",
+    "seed_question": "node src/app/lib/db/seed_question.js",
+    "seed_exam_training": "node src/app/lib/db/seed_exam_training.js",
+    "seed_question_category": "node src/app/lib/db/seed_question_category.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

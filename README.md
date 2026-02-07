@@ -138,6 +138,22 @@ npm i -S @fontsource/roboto
 npm i -S @mui/material @emotion/react @emotion/styled @mui/icons-material
 npm i -S @mui/x-date-pickers dayjs @mui/x-data-grid
 
+-- Database Create Table
+
+npm run clean-db
+npm run migrate
+
+-- Database Create Seed
+
+npm run seed_category
+npm run seed_training
+npm run seed_exam
+npm run seed_verb_tense
+npm run seed_type_question
+npm run seed_question
+npm run seed_exam_training
+npm run seed_question_category
+
 ```
 
 # Domain Management

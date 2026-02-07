@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useContext, useEffect } from 'react';
+import { GlobalContext } from '../context/GlobalContext';
 import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
@@ -26,6 +28,9 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+
+  const { darkMode, setDarkMode } = useContext(GlobalContext);
+  
   return (
     <Drawer
       variant="permanent"
@@ -44,7 +49,7 @@ export default function SideMenu() {
         }}
       >
         <Image
-          src="/img/logo529x157.png"
+          src={darkMode ? '/img/logo2-529x157.png' : '/img/logo1-529x157.png'}
           alt="image"
           width={240}
           height={61}

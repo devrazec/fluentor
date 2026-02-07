@@ -1,0 +1,132 @@
+[
+    {
+        "id": 1,
+        "name": "Read Text Aloud",
+        "description": "Pronunciation, stress, intonation, rhythm, and clarity of speech.",
+        "skill": "Pronunciation and Fluency",
+        "mp3": "1.mp3",
+        "image": "1.jpg",
+        "time_range": "30,40,45,60",
+        "active": "true"
+    },
+    {
+        "id": 2,
+        "name": "Listening and Repeat Sentence",
+        "description": "Listening accuracy, short-term memory, pronunciation, and fluency.",
+        "skill": "Pronunciation and Fluency",
+        "mp3": "2.mp3",
+        "image": "2.jpg",
+        "time_range":"3,5,10,15",
+        "active": "true"
+    },
+    {
+        "id": 3,
+        "name": "Describe Picture / Image",
+        "description": "Describing visual information, using appropriate vocabulary, organizing ideas, and speaking fluently.",
+        "skill": "Reasoning and Argument",
+        "mp3": "3.mp3",
+        "image": "3.jpg",
+        "time_range": "30,40,45,60",
+        "active": "true"
+    },
+    {
+        "id": 4,
+        "name": "Re-tell Lecture / Speak About Lecture",
+        "description": "Summarizing key points, identifying main ideas and details, paraphrasing, and organizing spoken information clearly.",
+        "skill": "Listening and Speaking",
+        "mp3": "4.mp3",
+        "image": "4.jpg",
+        "time_range": "30,40,60,90",
+        "active": "true"
+    },
+    {
+        "id": 5,
+        "name": "Answer / Respond to Questions",
+        "description": "Understanding questions, giving relevant responses, accuracy, and natural fluency.",
+        "skill": "Reasoning and Argument",
+        "mp3": "5.mp3",
+        "image": "5.jpg",
+        "time_range": "5,10,15,30",
+        "active": "true"
+    },
+    {
+        "id": 6,
+        "name": "Respond to Conversations / Short Dialogues",
+        "description": "Listening comprehension, appropriate reactions, functional language, and pragmatic communication.",
+        "skill": "Reasoning and Argument",
+        "mp3": "6.mp3",
+        "image": "6.jpg",
+        "time_range": "10,15,20",
+        "active": "true"
+    },
+    {
+        "id": 7,
+        "name": "Express Opinion / Discussion / Speak About a Topic",
+        "description": "Expressing opinions, explaining ideas, giving examples, comparing viewpoints, and supporting arguments.",
+        "skill": "Reasoning and Argument",
+        "mp3": "7.mp3",
+        "image": "7.jpg",
+        "time_range": "30,45,60,120",
+        "active": "true"
+    },
+    {
+        "id": 8,
+        "name": "Virtual Interview / Personal Questions",
+        "description": "Personal fluency, basic narrative skills, grammar and vocabulary control, and natural interaction.",
+        "skill": "Interactive Communication",
+        "mp3": "8.mp3",
+        "image": "8.jpg",
+        "time_range": "120,180,240,300,360",
+        "active": "true"
+    },
+    {
+        "id": 9,
+        "name": "Discuss Advantages & Disadvantages",
+        "description": "Comparing and contrasting ideas, structuring arguments, using linking language, and balanced reasoning.",
+        "skill": "Reasoning and Argument",
+        "mp3": "9.mp3",
+        "image": "9.jpg",
+        "time_range": "30,40,60",
+        "active": "true"
+    },
+    {
+        "id": 10,
+        "name": "Respond to a Statement / Agree-Disagree",
+        "description": "Expressing agreement or disagreement, justifying opinions, evaluating ideas, and logical reasoning.",
+        "skill": "Reasoning and Argument",
+        "mp3": "10.mp3",
+        "image": "10.jpg",
+        "time_range": "30,90,60,120",
+        "active": "true"
+    },
+    {
+        "id": 11,
+        "name": "Create a Short Story / Narrative Based on Prompt",
+        "description": "Narrative structure, creativity, sequencing events, descriptive language, and fluency.",
+        "skill": "Reasoning and Argument",
+        "mp3": "11.mp3",
+        "image": "11.jpg",
+        "time_range": "30,40,60",
+        "active": "true"
+    },
+    {
+        "id": 12,
+        "name": "Collaborative Task / Interactive Task / Long Turn",
+        "description": "Interactive communication, turn-taking, negotiating meaning, coherence, and sustained speech.",
+        "skill": "Interactive Communication",
+        "mp3": "12.mp3",
+        "image": "12.jpg",
+        "time_range": "120,180,240,300",
+        "active": "true"
+    },
+    {
+        "id": 13,
+        "name": "Describe and Discuss a Chart / Diagram / Process",
+        "description": "Describing data or processes, explaining trends or steps, making comparisons, and presenting information logically.",
+        "skill": "Reasoning and Argument",
+        "mp3": "13.mp3",
+        "image": "13.jpg",
+        "time_range": "30,40,45,60",
+        "active": "true"
+    }
+]

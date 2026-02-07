@@ -1,0 +1,68 @@
+[
+    {
+        "id": 1,
+        "id_exam": 1,
+        "id_training": 1,
+        "name": "Part 1 -  Introduction and Interview: Personal information, familiar topics, and general questions.",
+        "description": "",
+        "mp3": "1.mp3",
+        "image": "1.jpg",
+        "time_sec": "300",
+        "active": "true"
+    },
+    {
+        "id": 2,
+        "id_exam": 1,
+        "id_training": 2,
+        "name": "Part 2 -  Long Turn: Extended speech, organization of ideas, and coherence.",
+        "description": "",
+        "mp3": "2.mp3",
+        "image": "2.jpg",
+        "time_sec": "120",
+        "active": "true"
+    },
+    {
+        "id": 3,
+        "id_exam": 1,
+        "id_training": 3,
+        "name": "Part 3 -  Discussion: Listening comprehension, short-term memory, and accurate reproduction.",
+        "description": "",
+        "mp3": "3.mp3",
+        "image": "3.jpg",
+        "time_sec": "300",
+        "active": "true"
+    },
+    {
+        "id": 4,
+        "id_exam": 2,
+        "id_training": 1,
+        "name": "Part 1 -  Introduction and Interview: Personal information, familiar topics, and general questions.",
+        "description": "",
+        "mp3": "4.mp3",
+        "image": "4.jpg",
+        "time_sec": "300",
+        "active": "true"
+    },
+    {
+        "id": 5,
+        "id_exam": 2,
+        "id_training": 2,
+        "name": "Part 2 -  Long Turn: Extended speech, organization of ideas, and coherence.",
+        "description": "",
+        "mp3": "5.mp3",
+        "image": "5.jpg",
+        "time_sec": "120",
+        "active": "true"
+    },
+    {
+        "id": 6,
+        "id_exam": 2,
+        "id_training": 3,
+        "name": "Part 3 -  Discussion: Listening comprehension, short-term memory, and accurate reproduction.",
+        "description": "",
+        "mp3": "6.mp3",
+        "image": "6.jpg",
+        "time_sec": "300",
+        "active": "true"
+    }
+]

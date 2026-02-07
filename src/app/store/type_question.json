@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "name": "General facts and current situation",
+        "description": "Questions about routines, habits, opinions, likes, dislikes, or general truths.",
+        "active": "true"
+    },
+    {
+        "id": 2,
+        "name": "Personal experiences and past events",
+        "description": "Questions about things you have done, experienced, or practiced.",
+        "active": "true"
+    },
+    {
+        "id": 3,
+        "name": "Future plans and intentions",
+        "description": "Questions about what someone intends, expects, or plans to do.",
+        "active": "true"
+    },
+    {
+        "id": 4,
+        "name": "Hypothetical situations and conditions",
+        "description": "Questions about “what if” scenarios, conditional situations, or imaginary events.",
+        "active": "true"
+    },
+    {
+        "id": 5,
+        "name": "Opinions and preferences",
+        "description": "Questions asking for personal likes, dislikes, or subjective viewpoints.",
+        "active": "true"
+    },
+    {
+        "id": 6,
+        "name": "Social and cultural knowledge",
+        "description": "Questions about social media, famous people, public figures, or societal trends.",
+        "active": "true"
+    },
+    {
+        "id": 7,
+        "name": "Work and professional life",
+        "description": "Questions about jobs, careers, projects, responsibilities, or workplace experiences.",
+        "active": "true"
+    },
+    {
+        "id": 8,
+        "name": "Education and learning",
+        "description": "Questions about studies, courses, learning new skills, or educational experiences.",
+        "active": "true"
+    },
+    {
+        "id": 9,
+        "name": "Health, lifestyle, and personal habits",
+        "description": "Questions about exercise, diet, sports, daily routines, or wellbeing.",
+        "active": "true"
+    },
+    {
+        "id": 10,
+        "name": "Travel and leisure",
+        "description": "Questions about trips, vacations, hobbies, or leisure activities.",
+        "active": "true"
+    },
+    {
+        "id": 11,
+        "name": "Admiration, inspiration, and role models",
+        "description": "Questions about famous people, inspiring figures, or personal heroes.",
+        "active": "true"
+    },
+    {
+        "id": 12,
+        "name": "Problem-solving or decision-making",
+        "description": "Questions about choices, changes, or what someone would do in a situation.",
+        "active": "true"
+    },
+    {
+        "id": 13,
+        "name": "Past habits or continuous past actions",
+        "description": "Questions about actions that happened repeatedly or continuously in the past.",
+        "active": "true"
+    },
+    {
+        "id": 14,
+        "name": "Planning and goal achievement",
+        "description": "Questions about projects, long-term goals, or expected outcomes.",
+        "active": "true"
+    }
+]
