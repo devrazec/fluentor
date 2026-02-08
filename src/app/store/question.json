@@ -31,7 +31,7 @@
         "id": 5,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "What do you [64] [54] to do on [75,76,77,78]?",
+        "name": "What do you usually like to do on [75,76,77,78]?",
         "active": "true"
     },
     {
@@ -80,7 +80,7 @@
         "id": 12,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Why do some people [54] [37,38,39,40,41]?",
+        "name": "Why do some people like [37,38,39,40,41]?",
         "active": "true"
     },
     {
@@ -101,7 +101,7 @@
         "id": 15,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Do you [54] any famous [58,59,60,61,62,63]?",
+        "name": "Do you like any famous [58,59,60,61,62,63]?",
         "active": "true"
     },
     {
@@ -122,7 +122,7 @@
         "id": 18,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "What do you [54] about [22,23,24,25,26,27,28]?",
+        "name": "What do you like about [22,23,24,25,26,27,28]?",
         "active": "true"
     },
     {
@@ -150,7 +150,7 @@
         "id": 22,
         "id_type_question": 2,
         "id_verb_tense": 3,
-        "name": "Have you ever [64] [79] [66,70,71,72,73,74]?",
+        "name": "Have you always enjoyed [66,70,71,72,73,74]?",
         "active": "true"
     },
     {
@@ -171,7 +171,7 @@
         "id": 25,
         "id_type_question": 1,
         "id_verb_tense": 2,
-        "name": "Are you [80] [66,67,68,69,70,71,72,73,74] these days?",
+        "name": "Are you enjoying [66,67,68,69,70,71,72,73,74] these days?",
         "active": "true"
     },
     {
@@ -227,28 +227,28 @@
         "id": 33,
         "id_type_question": 2,
         "id_verb_tense": 6,
-        "name": "Which [141,142,143,144,145,146,147,148] [150,151,152,153,154,155]?",
+        "name": "Which [141,142,143,144,145,146,147,148] during that period?",
         "active": "true"
     },
     {
         "id": 34,
         "id_type_question": 2,
         "id_verb_tense": 6,
-        "name": "[149] were you [156,157,158,159,160,161,162,163,164] [150,151,152,153,154,155]?",
+        "name": "What were you [156,157,158,159,160,161,162,163,164] at that time?",
         "active": "true"
     },
     {
         "id": 35,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Do you admire any [48] [58,59,60,61,62,63]?",
+        "name": "Do you admire any well-known [58,59,60,61,62,63]?",
         "active": "true"
     },
     {
         "id": 36,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Do you know any [49,51] [58,59,60,61,62,63]?",
+        "name": "Do you know any exceptional [58,59,60,61,62,63]?",
         "active": "true"
     },
     {
@@ -276,7 +276,7 @@
         "id": 40,
         "id_type_question": 1,
         "id_verb_tense": 1,
-        "name": "Are you [56] any famous [58,59,60,61,62,63]?",
+        "name": "Are you inspired by any famous [58,59,60,61,62,63]?",
         "active": "true"
     },
     {
@@ -300,18 +300,74 @@
         "name": "What do you think about [65]?",
         "active": "true"
     },
-        {
+    {
         "id": 44,
         "id_type_question": 2,
         "id_verb_tense": 8,
         "name": "Had you been [165,166,167,168,169,170,171,172]?",
         "active": "true"
     },
-        {
+    {
         "id": 45,
         "id_type_question": 2,
         "id_verb_tense": 8,
-        "name": "[149] had you been [173,174,175,176,177,178,179,180]?",
+        "name": "What had you been [173,174,175,176,177,178,179,180]?",
+        "active": "true"
+    },
+        {
+        "id": 46,
+        "id_type_question": 2,
+        "id_verb_tense": 8,
+        "name": "Where had you been [173,174,175,176,177,178,179,180]?",
+        "active": "true"
+    },
+        {
+        "id": 47,
+        "id_type_question": 2,
+        "id_verb_tense": 8,
+        "name": "When had you been [173,174,175,176,177,178,179,180]?",
+        "active": "true"
+    },
+        {
+        "id": 48,
+        "id_type_question": 2,
+        "id_verb_tense": 8,
+        "name": "Why had you been [173,174,175,176,177,178,179,180]?",
+        "active": "true"
+    },
+        {
+        "id": 49,
+        "id_type_question": 2,
+        "id_verb_tense": 8,
+        "name": "How had you been [173,174,175,176,177,178,179,180]?",
+        "active": "true"
+    },
+        {
+        "id": 51,
+        "id_type_question": 2,
+        "id_verb_tense": 6,
+        "name": "Where were you [156,157,158,159,160,161,162,163,164] at that time?",
+        "active": "true"
+    },
+        {
+        "id": 52,
+        "id_type_question": 2,
+        "id_verb_tense": 6,
+        "name": "When were you [156,157,158,159,160,161,162,163,164] at that time?",
+        "active": "true"
+    },
+        {
+        "id": 53,
+        "id_type_question": 2,
+        "id_verb_tense": 6,
+        "name": "Why were you [156,157,158,159,160,161,162,163,164] at that time?",
+        "active": "true"
+    },
+        {
+        "id": 54,
+        "id_type_question": 2,
+        "id_verb_tense": 6,
+        "name": "How were you [156,157,158,159,160,161,162,163,164] at that time?",
         "active": "true"
     }
 ]
