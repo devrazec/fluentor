@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS training (
   skill TEXT,
   mp3 TEXT,
   image TEXT,
-  time_range TEXT,
   active TEXT
 );
 
@@ -94,6 +93,21 @@ CREATE TABLE IF NOT EXISTS question_category (
   FOREIGN KEY(id_question) REFERENCES question(id) ON DELETE CASCADE,
   FOREIGN KEY(id_category) REFERENCES category(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS timed (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_training INTEGER,
+  time_sec INTEGER,
+  word INTEGER,
+  sentence INTEGER,
+  description TEXT,
+  ielts TEXT,
+  toefl TEXT,
+  cefr TEXT,
+  active TEXT,
+  FOREIGN KEY(id_training) REFERENCES training(id) ON DELETE CASCADE
+);
+
 
 COMMIT;
 `;

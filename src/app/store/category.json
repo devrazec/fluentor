@@ -1510,5 +1510,69 @@
         "mp3": "189.mp3",
         "image": "189.jpg",
         "active": "true"
+    },
+    {
+        "id": 190,
+        "name": "Do you prefer & Technology",
+        "description": "a laptop or a desktop computer, Android or iOS, cash or digital payments, email or instant messaging apps",
+        "mp3": "190.mp3",
+        "image": "190.jpg",
+        "active": "true"
+    },
+    {
+        "id": 191,
+        "name": "Do you prefer & Lifestyle",
+        "description": "public transportation or a private car, stairs or the elevator, paper books or e-books, a planner or a digital calendar",
+        "mp3": "191.mp3",
+        "image": "191.jpg",
+        "active": "true"
+    },
+    {
+        "id": 192,
+        "name": "Do you prefer & Food & Cooking",
+        "description": "olive oil or butter, fresh ingredients or frozen food, a gas stove or an electric stove, a coffee machine or a French press",
+        "mp3": "192.mp3",
+        "image": "192.jpg",
+        "active": "true"
+    },
+    {
+        "id": 193,
+        "name": "Do you prefer & Health & Fitness",
+        "description": "free weights or gym machines, a smartwatch or a traditional watch, apps for workouts or a personal trainer, a bicycle or walking",
+        "mp3": "193.mp3",
+        "image": "193.jpg",
+        "active": "true"
+    },
+    {
+        "id": 194,
+        "name": "Do you prefer & Education & Work",
+        "description": "online courses or in-person classes, notebooks or tablets for note-taking, video meetings or face-to-face meetings, collaboration tools or email",
+        "mp3": "194.mp3",
+        "image": "194.jpg",
+        "active": "true"
+    },
+    {
+        "id": 195,
+        "name": "Do you prefer & Environment & Sustainability",
+        "description": "plastic bags or reusable shopping bags, disposable water bottles or refillable bottles, paper towels or cloth towels, single-use coffee cups or reusable mugs, disposable cutlery or metal utensils, paper receipts or digital receipts, fast fashion or long-lasting clothing, battery-powered devices or rechargeable ones, printed documents or digital files, individually packaged snacks or bulk products",
+        "mp3": "195.mp3",
+        "image": "195.jpg",
+        "active": "true"
+    },
+    {
+        "id": 196,
+        "name": "",
+        "description": "",
+        "mp3": "196.mp3",
+        "image": "196.jpg",
+        "active": "true"
+    },
+    {
+        "id": 197,
+        "name": "",
+        "description": "",
+        "mp3": "197.mp3",
+        "image": "197.jpg",
+        "active": "true"
     }
 ]

@@ -164,6 +164,15 @@ npm run seed_question
 
 npm run create_question
 
+-- Crud
+
+-- Remove Packages
+
+npm remove @refinedev/core
+npm remove @refinedev/mui
+npm remove @refinedev/nextjs-router
+npm remove @refinedev/simple-rest
+
 ```
 
 # Domain Management
@@ -183,3 +192,7 @@ https://github.com/devrazec/fluentor
 # Links
 
 https://www.freeconvert.com/png-to-ico
+
+https://www.lightswind.com/components/
+
+https://example.crm.refine.dev/

@@ -6,7 +6,6 @@
         "skill": "Pronunciation and Fluency",
         "mp3": "1.mp3",
         "image": "1.jpg",
-        "time_range": "30,40,45,60",
         "active": "true"
     },
     {
@@ -16,7 +15,6 @@
         "skill": "Pronunciation and Fluency",
         "mp3": "2.mp3",
         "image": "2.jpg",
-        "time_range":"3,5,10,15",
         "active": "true"
     },
     {
@@ -26,7 +24,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "3.mp3",
         "image": "3.jpg",
-        "time_range": "30,40,45,60",
         "active": "true"
     },
     {
@@ -36,7 +33,6 @@
         "skill": "Listening and Speaking",
         "mp3": "4.mp3",
         "image": "4.jpg",
-        "time_range": "30,40,60,90",
         "active": "true"
     },
     {
@@ -46,7 +42,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "5.mp3",
         "image": "5.jpg",
-        "time_range": "5,10,15,30",
         "active": "true"
     },
     {
@@ -56,7 +51,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "6.mp3",
         "image": "6.jpg",
-        "time_range": "10,15,20",
         "active": "true"
     },
     {
@@ -66,7 +60,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "7.mp3",
         "image": "7.jpg",
-        "time_range": "30,45,60,120",
         "active": "true"
     },
     {
@@ -76,7 +69,6 @@
         "skill": "Interactive Communication",
         "mp3": "8.mp3",
         "image": "8.jpg",
-        "time_range": "120,180,240,300,360",
         "active": "true"
     },
     {
@@ -86,7 +78,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "9.mp3",
         "image": "9.jpg",
-        "time_range": "30,40,60",
         "active": "true"
     },
     {
@@ -96,7 +87,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "10.mp3",
         "image": "10.jpg",
-        "time_range": "30,90,60,120",
         "active": "true"
     },
     {
@@ -106,7 +96,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "11.mp3",
         "image": "11.jpg",
-        "time_range": "30,40,60",
         "active": "true"
     },
     {
@@ -116,7 +105,6 @@
         "skill": "Interactive Communication",
         "mp3": "12.mp3",
         "image": "12.jpg",
-        "time_range": "120,180,240,300",
         "active": "true"
     },
     {
@@ -126,7 +114,6 @@
         "skill": "Reasoning and Argument",
         "mp3": "13.mp3",
         "image": "13.jpg",
-        "time_range": "30,40,45,60",
         "active": "true"
     }
 ]
