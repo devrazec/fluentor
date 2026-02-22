@@ -152,6 +152,9 @@ npm run seed_verb_tense
 npm run seed_type_question
 npm run seed_question
 npm run seed_exam_training
+npm run seed_timed
+npm run seed_answer_vocabulary
+npm run seed_answer_question
 
 or
 

@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "subject": "I, there, my father, my mother, my sister, we, both of my parents, their support, my family, our relationship",
+        "verb": "come, are, including, is, works, studying, try, spend, appreciate, would say, have, make, stay, value, gives, am, lead, provides, has helped, become, consider, have grown up, maintained, pursue, remain, continues, evolved, influence",
+        "noun": "family, parents, sister, father, mother, education, university, time, support, responsibilities, guidance, encouragement, careers, lives, effort, stability, life, environment, sense, respect, goals, perspective, relationship, interaction, connection, trust, communication",
+        "adjective": "close-knit, four, younger, self-employed, busy, supportive, demanding, fortunate, conscious, independent, confident, personal, professional, strong, mutual, individual, bonded, simple, daily, deeper, emotional, open, positive, older, challenging, responsible, exacting, busy",
+        "adverb": "relatively, currently, regularly, really, even, though, always, truly, now, closely, positively",
+        "determiner": "a, the, my, there, of, both, our, each",
+        "preposition": "from, of, in, at, to, up, while, although, even though, over, based on",
+        "phrasal_verb": "come from, grow up, stay connected, make time, spend time, lead, pursue",
+        "active": "true"
+    }  
+]

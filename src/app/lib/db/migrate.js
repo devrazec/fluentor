@@ -98,8 +98,8 @@ CREATE TABLE IF NOT EXISTS timed (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   id_training INTEGER,
   time_sec INTEGER,
-  word INTEGER,
-  sentence INTEGER,
+  word TEXT,
+  sentence TEXT,
   description TEXT,
   ielts TEXT,
   toefl TEXT,
@@ -108,6 +108,35 @@ CREATE TABLE IF NOT EXISTS timed (
   FOREIGN KEY(id_training) REFERENCES training(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS answer_vocabulary (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  subject TEXT,
+  verb TEXT,
+  noun TEXT,
+  adjective TEXT,
+  adverb TEXT,
+  determiner TEXT,
+  preposition TEXT,
+  phrasal_verb TEXT,
+  active TEXT
+);
+
+CREATE TABLE IF NOT EXISTS answer_question (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_question_category INTEGER,
+  id_answer_vocabulary INTEGER, 
+  id_timed INTEGER, 
+  name TEXT UNIQUE,
+  description TEXT,
+  word INTEGER,
+  sentence INTEGER,
+  mp3 TEXT,
+  image TEXT,
+  active TEXT,
+  FOREIGN KEY(id_question_category) REFERENCES question_category(id) ON DELETE CASCADE,
+  FOREIGN KEY(id_answer_vocabulary) REFERENCES answer_vocabulary(id) ON DELETE CASCADE,
+  FOREIGN KEY(id_timed) REFERENCES timed(id) ON DELETE CASCADE
+);
 
 COMMIT;
 `;

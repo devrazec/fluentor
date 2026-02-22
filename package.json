@@ -21,6 +21,9 @@
     "seed_question": "node src/app/lib/db/seed_question.js",
     "seed_exam_training": "node src/app/lib/db/seed_exam_training.js",
     "seed_question_category": "node src/app/lib/db/seed_question_category.js",
+    "seed_timed": "node src/app/lib/db/seed_timed.js",
+    "seed_answer_vocabulary": "node src/app/lib/db/seed_answer_vocabulary.js",
+    "seed_answer_question": "node src/app/lib/db/seed_answer_question.js",
     "create_question": "node src/app/lib/db/create_question.js"
   },
   "dependencies": {

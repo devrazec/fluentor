@@ -3,6 +3,9 @@ import db from "./connection.js";
 db.exec("PRAGMA foreign_keys = OFF");
 
 db.exec(`
+  DROP TABLE IF EXISTS answer_question;
+  DROP TABLE IF EXISTS answer_vocabulary;
+  DROP TABLE IF EXISTS timed;
   DROP TABLE IF EXISTS question_category;
   DROP TABLE IF EXISTS exam_training;
   DROP TABLE IF EXISTS question;

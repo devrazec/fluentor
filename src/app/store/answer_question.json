@@ -1,0 +1,80 @@
+[
+    {
+        "id": 1,
+        "id_question_category": 1,
+        "id_answer_vocabulary": 1,
+        "id_timed": 1,
+        "name": "I come from a relatively supportive family. There are four of us: including my parents, my younger sister, and me.",
+        "description": "",
+        "word": 20,
+        "sentence": 2,
+        "mp3": "",
+        "image": "",
+        "active": "true"
+    },
+    {
+        "id": 2,
+        "id_question_category": 1,
+        "id_answer_vocabulary": 1,
+        "id_timed": 2,
+        "name": "I come from a supportive family. There are four of us: my parents, my younger sister, and me. My father is self-employed, and my mother works in education. My sister is currently studying at university.",
+        "description": "",
+        "word": 35,
+        "sentence": 4,
+        "mp3": "",
+        "image": "",
+        "active": "true"
+    },
+    {
+        "id": 3,
+        "id_question_category": 1,
+        "id_answer_vocabulary": 1,
+        "id_timed": 3,
+        "name": "I come from a supportive family of four, including my parents, my younger sister, and me. My father is self-employed, and my mother works in education. My sister is studying at university. Even though we are all busy, we try to spend time together regularly, and I really appreciate their support.",
+        "description": "",
+        "word": 51,
+        "sentence": 4,
+        "mp3": "",
+        "image": "",
+        "active": "true"
+    },
+    {
+        "id": 4,
+        "id_question_category": 1,
+        "id_answer_vocabulary": 1,
+        "id_timed": 4,
+        "name": "I would say I come from a very supportive and independent family. There are four of us: my parents, my younger sister, and me. My father is self-employed, and my mother works in education, while my sister is studying at university. Although we each have our own responsibilities, we always make time to stay connected. I really value the guidance and encouragement my family gives me.",
+        "description": "",
+        "word": 66,
+        "sentence": 5,
+        "mp3": "",
+        "image": "",
+        "active": "true"
+    },
+    {
+        "id": 5,
+        "id_question_category": 1,
+        "id_answer_vocabulary": 1,
+        "id_timed": 5,
+        "name": "I'm fortunate to come from a very supportive and independent family. There are four of us: my parents, my younger sister, and myself. Both of my parents have demanding careers, and my sister is currently studying at university. Even though we lead busy lives, we make a conscious effort to stay connected. I truly appreciate the stability and guidance my family provides. Their support has helped me become more independent and confident in my personal and professional life.",
+        "description": "",
+        "word": 78,
+        "sentence": 6,
+        "mp3": "",
+        "image": "",
+        "active": "true"
+    },
+    {
+        "id": 6,
+        "id_question_category": 1,
+        "id_answer_vocabulary": 1,
+        "id_timed": 6,
+        "name": "I consider myself very fortunate to have grown up in a supportive and independent family environment. There are four of us: my parents, my younger sister, and me, and we've always maintained a strong sense of mutual respect and encouragement. My father has a demanding career, and my mother works in education. My sister is studying at university. Although we now pursue our individual goals, we remain closely bonded, and I truly value the stability and perspective my family continues to provide. Over time, our relationship has evolved from simple daily interaction to a deeper emotional connection based on trust and open communication, which continues to influence me positively.",
+        "description": "",
+        "word": 109,
+        "sentence": 6,
+        "mp3": "",
+        "image": "",
+        "active": "true"
+    }
+]

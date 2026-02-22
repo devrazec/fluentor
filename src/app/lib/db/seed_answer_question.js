@@ -11,7 +11,7 @@ const jsonPath = path.join(
   "src",
   "app",
   "store",
-  "timed.json"
+  "answer_question.json"
 );
 
 // Read + parse JSON
@@ -21,13 +21,13 @@ const jsonData = JSON.parse(
 
 // Prepare insert
 const insert = db.prepare(`
-  INSERT INTO timed (id, id_training, time_sec, word, sentence, description, ielts, toefl, cefr, active)
-  VALUES (@id, @id_training, @time_sec, @word, @sentence, @description, @ielts, @toefl, @cefr, @active)
+  INSERT INTO answer_question (id, id_question_category, id_answer_vocabulary, id_timed, name, description, word, sentence, mp3, image, active)
+  VALUES (@id, @id_question_category, @id_answer_vocabulary, @id_timed, @name, @description, @word, @sentence, @mp3, @image, @active)
 `);
 
 // Prevent double seeding
 const { count } = db
-  .prepare("SELECT COUNT(*) AS count FROM timed")
+  .prepare("SELECT COUNT(*) AS count FROM answer_question")
   .get();
 
 if (count === 0) {

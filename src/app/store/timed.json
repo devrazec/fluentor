@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "id_training": 1,
+        "time_sec": 10,
+        "word": "15 - 20",
+        "sentence": "1 - 2",
+        "description": "Very short, basic answer",
+        "ielts": "4.0 - 5.0",
+        "toefl": "1.0 - 2.5",
+        "cefr": "A1 - A2",
+        "active": "true"
+    },
+    {
+        "id": 2,
+        "id_training": 1,
+        "time_sec": 20,
+        "word": "20 - 40",
+        "sentence": "2 - 4",
+        "description": "Clear, complete answer",
+        "ielts": "5.5 - 6.0",
+        "toefl": "2.5 - 3.5",
+        "cefr": "A2 - B1",
+        "active": "true"
+    },
+    {
+        "id": 3,
+        "id_training": 1,
+        "time_sec": 30,
+        "word": "40 - 60",
+        "sentence": "4 - 5",
+        "description": "Developed, natural response",
+        "ielts": "6.5 - 7.0",
+        "toefl": "3.5 - 4.5",
+        "cefr": "B1 - B2",
+        "active": "true"
+    },
+    {
+        "id": 4,
+        "id_training": 1,
+        "time_sec": 40,
+        "word": "60 - 80",
+        "sentence": "4 - 5",
+        "description": "Detailed with reflection",
+        "ielts": "7.0 - 8.0",
+        "toefl": "4.0 - 4.5",
+        "cefr": "B2",
+        "active": "true"
+    },
+    {
+        "id": 5,
+        "id_training": 1,
+        "time_sec": 50,
+        "word": "70 - 100",
+        "sentence": "5 - 6",
+        "description": "Strong development",
+        "ielts": "8.0",
+        "toefl": "5.5 - 5.5",
+        "cefr": "B2 - C1",
+        "active": "true"
+    },
+    {
+        "id": 6,
+        "id_training": 1,
+        "time_sec": 60,
+        "word": "90 - 120",
+        "sentence": "6 - 7",
+        "description": "Extended, fluent speech",
+        "ielts": "8.5 - 9.0",
+        "toefl": "5.0 - 5.5",
+        "cefr": "C1",
+        "active": "true"
+    }
+]
