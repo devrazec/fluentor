@@ -25,11 +25,14 @@ function GroupCarousel({ group, visibleCount }) {
   const total = questions.length;
 
   const handleNext = useCallback(() => {
-    setStartIndex((prev) => (prev >= total - visibleCount ? 0 : prev + 1));
+    setStartIndex(prev => (prev >= total - visibleCount ? 0 : prev + 1));
   }, [total, visibleCount]);
 
   const stopAutoplay = useCallback(() => {
-    if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   }, []);
 
   const startAutoplay = useCallback(() => {
@@ -44,7 +47,9 @@ function GroupCarousel({ group, visibleCount }) {
   }, [isPlaying, total, visibleCount, startAutoplay, stopAutoplay]);
 
   const handlePrev = () =>
-    setStartIndex((prev) => (prev <= 0 ? Math.max(total - visibleCount, 0) : prev - 1));
+    setStartIndex(prev =>
+      prev <= 0 ? Math.max(total - visibleCount, 0) : prev - 1
+    );
 
   const visibleCards = questions.slice(startIndex, startIndex + visibleCount);
   if (total === 0) return null;
@@ -52,17 +57,35 @@ function GroupCarousel({ group, visibleCount }) {
   return (
     <Box sx={{ mb: 5, mt: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
-        <Typography variant="h6" fontWeight={700}>{group.group_name}</Typography>
-        <Typography variant="body2" color="info" sx={{ flex: 1 }}>({group.tense_names})</Typography>
+        <Typography variant="h6" fontWeight={700}>
+          {group.group_name}
+        </Typography>
+        <Typography variant="body2" color="info" sx={{ flex: 1 }}>
+          ({group.tense_names})
+        </Typography>
         {/* <Typography variant="body2" color="text.secondary">
           {group.total_questions} question{group.total_questions !== 1 ? 's' : ''}
         </Typography> */}
-        <Chip label={group.total_questions + " question" + (group.total_questions !== 1 ? 's' : '')} size="small" variant="outlined" color="success" />
+        <Chip
+          label={
+            group.total_questions +
+            ' question' +
+            (group.total_questions !== 1 ? 's' : '')
+          }
+          size="small"
+          variant="outlined"
+          color="success"
+        />
       </Box>
       <Divider sx={{ mb: 2 }} />
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <IconButton onClick={handlePrev} color="primary" disabled={total <= visibleCount} sx={{ flexShrink: 0 }}>
+        <IconButton
+          onClick={handlePrev}
+          color="primary"
+          disabled={total <= visibleCount}
+          sx={{ flexShrink: 0 }}
+        >
           <ArrowLeft2 variant="Bulk" color="#00a76f" size={32} />
         </IconButton>
 
@@ -71,33 +94,72 @@ function GroupCarousel({ group, visibleCount }) {
           onMouseEnter={stopAutoplay}
           onMouseLeave={() => isPlaying && startAutoplay()}
         >
-          {visibleCards.map((q) => (
-            <Card key={q.id} sx={{ flex: `0 0 calc(100% / ${visibleCount} - ${(visibleCount - 1) * 16 / visibleCount}px)`, display: 'flex', mb: 0.1, flexDirection: 'column' }}>
+          {visibleCards.map(q => (
+            <Card
+              key={q.id}
+              sx={{
+                flex: `0 0 calc(100% / ${visibleCount} - ${((visibleCount - 1) * 16) / visibleCount}px)`,
+                display: 'flex',
+                mb: 0.1,
+                flexDirection: 'column',
+              }}
+            >
               <CardMedia
                 component="img"
                 height="110"
-                image={q.category_image ? `/img/${q.category_image}` : `/img/cat${q.id_category}.jpg`}
+                image={
+                  q.category_image
+                    ? `/img/${q.category_image}`
+                    : `/img/cat${q.id_category}.jpg`
+                }
                 alt={q.category_name}
                 sx={{ objectFit: 'cover' }}
               />
               <CardContent sx={{ flexGrow: 1, pb: 0 }}>
-                <Typography variant="body2" fontWeight={600} sx={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', minHeight: 'calc(2 * 1.43em)', mb: 1 }}>
+                <Typography
+                  variant="body2"
+                  fontWeight={600}
+                  sx={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    minHeight: 'calc(2 * 1.43em)',
+                    mb: 1,
+                  }}
+                >
                   {q.name}
                 </Typography>
                 <Chip label={q.tense_name} size="small" />
               </CardContent>
               <CardActions sx={{ justifyContent: 'space-between' }}>
-                <Button variant="contained" size="small" color="primary">Practice</Button>
+                <Button variant="contained" size="small" color="primary">
+                  Practice
+                </Button>
                 {/* <Typography variant="caption" color="text.secondary">
                   {q.total_answers}
                 </Typography> */}
-                <Chip label={q.total_answers + " answer" + (q.total_answers !== 1 ? 's' : '')} size="small" variant="outlined" color="error" />
+                <Chip
+                  label={
+                    q.total_answers +
+                    ' answer' +
+                    (q.total_answers !== 1 ? 's' : '')
+                  }
+                  size="small"
+                  variant="outlined"
+                  color="error"
+                />
               </CardActions>
             </Card>
           ))}
         </Box>
 
-        <IconButton onClick={handleNext} color="primary" disabled={total <= visibleCount} sx={{ flexShrink: 0 }}>
+        <IconButton
+          onClick={handleNext}
+          color="primary"
+          disabled={total <= visibleCount}
+          sx={{ flexShrink: 0 }}
+        >
           <ArrowRight2 variant="Bulk" color="#00a76f" size={32} />
         </IconButton>
       </Box>
@@ -110,10 +172,20 @@ export default function MainGrid() {
   const visibleCount = mobileDevice ? 1 : 4;
 
   return (
-    <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' }, px: { xs: 1, sm: 0 } }}>
+    <Box
+      sx={{
+        width: '100%',
+        maxWidth: { sm: '100%', md: '1700px' },
+        px: { xs: 1, sm: 0 },
+      }}
+    >
       {/* <Typography variant="h5" fontWeight={700} sx={{ mb: 3 }}>Home</Typography> */}
-      {dbHome.map((group) => (
-        <GroupCarousel key={group.group_id} group={group} visibleCount={visibleCount} />
+      {dbHome.map(group => (
+        <GroupCarousel
+          key={group.group_id}
+          group={group}
+          visibleCount={visibleCount}
+        />
       ))}
     </Box>
   );

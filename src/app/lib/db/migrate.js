@@ -1,7 +1,7 @@
-import db from "./connection.js";
+import db from './connection.js';
 
 // VERY IMPORTANT for SQLite
-db.exec("PRAGMA foreign_keys = ON");
+db.exec('PRAGMA foreign_keys = ON');
 
 const migration = `
 BEGIN;
@@ -48,6 +48,6 @@ COMMIT;
 
 db.exec(migration);
 
-console.log("✅ Migrations executed");
+console.log('✅ Migrations executed');
 
 export default db;

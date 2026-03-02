@@ -66,7 +66,7 @@ export function GlobalProvider({ children }) {
         setSelectedQuestion,
         selectedAnswer,
         setSelectedAnswer,
-      }}  
+      }}
     >
       {children}
     </GlobalContext.Provider>

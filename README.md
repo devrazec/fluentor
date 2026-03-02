@@ -165,7 +165,7 @@ npm run create_question
 npm remove @refinedev/core
 npm remove @refinedev/mui
 npm remove @refinedev/nextjs-router
-npm remove @refinedev/simple-rest 
+npm remove @refinedev/simple-rest
 
 -- Install Icons
 
@@ -203,4 +203,3 @@ https://example.crm.refine.dev/
 https://iconsax-react.pages.dev/
 
 https://icon-sets.iconify.design/
-

@@ -1,13 +1,14 @@
-import db from "../../../lib/db/connection.js";
+import db from '../../../lib/db/connection.js';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs';
 
 // GET question + all its answers by question id
 export async function GET(request, { params }) {
-  
   const { id } = await params;
 
-  const question = db.prepare(`
+  const question = db
+    .prepare(
+      `
     SELECT
       q.*,
       c.id AS id_category,
@@ -19,18 +20,24 @@ export async function GET(request, { params }) {
     LEFT JOIN category c ON c.id = q.id_category
     LEFT JOIN tense t ON t.id = q.id_tense
     WHERE q.id = ?
-  `).get(id);
+  `
+    )
+    .get(id);
 
   if (!question) {
-    return Response.json({ message: "Not found" }, { status: 404 });
+    return Response.json({ message: 'Not found' }, { status: 404 });
   }
 
-  const answers = db.prepare(`
+  const answers = db
+    .prepare(
+      `
     SELECT id, id_question, name, word, timed, mp3, active
     FROM answer
     WHERE id_question = ?
     ORDER BY id
-  `).all(id);
+  `
+    )
+    .all(id);
 
   return Response.json({ data: { ...question, answers } });
 }

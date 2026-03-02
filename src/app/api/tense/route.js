@@ -1,9 +1,11 @@
 import db from '../../lib/db/connection.js';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs';
 
 export async function GET() {
-  const tense = db.prepare(`
+  const tense = db
+    .prepare(
+      `
     SELECT
       t.*,
       COUNT(q.id) AS total_questions,
@@ -12,9 +14,11 @@ export async function GET() {
     LEFT JOIN question q ON q.id_tense = t.id
     LEFT JOIN category c ON c.id = q.id_category
     GROUP BY t.id
-  `).all();
+  `
+    )
+    .all();
 
-  const result = tense.map((t) => ({
+  const result = tense.map(t => ({
     ...t,
     categories: t.categories ? t.categories.split(',') : [],
   }));
