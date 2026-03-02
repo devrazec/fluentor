@@ -12,7 +12,7 @@ const xlsxPath = path.join(
   'src',
   'app',
   'store',
-  '276_Question.xlsx'
+  '828_Answer.xlsx'
 );
 
 // Read + parse XLSX
@@ -22,12 +22,12 @@ const jsonData = XLSX.utils.sheet_to_json(sheet);
 
 // Prepare insert
 const insert = db.prepare(`
-  INSERT INTO question (id, id_category, id_tense, name, mp3, active)
-  VALUES (@id, @id_category, @id_tense, @name, @mp3, @active)
+  INSERT INTO answer (id, id_question, name, word, timed, mp3, active)
+  VALUES (@id, @id_question, @name, @word, @timed, @mp3, @active)
 `);
 
 // Prevent double seeding
-const { count } = db.prepare('SELECT COUNT(*) AS count FROM question').get();
+const { count } = db.prepare('SELECT COUNT(*) AS count FROM answer').get();
 
 if (count === 0) {
   const tx = db.transaction(() => {

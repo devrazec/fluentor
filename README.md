@@ -146,25 +146,16 @@ npm run migrate
 -- Database Create Seed
 
 npm run seed_category
+npm run seed_tense
+npm run seed_question
+npm run seed_answer
+
 npm run seed_training
 npm run seed_exam
-npm run seed_verb_tense
 npm run seed_type_question
-npm run seed_question
 npm run seed_exam_training
 npm run seed_timed
 npm run seed_answer_vocabulary
-npm run seed_answer_question
-
-or
-
-npm run seed_category
-npm run seed_verb_tense
-npm run seed_type_question
-npm run seed_question
-
--- Database Create Question
-
 npm run create_question
 
 -- Crud
@@ -174,7 +165,16 @@ npm run create_question
 npm remove @refinedev/core
 npm remove @refinedev/mui
 npm remove @refinedev/nextjs-router
-npm remove @refinedev/simple-rest
+npm remove @refinedev/simple-rest 
+
+-- Install Icons
+
+npm i -S @iconify/react
+npm i -S iconsax-reactjs
+
+-- Install XLSX
+
+npm i -S xlsx
 
 ```
 

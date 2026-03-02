@@ -18,13 +18,13 @@ export async function GET(request, { params }) {
 // UPDATE
 export async function PUT(request, { params }) {
   const body = await request.json();
-  const { name, description, mp3, image, active } = body;
+  const { name, image, active } = body;
 
   db.prepare(`
     UPDATE category
-    SET name = ?, description = ?, mp3 = ?, image = ?, active = ?
+    SET name = ?, image = ?, active = ?
     WHERE id = ?
-  `).run(name, description, mp3, image, active, params.id);
+  `).run(name, image, active, params.id);
 
   const updated = db
     .prepare("SELECT * FROM category WHERE id = ?")
