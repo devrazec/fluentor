@@ -16,12 +16,14 @@ import Pagination from '@mui/material/Pagination';
 import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import Skeleton from '@mui/material/Skeleton';
 import { SearchNormal1 } from 'iconsax-reactjs';
 
 const PAGE_SIZE = 12;
 
 export default function CategoryPage() {
     const { dbCategory } = useContext(GlobalContext);
+    const loading = dbCategory.length === 0;
 
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
@@ -77,13 +79,19 @@ export default function CategoryPage() {
 
                 {/* Grid */}
                 <Grid container spacing={2} columns={12}>
-                    {paginated.map((cat) => (
-                        <Grid key={cat.id} size={{ xs: 6, sm: 6, md: 4, lg: 3 }}>
+                    {loading
+                        ? Array.from({ length: 12 }).map((_, i) => (
+                            <Grid key={i} size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
+                                <Skeleton variant="rounded" height={240} />
+                            </Grid>
+                        ))
+                        : paginated.map((cat) => (
+                        <Grid key={cat.id} size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
                             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <CardMedia
                                     component="img"
                                     height="120"
-                                    image={cat.image ? `/img/${cat.image}` : `/img/${cat.image}`}
+                                    image={`/img/${cat.image}`}
                                     alt={cat.name}
                                     sx={{ objectFit: 'cover' }}
                                 />
@@ -109,10 +117,11 @@ export default function CategoryPage() {
                                     )}
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: 'space-between' }}>
-                                    <Button variant="contained" size="small" color="primary">Practice</Button>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {cat.total_questions} {/* question{cat.total_questions !== 1 ? 's' : ''} */}
-                                    </Typography>
+                                    <Button variant="contained" size="small" color="primary">See More</Button>
+                                    {/* <Typography variant="body2" color="text.secondary">
+                                        {cat.total_questions} question{cat.total_questions !== 1 ? 's' : ''}
+                                    </Typography> */}
+                                    <Chip label={cat.total_questions + " question" + (cat.total_questions !== 1 ? 's' : '')} size="small" variant="outlined" color="error" />
                                 </CardActions>
                             </Card>
                         </Grid>
@@ -120,7 +129,7 @@ export default function CategoryPage() {
                 </Grid>
 
                 {/* Empty state */}
-                {paginated.length === 0 && (
+                {!loading && paginated.length === 0 && (
                     <Box sx={{ textAlign: 'center', py: 8 }}>
                         <Typography color="text.secondary">No categories found.</Typography>
                     </Box>

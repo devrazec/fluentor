@@ -35,7 +35,7 @@ export function GlobalProvider({ children }) {
     fetchTable('/api/category', setDbCategory);
     fetchTable('/api/tense', setDbTense);
     fetchTable('/api/question', setDbQuestion);
-    fetchTable('/api/answer', setDbAnswer);
+    // answers are paginated — fetched on demand in the Answer page
   }, []);
 
   return (

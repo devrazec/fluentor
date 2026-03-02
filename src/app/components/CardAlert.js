@@ -10,15 +10,15 @@ export default function CardAlert() {
   return (
     <Card variant="outlined" sx={{ m: 1.5, flexShrink: 0, borderRadius: 1, boxShadow: 1 }}>
       <CardContent>
-        <AutoAwesomeRoundedIcon fontSize="small" />
+        {/* <AutoAwesomeRoundedIcon fontSize="small" /> */}
         <Typography gutterBottom sx={{ fontWeight: 600 }}>
-          Fluentor analyzes your speaking skills
+          Fluentor analyzes your speaking skills and helps you 
         </Typography>
         <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
-          and builds a personalized improvement plan tailored to your goals.
+          improve your pronunciation, fluency, and confidence through personalized feedback.
         </Typography>
         <Button variant="contained" size="small" fullWidth>
-          See more
+          Practice More
         </Button>
       </CardContent>
     </Card>

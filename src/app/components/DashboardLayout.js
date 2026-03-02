@@ -56,6 +56,10 @@ import {
     Chart21,
     Translate,
     Notepad2,
+    MessageQuestion,
+    Microphone2, 
+    DocumentText,
+    EmojiHappy,
 
 } from 'iconsax-reactjs';
 
@@ -98,6 +102,8 @@ export default function DashboardLayout({ children }) {
         '/pages/Category/': 'Category',
         '/pages/Tense/': 'Tense',
         '/pages/Question/': 'Question',
+        '/pages/Answer/': 'Answer',
+        '/pages/Practice/': 'Practice',
     };
     const pageTitle = pageTitles[pathname] ?? '';
 
@@ -136,8 +142,11 @@ export default function DashboardLayout({ children }) {
 
             <NavItem icon={<House variant="Bulk" color="#00a76f" />} text="Home" open={desktopOpen} href="/" active={pathname === '/'} />
             <NavItem icon={<Category variant="Bulk" color="#00a76f" />} text="Category" open={desktopOpen} href="/pages/Category/" active={pathname === '/pages/Category/'} />
-            <NavItem icon={<Translate variant="Bulk" color="#00a76f" />} text="Tense" open={desktopOpen} href="/pages/Tense/" active={pathname === '/pages/Tense/'} />
-            <NavItem icon={<Notepad2 variant="Bulk" color="#00a76f" />} text="Question" open={desktopOpen} href="/pages/Question/" active={pathname === '/pages/Question/'} />
+            <NavItem icon={<DocumentText variant="Bulk" color="#00a76f" />} text="Tense" open={desktopOpen} href="/pages/Tense/" active={pathname === '/pages/Tense/'} />
+            <NavItem icon={<MessageQuestion variant="Bulk" color="#00a76f" />} text="Question" open={desktopOpen} href="/pages/Question/" active={pathname === '/pages/Question/'} />
+            <NavItem icon={<Microphone2 variant="Bulk" color="#00a76f" />} text="Answer" open={desktopOpen} href="/pages/Answer/" active={pathname === '/pages/Answer/'} />
+            <NavItem icon={<EmojiHappy variant="Bulk" color="#00a76f" />} text="Practice" open={desktopOpen} href="/pages/Practice/" active={pathname === '/pages/Practice/'} />
+
             {/* <NavItem icon={<Chart21 variant="Bulk" color="#00a76f" />} text="Analytics" open={desktopOpen} /> */}
 
             {/* <SectionTitle sx={{ mt: 4 }}>Exams</SectionTitle> */}

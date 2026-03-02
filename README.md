@@ -199,3 +199,8 @@ https://www.freeconvert.com/png-to-ico
 https://www.lightswind.com/components/
 
 https://example.crm.refine.dev/
+
+https://iconsax-react.pages.dev/
+
+https://icon-sets.iconify.design/
+

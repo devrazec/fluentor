@@ -53,10 +53,11 @@ function GroupCarousel({ group, visibleCount }) {
     <Box sx={{ mb: 5, mt: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
         <Typography variant="h6" fontWeight={700}>{group.group_name}</Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ flex: 1 }}>({group.tense_names})</Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="info" sx={{ flex: 1 }}>({group.tense_names})</Typography>
+        {/* <Typography variant="body2" color="text.secondary">
           {group.total_questions} question{group.total_questions !== 1 ? 's' : ''}
-        </Typography>
+        </Typography> */}
+        <Chip label={group.total_questions + " question" + (group.total_questions !== 1 ? 's' : '')} size="small" variant="outlined" color="success" />
       </Box>
       <Divider sx={{ mb: 2 }} />
 
@@ -83,13 +84,14 @@ function GroupCarousel({ group, visibleCount }) {
                 <Typography variant="body2" fontWeight={600} sx={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', minHeight: 'calc(2 * 1.43em)', mb: 1 }}>
                   {q.name}
                 </Typography>
-                <Chip label={q.tense_name} size="small" variant="outlined" />
+                <Chip label={q.tense_name} size="small" />
               </CardContent>
               <CardActions sx={{ justifyContent: 'space-between' }}>
                 <Button variant="contained" size="small" color="primary">Practice</Button>
-                <Typography variant="caption" color="text.secondary">
+                {/* <Typography variant="caption" color="text.secondary">
                   {q.total_answers}
-                </Typography>
+                </Typography> */}
+                <Chip label={q.total_answers + " answer" + (q.total_answers !== 1 ? 's' : '')} size="small" variant="outlined" color="error" />
               </CardActions>
             </Card>
           ))}

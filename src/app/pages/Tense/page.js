@@ -68,7 +68,7 @@ export default function TensePage() {
                 {/* Grid */}
                 <Grid container spacing={2} columns={12}>
                     {filtered.map((tense) => (
-                        <Grid key={tense.id} size={{ xs: 6, sm: 6, md: 4, lg: 3 }}>
+                        <Grid key={tense.id} size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
                             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <CardMedia
                                     component="img"
@@ -93,16 +93,17 @@ export default function TensePage() {
                                     {tense.categories?.length > 0 && (
                                         <Stack direction="row" spacing={0.5} flexWrap="wrap" useFlexGap sx={{ mt: 1 }}>
                                             {tense.categories.map((c) => (
-                                                <Chip key={c} label={c} size="small" />
+                                                <Chip key={c} label={c} size="small" variant="outlined" color="primary" />
                                             ))}
                                         </Stack>
                                     )}
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: 'space-between' }}>
-                                    <Button variant="contained" size="small" color="primary">Practice</Button>
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Button variant="contained" size="small" color="primary">See More</Button>
+                                    {/* <Typography variant="body2" color="text.secondary">
                                         {tense.total_questions}
-                                    </Typography>
+                                    </Typography> */}
+                                    <Chip label={tense.total_questions + " question" + (tense.total_questions !== 1 ? 's' : '')} size="small" variant="outlined" color="error" />
                                 </CardActions>
                             </Card>
                         </Grid>

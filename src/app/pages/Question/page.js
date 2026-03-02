@@ -110,15 +110,16 @@ export default function QuestionPage() {
                                             <Chip label={item.category_name} size="small" color="primary" variant="outlined" />
                                         )}
                                         {item.tense_name && (
-                                            <Chip label={item.tense_name} size="small" variant="outlined" />
+                                            <Chip label={item.tense_name} size="small" />
                                         )}
                                     </Stack>
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: 'space-between' }}>
                                     <Button variant="contained" size="small" color="primary">Practice</Button>
-                                    <Typography variant="body2" color="text.secondary">
+                                    {/* <Typography variant="body2" color="text.secondary">
                                         {item.total_answers}
-                                    </Typography>
+                                    </Typography> */}
+                                    <Chip label={item.total_answers + " answers"} size="small" variant="outlined" color="error" />
                                 </CardActions>
                             </Card>
                         </Grid>
