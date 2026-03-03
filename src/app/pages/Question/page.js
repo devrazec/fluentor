@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useContext, useMemo } from 'react';
+import Link from 'next/link';
 import DashboardLayout from '../../components/DashboardLayout';
 import { GlobalContext } from '../../context/GlobalContext';
 import Grid from '@mui/material/Grid';
@@ -103,8 +104,8 @@ export default function QuestionPage() {
                   height="120"
                   image={
                     item.category_image
-                      ? `/img/${item.category_image}`
-                      : `/img/cat${item.id_category}.jpg`
+                      ? `/img/category/${item.category_image}`
+                      : `/img/category/${item.id_category}.jpg`
                   }
                   alt={item.category_name}
                   sx={{ objectFit: 'cover' }}
@@ -143,7 +144,13 @@ export default function QuestionPage() {
                   </Stack>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'space-between' }}>
-                  <Button variant="contained" size="small" color="primary">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    component={Link}
+                    href={`/pages/Practice/?id=${item.id}`}
+                  >
                     Practice
                   </Button>
                   {/* <Typography variant="body2" color="text.secondary">

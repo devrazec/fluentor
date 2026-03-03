@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import Link from 'next/link';
 import DashboardLayout from '../../components/DashboardLayout';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -140,7 +141,13 @@ export default function AnswerPage() {
                         alignItems: 'center',
                       }}
                     >
-                      <Button variant="contained" size="small" color="primary">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        component={Link}
+                        href={`/pages/Practice/?id=${row.id_question}`}
+                      >
                         Practice
                       </Button>
                       <Chip

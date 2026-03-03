@@ -1,6 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
+import Link from 'next/link';
 import { GlobalContext } from '../context/GlobalContext';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -56,13 +57,13 @@ function GroupCarousel({ group, visibleCount }) {
 
   return (
     <Box sx={{ mb: 5, mt: 2 }}>
-      <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 1.5, mb: 1 }}>
         <Typography variant="h6" fontWeight={700}>
           {group.group_name}
         </Typography>
-        <Typography variant="body2" color="info" sx={{ flex: 1 }}>
+        {/* <Typography variant="body2" color="info" sx={{ flex: 1 }}>
           ({group.tense_names})
-        </Typography>
+        </Typography> */}
         {/* <Typography variant="body2" color="text.secondary">
           {group.total_questions} question{group.total_questions !== 1 ? 's' : ''}
         </Typography> */}
@@ -109,8 +110,8 @@ function GroupCarousel({ group, visibleCount }) {
                 height="110"
                 image={
                   q.category_image
-                    ? `/img/${q.category_image}`
-                    : `/img/cat${q.id_category}.jpg`
+                    ? `/img/category/${q.category_image}`
+                    : `/img/category/${q.id_category}.jpg`
                 }
                 alt={q.category_name}
                 sx={{ objectFit: 'cover' }}
@@ -133,7 +134,13 @@ function GroupCarousel({ group, visibleCount }) {
                 <Chip label={q.tense_name} size="small" />
               </CardContent>
               <CardActions sx={{ justifyContent: 'space-between' }}>
-                <Button variant="contained" size="small" color="primary">
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="primary"
+                  component={Link}
+                  href={`/pages/Practice/?id=${q.id}`}
+                >
                   Practice
                 </Button>
                 {/* <Typography variant="caption" color="text.secondary">

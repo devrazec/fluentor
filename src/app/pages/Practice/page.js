@@ -150,14 +150,14 @@ export default function PracticePage() {
             height="160"
             image={
               data?.category_image
-                ? `/img/${data.category_image}`
-                : `/img/${data?.id_category}.jpg`
+                ? `/img/category/${data.category_image}`
+                : `/img/category/${data?.id_category}.jpg`
             }
             alt={data?.category_name}
             sx={{ objectFit: 'cover' }}
           />
           <CardContent>
-            <Box sx={{ display: 'flex', gap: 1, mb: 1.5, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, mb: 1.5, flexWrap: 'wrap' }}>
               <Chip
                 label={data?.category_name}
                 size="small"

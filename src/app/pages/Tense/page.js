@@ -88,8 +88,8 @@ export default function TensePage() {
                   height="120"
                   image={
                     tense.image
-                      ? `/img/${tense.image}`
-                      : `/img/tense${tense.id}.jpg`
+                      ? `/img/tense/${tense.image}`
+                      : `/img/tense/${tense.id}.jpg`
                   }
                   alt={tense.name}
                   sx={{ objectFit: 'cover' }}
