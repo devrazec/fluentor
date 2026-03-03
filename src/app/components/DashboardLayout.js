@@ -188,7 +188,7 @@ export default function DashboardLayout({ children }) {
         href="/pages/Answer/"
         active={pathname === '/pages/Answer/'}
       />
-{/*       <NavItem
+      {/*       <NavItem
         icon={<EmojiHappy variant="Bulk" color="#00a76f" />}
         text="Practice"
         open={desktopOpen}

@@ -157,7 +157,15 @@ export default function PracticePage() {
             sx={{ objectFit: 'cover' }}
           />
           <CardContent>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, mb: 1.5, flexWrap: 'wrap' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: 1,
+                mb: 1.5,
+                flexWrap: 'wrap',
+              }}
+            >
               <Chip
                 label={data?.category_name}
                 size="small"

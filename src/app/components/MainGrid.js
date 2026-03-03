@@ -57,7 +57,15 @@ function GroupCarousel({ group, visibleCount }) {
 
   return (
     <Box sx={{ mb: 5, mt: 2 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 1.5, mb: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 1.5,
+          mb: 1,
+        }}
+      >
         <Typography variant="h6" fontWeight={700}>
           {group.group_name}
         </Typography>

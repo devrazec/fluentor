@@ -88,78 +88,78 @@ export default function CategoryPage() {
         <Grid container spacing={2} columns={12}>
           {loading
             ? Array.from({ length: 12 }).map((_, i) => (
-              <Grid key={i} size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
-                <Skeleton variant="rounded" height={240} />
-              </Grid>
-            ))
+                <Grid key={i} size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
+                  <Skeleton variant="rounded" height={240} />
+                </Grid>
+              ))
             : paginated.map(cat => (
-              <Grid key={cat.id} size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="120"
-                    image={
-                      cat.image
-                        ? `/img/category/${cat.image}`
-                        : `/img/category/${cat.id}.jpg`
-                    }
-                    alt={cat.name}
-                    sx={{ objectFit: 'cover' }}
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography
-                      variant="subtitle1"
-                      fontWeight={600}
-                      sx={{
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      {cat.name}
-                    </Typography>
-                    {cat.tenses?.length > 0 && (
-                      <Stack
-                        direction="row"
-                        spacing={0.5}
-                        flexWrap="wrap"
-                        useFlexGap
-                        sx={{ mt: 1 }}
+                <Grid key={cat.id} size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="120"
+                      image={
+                        cat.image
+                          ? `/img/category/${cat.image}`
+                          : `/img/category/${cat.id}.jpg`
+                      }
+                      alt={cat.name}
+                      sx={{ objectFit: 'cover' }}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight={600}
+                        sx={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}
                       >
-                        {cat.tenses.map(t => (
-                          <Chip key={t} label={t} size="small" />
-                        ))}
-                      </Stack>
-                    )}
-                  </CardContent>
-                  <CardActions sx={{ justifyContent: 'space-between' }}>
-                    <Button variant="contained" size="small" color="primary">
-                      See More
-                    </Button>
-                    {/* <Typography variant="body2" color="text.secondary">
+                        {cat.name}
+                      </Typography>
+                      {cat.tenses?.length > 0 && (
+                        <Stack
+                          direction="row"
+                          spacing={0.5}
+                          flexWrap="wrap"
+                          useFlexGap
+                          sx={{ mt: 1 }}
+                        >
+                          {cat.tenses.map(t => (
+                            <Chip key={t} label={t} size="small" />
+                          ))}
+                        </Stack>
+                      )}
+                    </CardContent>
+                    <CardActions sx={{ justifyContent: 'space-between' }}>
+                      <Button variant="contained" size="small" color="primary">
+                        See More
+                      </Button>
+                      {/* <Typography variant="body2" color="text.secondary">
                                         {cat.total_questions} question{cat.total_questions !== 1 ? 's' : ''}
                                     </Typography> */}
-                    <Chip
-                      label={
-                        cat.total_questions +
-                        ' question' +
-                        (cat.total_questions !== 1 ? 's' : '')
-                      }
-                      size="small"
-                      variant="outlined"
-                      color="error"
-                    />
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+                      <Chip
+                        label={
+                          cat.total_questions +
+                          ' question' +
+                          (cat.total_questions !== 1 ? 's' : '')
+                        }
+                        size="small"
+                        variant="outlined"
+                        color="error"
+                      />
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
         </Grid>
 
         {/* Empty state */}
