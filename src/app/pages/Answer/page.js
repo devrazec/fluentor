@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useRef, useContext, useMemo } from 'react';
 import Link from 'next/link';
 import DashboardLayout from '../../components/DashboardLayout';
+import { GlobalContext } from '../../context/GlobalContext';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
@@ -20,36 +21,36 @@ import { SearchNormal1 } from 'iconsax-reactjs';
 const PAGE_SIZE = 20;
 
 export default function AnswerPage() {
-  const [rows, setRows] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const {
+    dbQuestion,
+    dbCategory,
+    dbTense,
+    dbAnswer,
+    setSelectedQuestion,
+    setSelectedCategory,
+    setSelectedTense,
+    setSelectedAnswer,
+    setCurrentAnswer,
+  } = useContext(GlobalContext);
+
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const debounceRef = useRef(null);
   const [page, setPage] = useState(1);
 
-  const fetchRows = useCallback(async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({
-        page,
-        pageSize: PAGE_SIZE,
-        ...(debouncedSearch && { search: debouncedSearch }),
-      });
-      const res = await fetch(`/api/answer?${params}`);
-      const json = await res.json();
-      setRows(json.data);
-      setTotal(json.total);
-    } catch (err) {
-      console.error('[AnswerPage] fetch error:', err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, debouncedSearch]);
+  const filtered = useMemo(() => {
+    if (!debouncedSearch) return dbAnswer;
+    const q = debouncedSearch.toLowerCase();
+    return dbAnswer.filter(
+      a =>
+        a.name?.toLowerCase().includes(q) ||
+        a.question_name?.toLowerCase().includes(q)
+    );
+  }, [dbAnswer, debouncedSearch]);
 
-  useEffect(() => {
-    fetchRows();
-  }, [fetchRows]);
+  const total = filtered.length;
+  const rows = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const loading = dbAnswer.length === 0;
 
   const handleSearch = e => {
     const value = e.target.value;
@@ -146,7 +147,30 @@ export default function AnswerPage() {
                         size="small"
                         color="primary"
                         component={Link}
-                        href={`/pages/Practice/?id=${row.id_question}`}
+                        href={`/pages/Practice`}
+                        onClick={() => {
+                          const question = dbQuestion.find(
+                            q => q.id === row.id_question
+                          );
+                          if (question) {
+                            setSelectedQuestion(question);
+                            setSelectedCategory(
+                              dbCategory.find(
+                                c => c.id === question.id_category
+                              ) ?? {}
+                            );
+                            setSelectedTense(
+                              dbTense.find(t => t.id === question.id_tense) ??
+                                {}
+                            );
+                          }
+                          setSelectedAnswer(row.id);
+                          setCurrentAnswer(
+                            dbAnswer.filter(
+                              a => a.id_question === row.id_question
+                            )
+                          );
+                        }}
                       >
                         Practice
                       </Button>

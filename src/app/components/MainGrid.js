@@ -18,7 +18,17 @@ import { ArrowLeft2, ArrowRight2 } from 'iconsax-reactjs';
 
 const AUTOPLAY_INTERVAL = 3000;
 
-function GroupCarousel({ group, visibleCount }) {
+function GroupCarousel({
+  group,
+  visibleCount,
+  dbCategory,
+  dbTense,
+  dbAnswer,
+  setSelectedQuestion,
+  setSelectedCategory,
+  setSelectedTense,
+  setCurrentAnswer,
+}) {
   const [startIndex, setStartIndex] = useState(0);
   const [isPlaying] = useState(true);
   const intervalRef = useRef(null);
@@ -147,7 +157,19 @@ function GroupCarousel({ group, visibleCount }) {
                   size="small"
                   color="primary"
                   component={Link}
-                  href={`/pages/Practice/?id=${q.id}`}
+                  href={`/pages/Practice`}
+                  onClick={() => {
+                    setSelectedQuestion(q);
+                    setSelectedCategory(
+                      dbCategory.find(c => c.id === q.id_category) ?? {}
+                    );
+                    setSelectedTense(
+                      dbTense.find(t => t.id === q.id_tense) ?? {}
+                    );
+                    setCurrentAnswer(
+                      dbAnswer.filter(a => a.id_question === q.id)
+                    );
+                  }}
                 >
                   Practice
                 </Button>
@@ -183,7 +205,25 @@ function GroupCarousel({ group, visibleCount }) {
 }
 
 export default function MainGrid() {
-  const { dbHome, mobileDevice } = useContext(GlobalContext);
+  const {
+    dbHome,
+    dbQuestion,
+    dbCategory,
+    dbTense,
+    dbAnswer,
+    selectedCategory,
+    setSelectedCategory,
+    selectedTense,
+    setSelectedTense,
+    selectedQuestion,
+    setSelectedQuestion,
+    selectedAnswer,
+    setSelectedAnswer,
+    currentAnswer,
+    setCurrentAnswer,
+    mobileDevice,
+  } = useContext(GlobalContext);
+
   const visibleCount = mobileDevice ? 1 : 4;
 
   return (
@@ -200,6 +240,13 @@ export default function MainGrid() {
           key={group.group_id}
           group={group}
           visibleCount={visibleCount}
+          dbCategory={dbCategory}
+          dbTense={dbTense}
+          dbAnswer={dbAnswer}
+          setSelectedQuestion={setSelectedQuestion}
+          setSelectedCategory={setSelectedCategory}
+          setSelectedTense={setSelectedTense}
+          setCurrentAnswer={setCurrentAnswer}
         />
       ))}
     </Box>
