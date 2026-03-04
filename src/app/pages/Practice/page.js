@@ -56,9 +56,11 @@ export default function PracticePage() {
   useEffect(() => {
     if (
       !selectedQuestion ||
-      (Array.isArray(selectedQuestion) && selectedQuestion.length === 0)
+      (Array.isArray(selectedQuestion) && selectedQuestion.length === 0) ||
+      !currentAnswer ||
+      (Array.isArray(currentAnswer) && currentAnswer.length === 0)
     ) {
-      router.replace('/pages/Question');
+      router.replace('/');
     }
   }, [selectedQuestion]);
 
