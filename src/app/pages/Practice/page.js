@@ -277,14 +277,14 @@ export default function PracticePage() {
         <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3 }}>
           <CardMedia
             component="img"
-            height="160"
+            height="120"
             image={
               selectedQuestion?.category_image
                 ? `/img/category/${selectedQuestion.category_image}`
                 : `/img/category/${selectedQuestion?.id_category}.jpg`
             }
             alt={selectedQuestion?.category_name}
-            sx={{ objectFit: 'cover' }}
+            sx={{ objectFit: 'fill' }}
           />
           <CardContent>
             <Box
