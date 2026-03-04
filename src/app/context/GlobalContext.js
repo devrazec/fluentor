@@ -19,6 +19,7 @@ export function GlobalProvider({ children }) {
   const [selectedTense, setSelectedTense] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState([]);
+  const [currentAnswer, setCurrentAnswer] = useState([]);
 
   useEffect(() => {
     const fetchTable = async (url, setter) => {
@@ -31,11 +32,33 @@ export function GlobalProvider({ children }) {
       }
     };
 
+    const fetchAllAnswers = async () => {
+      try {
+        const PAGE_SIZE = 100;
+        let allData = [];
+        let page = 1;
+        let total = null;
+
+        do {
+          const res = await fetch(`/api/answer?page=${page}&pageSize=${PAGE_SIZE}`);
+          if (!res.ok) throw new Error(`/api/answer → ${res.status}`);
+          const json = await res.json();
+          allData = allData.concat(json.data);
+          total = json.total;
+          page++;
+        } while (allData.length < total);
+
+        setDbAnswer(allData);
+      } catch (err) {
+        console.error('[GlobalContext] fetch answers error:', err.message);
+      }
+    };
+
     fetchTable('/api/home', setDbHome);
     fetchTable('/api/category', setDbCategory);
     fetchTable('/api/tense', setDbTense);
     fetchTable('/api/question', setDbQuestion);
-    // answers are paginated — fetched on demand in the Answer page
+    fetchAllAnswers();
   }, []);
 
   return (
@@ -66,6 +89,8 @@ export function GlobalProvider({ children }) {
         setSelectedQuestion,
         selectedAnswer,
         setSelectedAnswer,
+
+        currentAnswer, setCurrentAnswer,
       }}
     >
       {children}

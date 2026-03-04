@@ -9,8 +9,10 @@ export async function GET() {
     SELECT * FROM (
       SELECT
         q.*,
+        c.id  AS category_id,
         c.name  AS category_name,
         c.image AS category_image,
+        t.id AS tense_id,
         t.name  AS tense_name,
         COUNT(a.id) AS total_answers,
         ROW_NUMBER() OVER (PARTITION BY q.id_category ORDER BY q.id) AS rn

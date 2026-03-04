@@ -1,23 +1,23 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useContext, useMemo } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
+import { GlobalContext } from '../../context/GlobalContext';
+import { useRouter } from 'next/navigation';
+import { flushSync } from 'react-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
-import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
-import { Play, Pause, VolumeHigh, VolumeMute } from 'iconsax-reactjs';
+import { Play, Pause, VolumeHigh, VolumeMute, Repeat } from 'iconsax-reactjs';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 function formatTime(secs) {
   if (!secs || isNaN(secs)) return '0:00';
@@ -28,45 +28,97 @@ function formatTime(secs) {
   return `${m}:${s}`;
 }
 
-const QUESTION_ID = 1; // hardcoded for now — can be made dynamic via route param
-
 function getPreview(name) {
   return name.split(' ').slice(0, 5).join(' ') + '…';
 }
 
 export default function PracticePage() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedAnswer, setSelected] = useState('');
 
-  // Audio player state
+  const {
+    dbQuestion,
+    dbCategory,
+    dbTense,
+    dbAnswer,
+    selectedQuestion,
+    currentAnswer,
+    selectedAnswer, setSelectedAnswer,
+  } = useContext(GlobalContext);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!selectedQuestion || (Array.isArray(selectedQuestion) && selectedQuestion.length === 0)) {
+      router.replace('/pages/Question');
+    }
+  }, [selectedQuestion]);
+
+  // Answer audio player state
   const audioRef = useRef(null);
+  const answerRafRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [muted, setMuted] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const [loop, setLoop] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`/api/practice/${QUESTION_ID}/`);
-        const json = await res.json();
-        setData(json.data);
-        if (json.data?.answers?.length > 0) {
-          setSelected(json.data.answers[0].id);
-        }
-      } catch (err) {
-        console.error('[PracticePage] fetch error:', err.message);
-      } finally {
-        setLoading(false);
+  // Question audio player state
+  const questionAudioRef = useRef(null);
+  const questionRafRef = useRef(null);
+  const [qIsPlaying, setQIsPlaying] = useState(false);
+  const [qCurrentTime, setQCurrentTime] = useState(0);
+  const [qDuration, setQDuration] = useState(0);
+  const [qPlaybackRate, setQPlaybackRate] = useState(1);
+  const [qLoop, setQLoop] = useState(false);
+
+  // rAF polling helpers
+  const startAnswerRaf = useCallback(() => {
+    if (answerRafRef.current) cancelAnimationFrame(answerRafRef.current);
+    const tick = () => {
+      if (audioRef.current) {
+        flushSync(() => setCurrentTime(audioRef.current.currentTime));
       }
+      answerRafRef.current = requestAnimationFrame(tick);
     };
-    fetchData();
+    answerRafRef.current = requestAnimationFrame(tick);
+  }, []);
+  const stopAnswerRaf = useCallback(() => {
+    if (answerRafRef.current) {
+      cancelAnimationFrame(answerRafRef.current);
+      answerRafRef.current = null;
+    }
   }, []);
 
-  // Reset player when answer changes
+  const startQuestionRaf = useCallback(() => {
+    if (questionRafRef.current) cancelAnimationFrame(questionRafRef.current);
+    const tick = () => {
+      if (questionAudioRef.current) {
+        flushSync(() => setQCurrentTime(questionAudioRef.current.currentTime));
+      }
+      questionRafRef.current = requestAnimationFrame(tick);
+    };
+    questionRafRef.current = requestAnimationFrame(tick);
+  }, []);
+  const stopQuestionRaf = useCallback(() => {
+    if (questionRafRef.current) {
+      cancelAnimationFrame(questionRafRef.current);
+      questionRafRef.current = null;
+    }
+  }, []);
+
+  // Cleanup rAF on unmount
+  useEffect(() => () => { stopAnswerRaf(); stopQuestionRaf(); }, []);
+
   useEffect(() => {
+    if (currentAnswer?.length > 0) {
+      setSelectedAnswer(currentAnswer[0].id);
+    }
+  }, [currentAnswer]);
+
+  // Reset answer player when answer changes
+  useEffect(() => {
+    stopAnswerRaf();
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -76,28 +128,76 @@ export default function PracticePage() {
     setDuration(0);
   }, [selectedAnswer]);
 
+  // Reset question player when question changes
+  useEffect(() => {
+    stopQuestionRaf();
+    if (questionAudioRef.current) {
+      questionAudioRef.current.pause();
+      questionAudioRef.current.currentTime = 0;
+    }
+    setQIsPlaying(false);
+    setQCurrentTime(0);
+    setQDuration(0);
+  }, [selectedQuestion]);
+
+  // Apply answer playback rate
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = playbackRate;
+  }, [playbackRate]);
+
+  // Apply question playback rate
+  useEffect(() => {
+    if (questionAudioRef.current) questionAudioRef.current.playbackRate = qPlaybackRate;
+  }, [qPlaybackRate]);
+
+  const handleQPlayPause = useCallback(() => {
+    const audio = questionAudioRef.current;
+    if (!audio) return;
+    if (qIsPlaying) {
+      audio.pause();
+      stopQuestionRaf();
+    } else {
+      audio.play().catch(() => { });
+      startQuestionRaf();
+    }
+    setQIsPlaying(!qIsPlaying);
+  }, [qIsPlaying, startQuestionRaf, stopQuestionRaf]);
+
+  const handleQSeek = (_, value) => {
+    if (questionAudioRef.current) {
+      questionAudioRef.current.currentTime = value;
+      setQCurrentTime(value);
+    }
+  };
+
   const handlePlayPause = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (isPlaying) {
       audio.pause();
+      stopAnswerRaf();
     } else {
-      audio.play().catch(() => {});
+      audio.play().catch(() => { });
+      startAnswerRaf();
     }
     setIsPlaying(!isPlaying);
-  }, [isPlaying]);
+  }, [isPlaying, startAnswerRaf, stopAnswerRaf]);
 
-  const handleTimeUpdate = () => {
-    if (audioRef.current) setCurrentTime(audioRef.current.currentTime);
-  };
+  const handleTimeUpdate = () => { }; // replaced by rAF
 
   const handleLoadedMetadata = () => {
-    if (audioRef.current) setDuration(audioRef.current.duration);
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+      audioRef.current.playbackRate = playbackRate;
+    }
   };
 
   const handleEnded = () => {
-    setIsPlaying(false);
-    setCurrentTime(0);
+    stopAnswerRaf();
+    if (!loop) {
+      setIsPlaying(false);
+      setCurrentTime(0);
+    }
   };
 
   const handleSeek = (_, value) => {
@@ -120,17 +220,19 @@ export default function PracticePage() {
     setMuted(next);
   };
 
-  const answer = data?.answers?.find(a => a.id === selectedAnswer);
+  const answer = currentAnswer?.find(a => a.id === selectedAnswer);
 
-  if (loading) {
-    return (
-      <DashboardLayout>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
-          <CircularProgress color="success" />
-        </Box>
-      </DashboardLayout>
-    );
-  }
+  const answerWords = useMemo(() => answer?.name?.split(' ') ?? [], [answer]);
+  const answerTotalDuration = duration || 1;
+  const activeWordIndex = currentTime > 0
+    ? Math.min(Math.floor((currentTime / answerTotalDuration) * answerWords.length), answerWords.length - 1)
+    : -1;
+
+  const questionWords = useMemo(() => selectedQuestion?.name?.split(' ') ?? [], [selectedQuestion]);
+  const qTotalDuration = qDuration || 1;
+  const qActiveWordIndex = qCurrentTime > 0
+    ? Math.min(Math.floor((qCurrentTime / qTotalDuration) * questionWords.length), questionWords.length - 1)
+    : -1;
 
   return (
     <DashboardLayout>
@@ -149,11 +251,11 @@ export default function PracticePage() {
             component="img"
             height="160"
             image={
-              data?.category_image
-                ? `/img/category/${data.category_image}`
-                : `/img/category/${data?.id_category}.jpg`
+              selectedQuestion?.category_image
+                ? `/img/category/${selectedQuestion.category_image}`
+                : `/img/category/${selectedQuestion?.id_category}.jpg`
             }
-            alt={data?.category_name}
+            alt={selectedQuestion?.category_name}
             sx={{ objectFit: 'cover' }}
           />
           <CardContent>
@@ -167,20 +269,102 @@ export default function PracticePage() {
               }}
             >
               <Chip
-                label={data?.category_name}
+                label={selectedQuestion?.category_name}
                 size="small"
                 variant="outlined"
               />
               <Chip
-                label={data?.tense_name}
+                label={selectedQuestion?.tense_name}
                 size="small"
                 variant="outlined"
                 color="primary"
               />
             </Box>
-            <Typography variant="h6" fontWeight={700}>
-              {data?.name}
-            </Typography>
+            <Box sx={{ lineHeight: 1.9, fontSize: '1.25rem', fontWeight: 700, mb: 0.5 }}>
+              {questionWords.map((word, i) => (
+                <span
+                  key={i}
+                  style={{
+                    transition: 'background 0.15s, color 0.15s',
+                    backgroundColor: i === qActiveWordIndex ? '#00a76f' : 'transparent',
+                    color: i === qActiveWordIndex ? '#fff' : 'inherit',
+                    borderRadius: 4,
+                    padding: '1px 3px',
+                    marginRight: 2,
+                    display: 'inline-block',
+                  }}
+                >
+                  {word}
+                </span>
+              ))}
+            </Box>
+
+            {/* Question audio player */}
+            {selectedQuestion?.mp3 && (
+              <>
+                <audio
+                  key={selectedQuestion.mp3}
+                  ref={questionAudioRef}
+                  src={`/mp3/question/${selectedQuestion.mp3}`}
+                  onTimeUpdate={() => { }}
+                  onLoadedMetadata={() => {
+                    if (questionAudioRef.current) {
+                      setQDuration(questionAudioRef.current.duration);
+                      questionAudioRef.current.playbackRate = qPlaybackRate;
+                    }
+                  }}
+                  onEnded={() => { stopQuestionRaf(); if (!qLoop) { setQIsPlaying(false); setQCurrentTime(0); } }}
+                  loop={qLoop}
+                />
+                <Divider sx={{ my: 1.5 }} />
+                <Slider
+                  size="small"
+                  min={0}
+                  max={qDuration || 1}
+                  value={qCurrentTime}
+                  onChange={handleQSeek}
+                  sx={{
+                    color: '#00a76f',
+                    '& .MuiSlider-thumb': { width: 12, height: 12 },
+                    mb: 0.5,
+                  }}
+                />
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                  <Typography variant="caption" color="text.secondary">{formatTime(qCurrentTime)}</Typography>
+                  <Typography variant="caption" color="text.secondary">{formatTime(qDuration)}</Typography>
+                </Box>
+                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 0.5 }}>
+                  <IconButton
+                    onClick={handleQPlayPause}
+                    sx={{ bgcolor: '#00a76f', color: '#fff', '&:hover': { bgcolor: '#007a52' } }}
+                  >
+                    {qIsPlaying ? <Pause variant="Bulk" size={22} /> : <Play variant="Bulk" size={22} />}
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => setQLoop(v => !v)}
+                    sx={{ color: qLoop ? '#00a76f' : 'text.secondary' }}
+                  >
+                    <Repeat size={18} variant={qLoop ? 'Bulk' : 'Linear'} />
+                  </IconButton>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Box sx={{ flex: 1 }} />
+                  <ToggleButtonGroup
+                    value={qPlaybackRate}
+                    exclusive
+                    size="small"
+                    onChange={(_, val) => { if (val !== null) setQPlaybackRate(val); }}
+                  >
+                    {[0.75, 1, 1.2].map(r => (
+                      <ToggleButton key={r} value={r} sx={{ px: 1, py: 0.25, fontSize: '0.7rem', lineHeight: 1.4 }}>
+                        {r}x
+                      </ToggleButton>
+                    ))}
+                  </ToggleButtonGroup>
+                </Stack>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -189,58 +373,67 @@ export default function PracticePage() {
           <Card sx={{ borderRadius: 1, boxShadow: 2 }}>
             <CardContent>
               {/* Answer Selector */}
-              <FormControl fullWidth size="small" sx={{ mb: 2 }}>
-                <InputLabel>Select an answer</InputLabel>
-                <Select
-                  value={selectedAnswer}
-                  label="Select an answer"
-                  onChange={e => {
-                    setSelected(e.target.value);
+              <ToggleButtonGroup
+                value={selectedAnswer}
+                exclusive
+                onChange={(_, val) => {
+                  if (val !== null) {
+                    setSelectedAnswer(val);
                     setIsPlaying(false);
-                  }}
-                >
-                  {data?.answers?.map(a => (
-                    <MenuItem key={a.id} value={a.id}>
-                      <Box sx={{ width: '100%', minWidth: 0 }}>
-                        <Typography variant="body2" noWrap>
-                          {getPreview(a.name)}
-                        </Typography>
-                        <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
-                          <Chip
-                            label={`${a.timed}s`}
-                            size="small"
-                            color="primary"
-                            variant="outlined"
-                          />
-                          <Chip
-                            label={`${a.word}w`}
-                            size="small"
-                            color="default"
-                            variant="outlined"
-                          />
-                        </Box>
-                      </Box>
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  }
+                }}
+                sx={{ display: 'flex', flexWrap: { xs: 'wrap', sm: 'nowrap' }, width: '100%', gap: 1, mb: 2, '& .MuiToggleButtonGroup-grouped': { borderRadius: '8px !important', border: '1px solid rgba(0,0,0,0.12) !important', mx: 0 } }}
+              >
+                {currentAnswer?.map((a, index) => (
+                  <ToggleButton
+                    key={a.id}
+                    value={a.id}
+                    sx={{ flex: { xs: '1 1 calc(50% - 4px)', sm: 1 }, minWidth: 0, flexDirection: 'column', alignItems: 'flex-start', px: 1.5, py: 1, textAlign: 'left', textTransform: 'none' }}
+                  >
+                    <Typography variant="caption" fontWeight={600} sx={{ mb: 0.5 }}>Answer {index + 1}</Typography>
+                    <Typography variant="caption" color="text.secondary" noWrap sx={{ width: '100%', display: 'block' }}>
+                      {getPreview(a.name)}
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
+                      <Chip label={`${a.timed}sec`} size="small" color="primary" variant="outlined" sx={{ pointerEvents: 'none' }} />
+                      <Chip label={`${a.word}words`} size="small" variant="outlined" sx={{ pointerEvents: 'none' }} />
+                    </Box>
+                  </ToggleButton>
+                ))}
+              </ToggleButtonGroup>
 
               {/* Hidden audio element */}
               {answer.mp3 && (
                 <audio
                   key={answer.mp3}
                   ref={audioRef}
-                  src={`/mp3/${answer.mp3}`}
+                  src={`/mp3/answer/${answer.mp3}`}
                   onTimeUpdate={handleTimeUpdate}
                   onLoadedMetadata={handleLoadedMetadata}
                   onEnded={handleEnded}
+                  loop={loop}
                 />
               )}
 
-              {/* Answer text */}
-              <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.7 }}>
-                {answer.name}
-              </Typography>
+              {/* Answer text with word highlighting */}
+              <Box sx={{ mb: 2, lineHeight: 1.9, fontSize: '1.25rem', fontWeight: 700 }}>
+                {answerWords.map((word, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      transition: 'background 0.15s, color 0.15s',
+                      backgroundColor: i === activeWordIndex ? '#00a76f' : 'transparent',
+                      color: i === activeWordIndex ? '#fff' : 'inherit',
+                      borderRadius: 4,
+                      padding: '1px 3px',
+                      marginRight: 2,
+                      display: 'inline-block',
+                    }}
+                  >
+                    {word}
+                  </span>
+                ))}
+              </Box>
 
               <Divider sx={{ mb: 2 }} />
 
@@ -248,7 +441,7 @@ export default function PracticePage() {
               <Slider
                 size="small"
                 min={0}
-                max={duration || answer.timed || 1}
+                max={duration || 1}
                 value={currentTime}
                 onChange={handleSeek}
                 sx={{
@@ -268,12 +461,12 @@ export default function PracticePage() {
                   {formatTime(currentTime)}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
-                  {formatTime(duration || answer.timed)}
+                  {formatTime(duration)}
                 </Typography>
               </Box>
 
               {/* Controls row */}
-              <Stack direction="row" alignItems="center" spacing={1}>
+              <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 0.5 }}>
                 {/* Play / Pause */}
                 <IconButton
                   onClick={handlePlayPause}
@@ -288,6 +481,15 @@ export default function PracticePage() {
                   ) : (
                     <Play variant="Bulk" size={26} />
                   )}
+                </IconButton>
+
+                {/* Loop toggle */}
+                <IconButton
+                  size="small"
+                  onClick={() => setLoop(v => !v)}
+                  sx={{ color: loop ? '#00a76f' : 'text.secondary' }}
+                >
+                  <Repeat size={20} variant={loop ? 'Bulk' : 'Linear'} />
                 </IconButton>
 
                 {/* Volume mute toggle — hidden on mobile */}
@@ -318,11 +520,28 @@ export default function PracticePage() {
                     display: { xs: 'none', sm: 'block' },
                   }}
                 />
+              </Stack>
 
+              {/* Speed + chips row */}
+              <Stack direction="row" alignItems="center" spacing={1} flexWrap="wrap" useFlexGap>
                 <Box sx={{ flex: 1 }} />
+                {/* Speed control */}
+                <ToggleButtonGroup
+                  value={playbackRate}
+                  exclusive
+                  size="small"
+                  onChange={(_, val) => { if (val !== null) setPlaybackRate(val); }}
+                >
+                  {[0.75, 1, 1.2].map(r => (
+                    <ToggleButton key={r} value={r} sx={{ px: 1, py: 0.25, fontSize: '0.7rem', lineHeight: 1.4 }}>
+                      {r}x
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+
 
                 {/* Chips */}
-                <Chip
+                {/* <Chip
                   label={`${answer.timed}s`}
                   size="small"
                   color="primary"
@@ -332,7 +551,7 @@ export default function PracticePage() {
                   label={`${answer.word} words`}
                   size="small"
                   variant="outlined"
-                />
+                /> */}
               </Stack>
             </CardContent>
           </Card>

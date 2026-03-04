@@ -22,7 +22,17 @@ import { SearchNormal1 } from 'iconsax-reactjs';
 const PAGE_SIZE = 12;
 
 export default function QuestionPage() {
-  const { dbQuestion } = useContext(GlobalContext);
+  const {
+    dbQuestion,
+    dbCategory,
+    dbTense,
+    dbAnswer,
+    selectedCategory, setSelectedCategory,
+    selectedTense, setSelectedTense,
+    selectedQuestion, setSelectedQuestion,
+    selectedAnswer, setSelectedAnswer,
+    currentAnswer, setCurrentAnswer,
+  } = useContext(GlobalContext);
 
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -149,7 +159,13 @@ export default function QuestionPage() {
                     size="small"
                     color="primary"
                     component={Link}
-                    href={`/pages/Practice/?id=${item.id}`}
+                    href={`/pages/Practice`}
+                    onClick={() => {
+                      setSelectedQuestion(item);
+                      setSelectedCategory(dbCategory.find(c => c.id === item.id_category) ?? {});
+                      setSelectedTense(dbTense.find(t => t.id === item.id_tense) ?? {});
+                      setCurrentAnswer(dbAnswer.filter(a => a.id_question === item.id));
+                    }}
                   >
                     Practice
                   </Button>
