@@ -27,11 +27,16 @@ export default function QuestionPage() {
     dbCategory,
     dbTense,
     dbAnswer,
-    selectedCategory, setSelectedCategory,
-    selectedTense, setSelectedTense,
-    selectedQuestion, setSelectedQuestion,
-    selectedAnswer, setSelectedAnswer,
-    currentAnswer, setCurrentAnswer,
+    selectedCategory,
+    setSelectedCategory,
+    selectedTense,
+    setSelectedTense,
+    selectedQuestion,
+    setSelectedQuestion,
+    selectedAnswer,
+    setSelectedAnswer,
+    currentAnswer,
+    setCurrentAnswer,
   } = useContext(GlobalContext);
 
   const [search, setSearch] = useState('');
@@ -162,9 +167,15 @@ export default function QuestionPage() {
                     href={`/pages/Practice`}
                     onClick={() => {
                       setSelectedQuestion(item);
-                      setSelectedCategory(dbCategory.find(c => c.id === item.id_category) ?? {});
-                      setSelectedTense(dbTense.find(t => t.id === item.id_tense) ?? {});
-                      setCurrentAnswer(dbAnswer.filter(a => a.id_question === item.id));
+                      setSelectedCategory(
+                        dbCategory.find(c => c.id === item.id_category) ?? {}
+                      );
+                      setSelectedTense(
+                        dbTense.find(t => t.id === item.id_tense) ?? {}
+                      );
+                      setCurrentAnswer(
+                        dbAnswer.filter(a => a.id_question === item.id)
+                      );
                     }}
                   >
                     Practice

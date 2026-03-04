@@ -40,7 +40,9 @@ export function GlobalProvider({ children }) {
         let total = null;
 
         do {
-          const res = await fetch(`/api/answer?page=${page}&pageSize=${PAGE_SIZE}`);
+          const res = await fetch(
+            `/api/answer?page=${page}&pageSize=${PAGE_SIZE}`
+          );
           if (!res.ok) throw new Error(`/api/answer → ${res.status}`);
           const json = await res.json();
           allData = allData.concat(json.data);
@@ -90,7 +92,8 @@ export function GlobalProvider({ children }) {
         selectedAnswer,
         setSelectedAnswer,
 
-        currentAnswer, setCurrentAnswer,
+        currentAnswer,
+        setCurrentAnswer,
       }}
     >
       {children}

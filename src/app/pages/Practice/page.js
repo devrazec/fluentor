@@ -1,6 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, useContext, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import { GlobalContext } from '../../context/GlobalContext';
 import { useRouter } from 'next/navigation';
@@ -33,7 +40,6 @@ function getPreview(name) {
 }
 
 export default function PracticePage() {
-
   const {
     dbQuestion,
     dbCategory,
@@ -41,13 +47,17 @@ export default function PracticePage() {
     dbAnswer,
     selectedQuestion,
     currentAnswer,
-    selectedAnswer, setSelectedAnswer,
+    selectedAnswer,
+    setSelectedAnswer,
   } = useContext(GlobalContext);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (!selectedQuestion || (Array.isArray(selectedQuestion) && selectedQuestion.length === 0)) {
+    if (
+      !selectedQuestion ||
+      (Array.isArray(selectedQuestion) && selectedQuestion.length === 0)
+    ) {
       router.replace('/pages/Question');
     }
   }, [selectedQuestion]);
@@ -108,7 +118,13 @@ export default function PracticePage() {
   }, []);
 
   // Cleanup rAF on unmount
-  useEffect(() => () => { stopAnswerRaf(); stopQuestionRaf(); }, []);
+  useEffect(
+    () => () => {
+      stopAnswerRaf();
+      stopQuestionRaf();
+    },
+    []
+  );
 
   useEffect(() => {
     if (currentAnswer?.length > 0) {
@@ -147,7 +163,8 @@ export default function PracticePage() {
 
   // Apply question playback rate
   useEffect(() => {
-    if (questionAudioRef.current) questionAudioRef.current.playbackRate = qPlaybackRate;
+    if (questionAudioRef.current)
+      questionAudioRef.current.playbackRate = qPlaybackRate;
   }, [qPlaybackRate]);
 
   const handleQPlayPause = useCallback(() => {
@@ -157,7 +174,7 @@ export default function PracticePage() {
       audio.pause();
       stopQuestionRaf();
     } else {
-      audio.play().catch(() => { });
+      audio.play().catch(() => {});
       startQuestionRaf();
     }
     setQIsPlaying(!qIsPlaying);
@@ -177,13 +194,13 @@ export default function PracticePage() {
       audio.pause();
       stopAnswerRaf();
     } else {
-      audio.play().catch(() => { });
+      audio.play().catch(() => {});
       startAnswerRaf();
     }
     setIsPlaying(!isPlaying);
   }, [isPlaying, startAnswerRaf, stopAnswerRaf]);
 
-  const handleTimeUpdate = () => { }; // replaced by rAF
+  const handleTimeUpdate = () => {}; // replaced by rAF
 
   const handleLoadedMetadata = () => {
     if (audioRef.current) {
@@ -224,15 +241,26 @@ export default function PracticePage() {
 
   const answerWords = useMemo(() => answer?.name?.split(' ') ?? [], [answer]);
   const answerTotalDuration = duration || 1;
-  const activeWordIndex = currentTime > 0
-    ? Math.min(Math.floor((currentTime / answerTotalDuration) * answerWords.length), answerWords.length - 1)
-    : -1;
+  const activeWordIndex =
+    currentTime > 0
+      ? Math.min(
+          Math.floor((currentTime / answerTotalDuration) * answerWords.length),
+          answerWords.length - 1
+        )
+      : -1;
 
-  const questionWords = useMemo(() => selectedQuestion?.name?.split(' ') ?? [], [selectedQuestion]);
+  const questionWords = useMemo(
+    () => selectedQuestion?.name?.split(' ') ?? [],
+    [selectedQuestion]
+  );
   const qTotalDuration = qDuration || 1;
-  const qActiveWordIndex = qCurrentTime > 0
-    ? Math.min(Math.floor((qCurrentTime / qTotalDuration) * questionWords.length), questionWords.length - 1)
-    : -1;
+  const qActiveWordIndex =
+    qCurrentTime > 0
+      ? Math.min(
+          Math.floor((qCurrentTime / qTotalDuration) * questionWords.length),
+          questionWords.length - 1
+        )
+      : -1;
 
   return (
     <DashboardLayout>
@@ -280,13 +308,21 @@ export default function PracticePage() {
                 color="primary"
               />
             </Box>
-            <Box sx={{ lineHeight: 1.9, fontSize: '1.25rem', fontWeight: 700, mb: 0.5 }}>
+            <Box
+              sx={{
+                lineHeight: 1.9,
+                fontSize: '1.25rem',
+                fontWeight: 700,
+                mb: 0.5,
+              }}
+            >
               {questionWords.map((word, i) => (
                 <span
                   key={i}
                   style={{
                     transition: 'background 0.15s, color 0.15s',
-                    backgroundColor: i === qActiveWordIndex ? '#00a76f' : 'transparent',
+                    backgroundColor:
+                      i === qActiveWordIndex ? '#00a76f' : 'transparent',
                     color: i === qActiveWordIndex ? '#fff' : 'inherit',
                     borderRadius: 4,
                     padding: '1px 3px',
@@ -306,14 +342,20 @@ export default function PracticePage() {
                   key={selectedQuestion.mp3}
                   ref={questionAudioRef}
                   src={`/mp3/question/${selectedQuestion.mp3}`}
-                  onTimeUpdate={() => { }}
+                  onTimeUpdate={() => {}}
                   onLoadedMetadata={() => {
                     if (questionAudioRef.current) {
                       setQDuration(questionAudioRef.current.duration);
                       questionAudioRef.current.playbackRate = qPlaybackRate;
                     }
                   }}
-                  onEnded={() => { stopQuestionRaf(); if (!qLoop) { setQIsPlaying(false); setQCurrentTime(0); } }}
+                  onEnded={() => {
+                    stopQuestionRaf();
+                    if (!qLoop) {
+                      setQIsPlaying(false);
+                      setQCurrentTime(0);
+                    }
+                  }}
                   loop={qLoop}
                 />
                 <Divider sx={{ my: 1.5 }} />
@@ -329,16 +371,39 @@ export default function PracticePage() {
                     mb: 0.5,
                   }}
                 />
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                  <Typography variant="caption" color="text.secondary">{formatTime(qCurrentTime)}</Typography>
-                  <Typography variant="caption" color="text.secondary">{formatTime(qDuration)}</Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mb: 1,
+                  }}
+                >
+                  <Typography variant="caption" color="text.secondary">
+                    {formatTime(qCurrentTime)}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    {formatTime(qDuration)}
+                  </Typography>
                 </Box>
-                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 0.5 }}>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{ mb: 0.5 }}
+                >
                   <IconButton
                     onClick={handleQPlayPause}
-                    sx={{ bgcolor: '#00a76f', color: '#fff', '&:hover': { bgcolor: '#007a52' } }}
+                    sx={{
+                      bgcolor: '#00a76f',
+                      color: '#fff',
+                      '&:hover': { bgcolor: '#007a52' },
+                    }}
                   >
-                    {qIsPlaying ? <Pause variant="Bulk" size={22} /> : <Play variant="Bulk" size={22} />}
+                    {qIsPlaying ? (
+                      <Pause variant="Bulk" size={22} />
+                    ) : (
+                      <Play variant="Bulk" size={22} />
+                    )}
                   </IconButton>
                   <IconButton
                     size="small"
@@ -354,10 +419,21 @@ export default function PracticePage() {
                     value={qPlaybackRate}
                     exclusive
                     size="small"
-                    onChange={(_, val) => { if (val !== null) setQPlaybackRate(val); }}
+                    onChange={(_, val) => {
+                      if (val !== null) setQPlaybackRate(val);
+                    }}
                   >
                     {[0.75, 1, 1.2].map(r => (
-                      <ToggleButton key={r} value={r} sx={{ px: 1, py: 0.25, fontSize: '0.7rem', lineHeight: 1.4 }}>
+                      <ToggleButton
+                        key={r}
+                        value={r}
+                        sx={{
+                          px: 1,
+                          py: 0.25,
+                          fontSize: '0.7rem',
+                          lineHeight: 1.4,
+                        }}
+                      >
                         {r}x
                       </ToggleButton>
                     ))}
@@ -382,21 +458,63 @@ export default function PracticePage() {
                     setIsPlaying(false);
                   }
                 }}
-                sx={{ display: 'flex', flexWrap: { xs: 'wrap', sm: 'nowrap' }, width: '100%', gap: 1, mb: 2, '& .MuiToggleButtonGroup-grouped': { borderRadius: '8px !important', border: '1px solid rgba(0,0,0,0.12) !important', mx: 0 } }}
+                sx={{
+                  display: 'flex',
+                  flexWrap: { xs: 'wrap', sm: 'nowrap' },
+                  width: '100%',
+                  gap: 1,
+                  mb: 2,
+                  '& .MuiToggleButtonGroup-grouped': {
+                    borderRadius: '8px !important',
+                    border: '1px solid rgba(0,0,0,0.12) !important',
+                    mx: 0,
+                  },
+                }}
               >
                 {currentAnswer?.map((a, index) => (
                   <ToggleButton
                     key={a.id}
                     value={a.id}
-                    sx={{ flex: { xs: '1 1 calc(50% - 4px)', sm: 1 }, minWidth: 0, flexDirection: 'column', alignItems: 'flex-start', px: 1.5, py: 1, textAlign: 'left', textTransform: 'none' }}
+                    sx={{
+                      flex: { xs: '1 1 calc(50% - 4px)', sm: 1 },
+                      minWidth: 0,
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      px: 1.5,
+                      py: 1,
+                      textAlign: 'left',
+                      textTransform: 'none',
+                    }}
                   >
-                    <Typography variant="caption" fontWeight={600} sx={{ mb: 0.5 }}>Answer {index + 1}</Typography>
-                    <Typography variant="caption" color="text.secondary" noWrap sx={{ width: '100%', display: 'block' }}>
+                    <Typography
+                      variant="caption"
+                      fontWeight={600}
+                      sx={{ mb: 0.5 }}
+                    >
+                      Answer {index + 1}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      noWrap
+                      sx={{ width: '100%', display: 'block' }}
+                    >
                       {getPreview(a.name)}
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
-                      <Chip label={`${a.timed}sec`} size="small" color="primary" variant="outlined" sx={{ pointerEvents: 'none' }} />
-                      <Chip label={`${a.word}words`} size="small" variant="outlined" sx={{ pointerEvents: 'none' }} />
+                      <Chip
+                        label={`${a.timed}sec`}
+                        size="small"
+                        color="primary"
+                        variant="outlined"
+                        sx={{ pointerEvents: 'none' }}
+                      />
+                      <Chip
+                        label={`${a.word}words`}
+                        size="small"
+                        variant="outlined"
+                        sx={{ pointerEvents: 'none' }}
+                      />
                     </Box>
                   </ToggleButton>
                 ))}
@@ -416,13 +534,21 @@ export default function PracticePage() {
               )}
 
               {/* Answer text with word highlighting */}
-              <Box sx={{ mb: 2, lineHeight: 1.9, fontSize: '1.25rem', fontWeight: 700 }}>
+              <Box
+                sx={{
+                  mb: 2,
+                  lineHeight: 1.9,
+                  fontSize: '1.25rem',
+                  fontWeight: 700,
+                }}
+              >
                 {answerWords.map((word, i) => (
                   <span
                     key={i}
                     style={{
                       transition: 'background 0.15s, color 0.15s',
-                      backgroundColor: i === activeWordIndex ? '#00a76f' : 'transparent',
+                      backgroundColor:
+                        i === activeWordIndex ? '#00a76f' : 'transparent',
                       color: i === activeWordIndex ? '#fff' : 'inherit',
                       borderRadius: 4,
                       padding: '1px 3px',
@@ -466,7 +592,12 @@ export default function PracticePage() {
               </Box>
 
               {/* Controls row */}
-              <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 0.5 }}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                sx={{ mb: 0.5 }}
+              >
                 {/* Play / Pause */}
                 <IconButton
                   onClick={handlePlayPause}
@@ -523,22 +654,38 @@ export default function PracticePage() {
               </Stack>
 
               {/* Speed + chips row */}
-              <Stack direction="row" alignItems="center" spacing={1} flexWrap="wrap" useFlexGap>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                flexWrap="wrap"
+                useFlexGap
+              >
                 <Box sx={{ flex: 1 }} />
                 {/* Speed control */}
                 <ToggleButtonGroup
                   value={playbackRate}
                   exclusive
                   size="small"
-                  onChange={(_, val) => { if (val !== null) setPlaybackRate(val); }}
+                  onChange={(_, val) => {
+                    if (val !== null) setPlaybackRate(val);
+                  }}
                 >
                   {[0.75, 1, 1.2].map(r => (
-                    <ToggleButton key={r} value={r} sx={{ px: 1, py: 0.25, fontSize: '0.7rem', lineHeight: 1.4 }}>
+                    <ToggleButton
+                      key={r}
+                      value={r}
+                      sx={{
+                        px: 1,
+                        py: 0.25,
+                        fontSize: '0.7rem',
+                        lineHeight: 1.4,
+                      }}
+                    >
                       {r}x
                     </ToggleButton>
                   ))}
                 </ToggleButtonGroup>
-
 
                 {/* Chips */}
                 {/* <Chip
