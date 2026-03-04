@@ -6,17 +6,21 @@ export async function GET() {
   const question = db
     .prepare(
       `
-    SELECT
-      q.*,
-      c.name  AS category_name,
-      c.image AS category_image,
-      t.name  AS tense_name,
-      COUNT(a.id) AS total_answers
-    FROM question q
-    LEFT JOIN category c ON c.id = q.id_category
-    LEFT JOIN tense   t ON t.id = q.id_tense
-    LEFT JOIN answer  a ON a.id_question = q.id
-    GROUP BY q.id
+    SELECT * FROM (
+      SELECT
+        q.*,
+        c.name  AS category_name,
+        c.image AS category_image,
+        t.name  AS tense_name,
+        COUNT(a.id) AS total_answers,
+        ROW_NUMBER() OVER (PARTITION BY q.id_category ORDER BY q.id) AS rn
+      FROM question q
+      LEFT JOIN category c ON c.id = q.id_category
+      LEFT JOIN tense   t ON t.id = q.id_tense
+      LEFT JOIN answer  a ON a.id_question = q.id
+      GROUP BY q.id
+    )
+    ORDER BY rn, id_category
   `
     )
     .all();

@@ -15,6 +15,7 @@ export async function GET() {
     LEFT JOIN question q ON q.id_category = c.id
     LEFT JOIN tense t ON t.id = q.id_tense
     GROUP BY c.id
+    ORDER BY c.id
   `
     )
     .all();

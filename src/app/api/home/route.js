@@ -33,10 +33,34 @@ export async function GET() {
   const tenses = db.prepare('SELECT id, name FROM tense').all();
   const tenseMap = Object.fromEntries(tenses.map(t => [t.id, t.name]));
 
+  // Round-robin sort: interleave questions by category (1,2,3,4…1,2,3,4…)
+  const roundRobin = items => {
+    const byCategory = {};
+    items.forEach(q => {
+      if (!byCategory[q.id_category]) byCategory[q.id_category] = [];
+      byCategory[q.id_category].push(q);
+    });
+    const buckets = Object.keys(byCategory)
+      .sort((a, b) => a - b)
+      .map(k => byCategory[k]);
+    const result = [];
+    let hasMore = true;
+    for (let i = 0; hasMore; i++) {
+      hasMore = false;
+      buckets.forEach(bucket => {
+        if (bucket[i] !== undefined) {
+          result.push(bucket[i]);
+          hasMore = true;
+        }
+      });
+    }
+    return result;
+  };
+
   // Build groups
   const groups = TENSE_GROUPS.map(group => {
-    const groupQuestions = questions.filter(q =>
-      group.tenseIds.includes(q.id_tense)
+    const groupQuestions = roundRobin(
+      questions.filter(q => group.tenseIds.includes(q.id_tense))
     );
     return {
       group_id: group.id,
