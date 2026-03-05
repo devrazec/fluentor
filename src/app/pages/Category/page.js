@@ -129,38 +129,155 @@ export default function CategoryPage() {
                       tiltMaxAngleY={14}
                       scale={1.04}
                       transitionSpeed={600}
-                      glareEnable={false}
+                      glareEnable={true}
+                      glareMaxOpacity={0.2}
+                      glareColor="#ffffff"
+                      glarePosition="all"
+                      glareBorderRadius="0px"
                       style={{ overflow: 'hidden' }}
                     >
-                      <CardMedia
-                        component="img"
-                        height="120"
-                        image={
-                          cat.image
-                            ? `/img/category/${cat.image}`
-                            : `/img/category/${cat.id}.jpg`
-                        }
-                        alt={cat.name}
+                      <Box
                         sx={{
-                          objectFit: 'cover',
-                          // Continuously drift so the image is always in motion.
-                          // Each card uses a different duration + negative delay
-                          // so they all start mid-animation and are out of phase.
-                          animation: `catImgDrift ${3.2 + (idx % 4) * 0.6}s ease-in-out infinite alternate`,
-                          animationDelay: `-${(idx * 1.1) % 3.5}s`,
-                          transformOrigin: 'center center',
-                          '@keyframes catImgDrift': {
-                            '0%': {
-                              transform:
-                                'scale(1.12) rotateY(-4deg) rotateX(3deg) translateX(-4px) translateY(-3px)',
+                          position: 'relative',
+                          overflow: 'hidden',
+                          height: 120,
+                          '&::after': {
+                            content: '""',
+                            position: 'absolute',
+                            inset: 0,
+                            // Cycles through Spring → Summer → Autumn → Winter colour wash.
+                            // Each card is shifted 6 s so all four seasons show at once in the grid.
+                            animation: 'catSeason 24s linear infinite',
+                            animationDelay: `-${(idx * 6) % 24}s`,
+                            '@keyframes catSeason': {
+                              // Spring  – soft green glow
+                              '0%': { background: 'rgba(100, 200,  80, 0.22)' },
+                              '20%': {
+                                background: 'rgba(100, 200,  80, 0.22)',
+                              },
+                              // → Summer – warm golden
+                              '25%': {
+                                background: 'rgba(255, 200,  40, 0.15)',
+                              },
+                              '45%': {
+                                background: 'rgba(255, 200,  40, 0.15)',
+                              },
+                              // → Autumn – burnt orange
+                              '50%': {
+                                background: 'rgba(210,  80,  15, 0.25)',
+                              },
+                              '70%': {
+                                background: 'rgba(210,  80,  15, 0.25)',
+                              },
+                              // → Winter – icy blue
+                              '75%': {
+                                background: 'rgba(130, 190, 255, 0.30)',
+                              },
+                              '95%': {
+                                background: 'rgba(130, 190, 255, 0.30)',
+                              },
+                              // back to Spring
+                              '100%': {
+                                background: 'rgba(100, 200,  80, 0.22)',
+                              },
                             },
-                            '100%': {
-                              transform:
-                                'scale(1.12) rotateY(4deg) rotateX(-3deg) translateX(4px) translateY(3px)',
-                            },
+                            mixBlendMode: 'multiply',
+                            pointerEvents: 'none',
+                            zIndex: 2,
                           },
                         }}
-                      />
+                      >
+                        <CardMedia
+                          component="img"
+                          height="120"
+                          image={
+                            cat.image
+                              ? `/img/category/${cat.image}`
+                              : `/img/category/${cat.id}.jpg`
+                          }
+                          alt={cat.name}
+                          sx={{
+                            objectFit: 'cover',
+                            transformOrigin: 'center center',
+                            // Ken Burns pan keeps subjects looking alive.
+                            // catSeasonFilter shifts hue/brightness in sync with the colour overlay.
+                            animation: [
+                              `catKenBurns ${14 + (idx % 5) * 2}s ease-in-out infinite`,
+                              'catSeasonFilter 24s linear infinite',
+                            ].join(', '),
+                            animationDelay: [
+                              `-${(idx * 2.9) % 14}s`,
+                              `-${(idx * 6) % 24}s`,
+                            ].join(', '),
+                            '@keyframes catKenBurns': {
+                              '0%': {
+                                transform: 'scale(1.22) translate(-3%, -2%)',
+                              },
+                              '15%': {
+                                transform: 'scale(1.26) translate(-1%, -4%)',
+                              },
+                              '30%': {
+                                transform: 'scale(1.21) translate( 2%, -1%)',
+                              },
+                              '50%': {
+                                transform: 'scale(1.26) translate( 3%,  2%)',
+                              },
+                              '70%': {
+                                transform: 'scale(1.21) translate( 1%,  4%)',
+                              },
+                              '85%': {
+                                transform: 'scale(1.24) translate(-2%,  2%)',
+                              },
+                              '100%': {
+                                transform: 'scale(1.22) translate(-3%, -2%)',
+                              },
+                            },
+                            '@keyframes catSeasonFilter': {
+                              // Spring  – fresh, vivid green
+                              '0%': {
+                                filter:
+                                  'brightness(1.06) saturate(1.40) hue-rotate(18deg)',
+                              },
+                              '20%': {
+                                filter:
+                                  'brightness(1.06) saturate(1.40) hue-rotate(18deg)',
+                              },
+                              // → Summer – bright, warm
+                              '25%': {
+                                filter:
+                                  'brightness(1.22) saturate(1.20) hue-rotate(4deg)',
+                              },
+                              '45%': {
+                                filter:
+                                  'brightness(1.22) saturate(1.20) hue-rotate(4deg)',
+                              },
+                              // → Autumn – rich, orange-red
+                              '50%': {
+                                filter:
+                                  'brightness(0.90) saturate(1.55) hue-rotate(-28deg)',
+                              },
+                              '70%': {
+                                filter:
+                                  'brightness(0.90) saturate(1.55) hue-rotate(-28deg)',
+                              },
+                              // → Winter – cold, desaturated blue
+                              '75%': {
+                                filter:
+                                  'brightness(0.72) saturate(0.45) hue-rotate(185deg)',
+                              },
+                              '95%': {
+                                filter:
+                                  'brightness(0.72) saturate(0.45) hue-rotate(185deg)',
+                              },
+                              // back to Spring
+                              '100%': {
+                                filter:
+                                  'brightness(1.06) saturate(1.40) hue-rotate(18deg)',
+                              },
+                            },
+                          }}
+                        />
+                      </Box>
                     </Tilt>
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography
