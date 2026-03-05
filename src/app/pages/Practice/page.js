@@ -121,6 +121,10 @@ export default function PracticePage() {
   const [answerSpeechBounds, setAnswerSpeechBounds] = useState(null);
   const [qSpeechBounds, setQSpeechBounds] = useState(null);
 
+  // Question volume state
+  const [qVolume, setQVolume] = useState(1);
+  const [qMuted, setQMuted] = useState(false);
+
   // rAF polling helpers
   const startAnswerRaf = useCallback(() => {
     if (answerRafRef.current) cancelAnimationFrame(answerRafRef.current);
@@ -445,6 +449,8 @@ export default function PracticePage() {
                     if (questionAudioRef.current) {
                       setQDuration(questionAudioRef.current.duration);
                       questionAudioRef.current.playbackRate = qPlaybackRate;
+                      questionAudioRef.current.volume = qVolume;
+                      questionAudioRef.current.muted = qMuted;
                     }
                   }}
                   onEnded={() => {
@@ -457,38 +463,50 @@ export default function PracticePage() {
                   loop={qLoop}
                 />
                 <Divider sx={{ my: 1.5 }} />
-                <Slider
-                  size="small"
-                  min={0}
-                  max={qDuration || 1}
-                  value={qCurrentTime}
-                  onChange={handleQSeek}
-                  sx={{
-                    color: '#00a76f',
-                    '& .MuiSlider-thumb': { width: 12, height: 12 },
-                    mb: 0.5,
-                  }}
-                />
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    mb: 1,
-                  }}
-                >
-                  <Typography variant="caption" color="text.secondary">
-                    {formatTime(qCurrentTime)}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {formatTime(qDuration)}
-                  </Typography>
-                </Box>
+
+                {/* Slider row with inline timestamps */}
                 <Stack
                   direction="row"
                   alignItems="center"
                   spacing={1}
                   sx={{ mb: 0.5 }}
                 >
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ minWidth: 32, textAlign: 'right' }}
+                  >
+                    {formatTime(qCurrentTime)}
+                  </Typography>
+                  <Slider
+                    size="small"
+                    min={0}
+                    max={qDuration || 1}
+                    value={qCurrentTime}
+                    onChange={handleQSeek}
+                    sx={{
+                      flex: 1,
+                      color: '#00a76f',
+                      '& .MuiSlider-thumb': { width: 12, height: 12 },
+                    }}
+                  />
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ minWidth: 32 }}
+                  >
+                    {formatTime(qDuration)}
+                  </Typography>
+                </Stack>
+
+                {/* Controls row */}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={0.75}
+                  sx={{ mb: 0.5 }}
+                >
+                  {/* Play/Pause */}
                   <IconButton
                     onClick={handleQPlayPause}
                     sx={{
@@ -503,39 +521,93 @@ export default function PracticePage() {
                       <Play variant="Bulk" size={22} />
                     )}
                   </IconButton>
+
+                  {/* Loop */}
                   <IconButton
                     size="small"
                     onClick={() => setQLoop(v => !v)}
-                    sx={{ color: qLoop ? '#00a76f' : 'text.secondary' }}
+                    sx={{
+                      border: '1px solid',
+                      borderColor: qLoop ? '#00a76f' : 'divider',
+                      color: qLoop ? '#00a76f' : 'text.secondary',
+                      bgcolor: qLoop ? 'rgba(0,167,111,0.08)' : 'transparent',
+                      width: 34,
+                      height: 34,
+                      '&:hover': {
+                        bgcolor: qLoop
+                          ? 'rgba(0,167,111,0.18)'
+                          : 'action.hover',
+                      },
+                    }}
                   >
                     <Repeat size={18} variant={qLoop ? 'Bulk' : 'Linear'} />
                   </IconButton>
-                </Stack>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Box sx={{ flex: 1 }} />
-                  <ToggleButtonGroup
-                    value={qPlaybackRate}
-                    exclusive
+
+                  {/* Volume mute — hidden on mobile */}
+                  {/* <IconButton
                     size="small"
-                    onChange={(_, val) => {
-                      if (val !== null) setQPlaybackRate(val);
+                    onClick={() => {
+                      const next = !qMuted;
+                      setQMuted(next);
+                      if (questionAudioRef.current) questionAudioRef.current.muted = next;
                     }}
+                    sx={{ color: 'text.secondary', display: { xs: 'none', sm: 'inline-flex' } }}
                   >
-                    {[0.75, 1, 1.2].map(r => (
-                      <ToggleButton
-                        key={r}
-                        value={r}
-                        sx={{
-                          px: 1,
-                          py: 0.25,
-                          fontSize: '0.7rem',
-                          lineHeight: 1.4,
-                        }}
-                      >
-                        {r}x
-                      </ToggleButton>
-                    ))}
-                  </ToggleButtonGroup>
+                    {qMuted ? <VolumeMute size={20} /> : <VolumeHigh size={20} />}
+                  </IconButton> */}
+
+                  {/* Volume slider — hidden on mobile */}
+                  {/* <Slider
+                    size="small"
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={qMuted ? 0 : qVolume}
+                    onChange={(_, val) => {
+                      setQVolume(val);
+                      setQMuted(val === 0);
+                      if (questionAudioRef.current) {
+                        questionAudioRef.current.volume = val;
+                        questionAudioRef.current.muted = val === 0;
+                      }
+                    }}
+                    sx={{
+                      width: 80,
+                      color: '#00a76f',
+                      '& .MuiSlider-thumb': { width: 12, height: 12 },
+                      display: { xs: 'none', sm: 'block' },
+                    }}
+                  /> */}
+
+                  <Box sx={{ flex: 1 }} />
+
+                  {/* Speed buttons */}
+                  {[0.75, 1, 1.2].map(r => (
+                    <IconButton
+                      key={r}
+                      size="small"
+                      onClick={() => setQPlaybackRate(r)}
+                      sx={{
+                        border: '1px solid',
+                        borderColor:
+                          qPlaybackRate === r ? '#00a76f' : 'divider',
+                        bgcolor:
+                          qPlaybackRate === r ? '#00a76f' : 'transparent',
+                        color: qPlaybackRate === r ? '#fff' : 'text.secondary',
+                        borderRadius: '50%',
+                        width: 34,
+                        height: 34,
+                        fontSize: '0.68rem',
+                        fontWeight: 700,
+                        '&:hover': {
+                          bgcolor:
+                            qPlaybackRate === r ? '#007a52' : 'action.hover',
+                        },
+                      }}
+                    >
+                      {r}x
+                    </IconButton>
+                  ))}
                 </Stack>
               </>
             )}
@@ -582,8 +654,27 @@ export default function PracticePage() {
                       py: 1,
                       textAlign: 'left',
                       textTransform: 'none',
+                      position: 'relative',
+                      borderColor:
+                        selectedAnswer === a.id
+                          ? '#00a76f !important'
+                          : undefined,
                     }}
                   >
+                    {selectedAnswer === a.id && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 7,
+                          right: 7,
+                          width: 8,
+                          height: 8,
+                          borderRadius: '50%',
+                          bgcolor: '#00a76f',
+                          boxShadow: '0 0 0 2px rgba(0,167,111,0.25)',
+                        }}
+                      />
+                    )}
                     <Typography
                       variant="caption"
                       fontWeight={600}
@@ -668,39 +759,46 @@ export default function PracticePage() {
 
               <Divider sx={{ mb: 2 }} />
 
-              {/* Progress bar */}
-              <Slider
-                size="small"
-                min={0}
-                max={duration || 1}
-                value={currentTime}
-                onChange={handleSeek}
-                sx={{
-                  color: '#00a76f',
-                  '& .MuiSlider-thumb': { width: 12, height: 12 },
-                  mb: 0.5,
-                }}
-              />
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  mb: 1.5,
-                }}
+              {/* Slider row with inline timestamps */}
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                sx={{ mb: 0.5 }}
               >
-                <Typography variant="caption" color="text.secondary">
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ minWidth: 32, textAlign: 'right' }}
+                >
                   {formatTime(currentTime)}
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Slider
+                  size="small"
+                  min={0}
+                  max={duration || 1}
+                  value={currentTime}
+                  onChange={handleSeek}
+                  sx={{
+                    flex: 1,
+                    color: '#00a76f',
+                    '& .MuiSlider-thumb': { width: 12, height: 12 },
+                  }}
+                />
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ minWidth: 32 }}
+                >
                   {formatTime(duration)}
                 </Typography>
-              </Box>
+              </Stack>
 
               {/* Controls row */}
               <Stack
                 direction="row"
                 alignItems="center"
-                spacing={1}
+                spacing={0.75}
                 sx={{ mb: 0.5 }}
               >
                 {/* Play / Pause */}
@@ -723,26 +821,36 @@ export default function PracticePage() {
                 <IconButton
                   size="small"
                   onClick={() => setLoop(v => !v)}
-                  sx={{ color: loop ? '#00a76f' : 'text.secondary' }}
+                  sx={{
+                    border: '1px solid',
+                    borderColor: loop ? '#00a76f' : 'divider',
+                    color: loop ? '#00a76f' : 'text.secondary',
+                    bgcolor: loop ? 'rgba(0,167,111,0.08)' : 'transparent',
+                    width: 34,
+                    height: 34,
+                    '&:hover': {
+                      bgcolor: loop ? 'rgba(0,167,111,0.18)' : 'action.hover',
+                    },
+                  }}
                 >
                   <Repeat size={20} variant={loop ? 'Bulk' : 'Linear'} />
                 </IconButton>
 
                 {/* Volume mute toggle — hidden on mobile */}
-                <IconButton
+                {/* <IconButton
                   size="small"
                   onClick={handleMuteToggle}
-                  sx={{ display: { xs: 'none', sm: 'inline-flex' } }}
+                  sx={{ display: { xs: 'none', sm: 'inline-flex' }, color: 'text.secondary' }}
                 >
                   {muted || volume === 0 ? (
                     <VolumeMute size={20} />
                   ) : (
                     <VolumeHigh size={20} />
                   )}
-                </IconButton>
+                </IconButton> */}
 
                 {/* Volume slider — hidden on mobile */}
-                <Slider
+                {/* <Slider
                   size="small"
                   min={0}
                   max={1}
@@ -755,55 +863,35 @@ export default function PracticePage() {
                     '& .MuiSlider-thumb': { width: 10, height: 10 },
                     display: { xs: 'none', sm: 'block' },
                   }}
-                />
-              </Stack>
-
-              {/* Speed + chips row */}
-              <Stack
-                direction="row"
-                alignItems="center"
-                spacing={1}
-                flexWrap="wrap"
-                useFlexGap
-              >
-                <Box sx={{ flex: 1 }} />
-                {/* Speed control */}
-                <ToggleButtonGroup
-                  value={playbackRate}
-                  exclusive
-                  size="small"
-                  onChange={(_, val) => {
-                    if (val !== null) setPlaybackRate(val);
-                  }}
-                >
-                  {[0.75, 1, 1.2].map(r => (
-                    <ToggleButton
-                      key={r}
-                      value={r}
-                      sx={{
-                        px: 1,
-                        py: 0.25,
-                        fontSize: '0.7rem',
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {r}x
-                    </ToggleButton>
-                  ))}
-                </ToggleButtonGroup>
-
-                {/* Chips */}
-                {/* <Chip
-                  label={`${answer.timed}s`}
-                  size="small"
-                  color="primary"
-                  variant="outlined"
-                />
-                <Chip
-                  label={`${answer.word} words`}
-                  size="small"
-                  variant="outlined"
                 /> */}
+
+                <Box sx={{ flex: 1 }} />
+
+                {/* Speed buttons */}
+                {[0.75, 1, 1.2].map(r => (
+                  <IconButton
+                    key={r}
+                    size="small"
+                    onClick={() => setPlaybackRate(r)}
+                    sx={{
+                      border: '1px solid',
+                      borderColor: playbackRate === r ? '#00a76f' : 'divider',
+                      bgcolor: playbackRate === r ? '#00a76f' : 'transparent',
+                      color: playbackRate === r ? '#fff' : 'text.secondary',
+                      borderRadius: '50%',
+                      width: 34,
+                      height: 34,
+                      fontSize: '0.68rem',
+                      fontWeight: 700,
+                      '&:hover': {
+                        bgcolor:
+                          playbackRate === r ? '#007a52' : 'action.hover',
+                      },
+                    }}
+                  >
+                    {r}x
+                  </IconButton>
+                ))}
               </Stack>
             </CardContent>
           </Card>
