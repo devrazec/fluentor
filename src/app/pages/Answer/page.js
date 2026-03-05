@@ -118,7 +118,15 @@ export default function AnswerPage() {
           <Grid container spacing={2}>
             {rows.map(row => (
               <Grid key={row.id} size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
-                <Card sx={{ borderRadius: 2, boxShadow: 1, height: '100%' }}>
+                <Card
+                  sx={{
+                    borderRadius: 2,
+                    boxShadow: 1,
+                    height: '100%',
+                    transition: 'background-color 0.2s',
+                    '&:hover': { bgcolor: '#00a76f1f' },
+                  }}
+                >
                   <CardContent sx={{ pb: '12px !important' }}>
                     <Typography
                       variant="body2"

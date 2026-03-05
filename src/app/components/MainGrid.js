@@ -121,6 +121,8 @@ function GroupCarousel({
                 display: 'flex',
                 mb: 0.1,
                 flexDirection: 'column',
+                transition: 'background-color 0.2s',
+                '&:hover': { bgcolor: '#00a76f1f' },
               }}
             >
               <CardMedia

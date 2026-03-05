@@ -655,9 +655,15 @@ export default function PracticePage() {
                       textAlign: 'left',
                       textTransform: 'none',
                       position: 'relative',
+                      transition: 'background-color 0.2s',
+                      '&:hover': { bgcolor: '#00a76f1f' },
+                      backgroundColor:
+                        selectedAnswer === a.id
+                          ? '#00a76f1f !important'
+                          : undefined,
                       borderColor:
                         selectedAnswer === a.id
-                          ? '#00a76f !important'
+                          ? '#00a76f1f !important'
                           : undefined,
                     }}
                   >

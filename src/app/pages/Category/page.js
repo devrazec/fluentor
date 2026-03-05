@@ -118,6 +118,8 @@ export default function CategoryPage() {
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
+                      transition: 'background-color 0.2s',
+                      '&:hover': { bgcolor: '#00a76f1f' },
                     }}
                   >
                     <CardMedia
