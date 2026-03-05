@@ -39,6 +39,39 @@ function getPreview(name) {
   return name.split(' ').slice(0, 5).join(' ') + '…';
 }
 
+// Detect actual speech start/end by scanning amplitude
+async function detectSpeechBounds(url, threshold = 0.015) {
+  try {
+    const res = await fetch(url);
+    const buf = await res.arrayBuffer();
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const audioBuffer = await ctx.decodeAudioData(buf);
+    await ctx.close();
+    const data = audioBuffer.getChannelData(0);
+    const sr = audioBuffer.sampleRate;
+    let startSample = 0;
+    let endSample = data.length - 1;
+    for (let i = 0; i < data.length; i++) {
+      if (Math.abs(data[i]) > threshold) {
+        startSample = i;
+        break;
+      }
+    }
+    for (let i = data.length - 1; i >= 0; i--) {
+      if (Math.abs(data[i]) > threshold) {
+        endSample = i;
+        break;
+      }
+    }
+    return {
+      start: Math.max(0, startSample / sr - 0.05),
+      end: Math.min(audioBuffer.duration, endSample / sr + 0.05),
+    };
+  } catch {
+    return null;
+  }
+}
+
 export default function PracticePage() {
   const {
     dbQuestion,
@@ -83,6 +116,10 @@ export default function PracticePage() {
   const [qDuration, setQDuration] = useState(0);
   const [qPlaybackRate, setQPlaybackRate] = useState(1);
   const [qLoop, setQLoop] = useState(false);
+
+  // Speech bounds detected via Web Audio API amplitude scan
+  const [answerSpeechBounds, setAnswerSpeechBounds] = useState(null);
+  const [qSpeechBounds, setQSpeechBounds] = useState(null);
 
   // rAF polling helpers
   const startAnswerRaf = useCallback(() => {
@@ -169,6 +206,25 @@ export default function PracticePage() {
       questionAudioRef.current.playbackRate = qPlaybackRate;
   }, [qPlaybackRate]);
 
+  // Detect speech bounds for answer audio
+  useEffect(() => {
+    setAnswerSpeechBounds(null);
+    const mp3 = currentAnswer?.find(a => a.id === selectedAnswer)?.mp3;
+    if (!mp3) return;
+    detectSpeechBounds(`/mp3/answer/${mp3}`).then(bounds => {
+      if (bounds) setAnswerSpeechBounds(bounds);
+    });
+  }, [selectedAnswer, currentAnswer]);
+
+  // Detect speech bounds for question audio
+  useEffect(() => {
+    setQSpeechBounds(null);
+    if (!selectedQuestion?.mp3) return;
+    detectSpeechBounds(`/mp3/question/${selectedQuestion.mp3}`).then(bounds => {
+      if (bounds) setQSpeechBounds(bounds);
+    });
+  }, [selectedQuestion?.mp3]);
+
   const handleQPlayPause = useCallback(() => {
     const audio = questionAudioRef.current;
     if (!audio) return;
@@ -242,27 +298,60 @@ export default function PracticePage() {
   const answer = currentAnswer?.find(a => a.id === selectedAnswer);
 
   const answerWords = useMemo(() => answer?.name?.split(' ') ?? [], [answer]);
-  const answerTotalDuration = duration || 1;
-  const activeWordIndex =
-    currentTime > 0
-      ? Math.min(
-          Math.floor((currentTime / answerTotalDuration) * answerWords.length),
-          answerWords.length - 1
-        )
-      : -1;
+
+  // Distribute time proportionally to word character length for better sync
+  const answerWordTimings = useMemo(() => {
+    if (!answerWords.length || !duration) return [];
+    const speechStart = answerSpeechBounds?.start ?? 0;
+    const speechEnd = answerSpeechBounds?.end ?? duration;
+    const speechDuration = Math.max(speechEnd - speechStart, 0.1);
+    const totalChars = answerWords.reduce((sum, w) => sum + w.length, 0) || 1;
+    let acc = 0;
+    return answerWords.map(w => {
+      const start = speechStart + (acc / totalChars) * speechDuration;
+      acc += w.length;
+      return start;
+    });
+  }, [answerWords, duration, answerSpeechBounds]);
+
+  const activeWordIndex = useMemo(() => {
+    if (currentTime <= 0 || !answerWordTimings.length) return -1;
+    let idx = 0;
+    for (let i = 0; i < answerWordTimings.length; i++) {
+      if (answerWordTimings[i] <= currentTime) idx = i;
+      else break;
+    }
+    return idx;
+  }, [currentTime, answerWordTimings]);
 
   const questionWords = useMemo(
     () => selectedQuestion?.name?.split(' ') ?? [],
     [selectedQuestion]
   );
-  const qTotalDuration = qDuration || 1;
-  const qActiveWordIndex =
-    qCurrentTime > 0
-      ? Math.min(
-          Math.floor((qCurrentTime / qTotalDuration) * questionWords.length),
-          questionWords.length - 1
-        )
-      : -1;
+
+  const qWordTimings = useMemo(() => {
+    if (!questionWords.length || !qDuration) return [];
+    const speechStart = qSpeechBounds?.start ?? 0;
+    const speechEnd = qSpeechBounds?.end ?? qDuration;
+    const speechDuration = Math.max(speechEnd - speechStart, 0.1);
+    const totalChars = questionWords.reduce((sum, w) => sum + w.length, 0) || 1;
+    let acc = 0;
+    return questionWords.map(w => {
+      const start = speechStart + (acc / totalChars) * speechDuration;
+      acc += w.length;
+      return start;
+    });
+  }, [questionWords, qDuration, qSpeechBounds]);
+
+  const qActiveWordIndex = useMemo(() => {
+    if (qCurrentTime <= 0 || !qWordTimings.length) return -1;
+    let idx = 0;
+    for (let i = 0; i < qWordTimings.length; i++) {
+      if (qWordTimings[i] <= qCurrentTime) idx = i;
+      else break;
+    }
+    return idx;
+  }, [qCurrentTime, qWordTimings]);
 
   return (
     <DashboardLayout>
@@ -324,8 +413,15 @@ export default function PracticePage() {
                   style={{
                     transition: 'background 0.15s, color 0.15s',
                     backgroundColor:
-                      i === qActiveWordIndex ? '#00a76f' : 'transparent',
-                    color: i === qActiveWordIndex ? '#fff' : 'inherit',
+                      qActiveWordIndex >= 0 && i <= qActiveWordIndex
+                        ? i === qActiveWordIndex
+                          ? '#00a76f'
+                          : 'rgba(0,167,111,0.2)'
+                        : 'transparent',
+                    color:
+                      qActiveWordIndex >= 0 && i === qActiveWordIndex
+                        ? '#fff'
+                        : 'inherit',
                     borderRadius: 4,
                     padding: '1px 3px',
                     marginRight: 2,
@@ -550,8 +646,15 @@ export default function PracticePage() {
                     style={{
                       transition: 'background 0.15s, color 0.15s',
                       backgroundColor:
-                        i === activeWordIndex ? '#00a76f' : 'transparent',
-                      color: i === activeWordIndex ? '#fff' : 'inherit',
+                        activeWordIndex >= 0 && i <= activeWordIndex
+                          ? i === activeWordIndex
+                            ? '#00a76f'
+                            : 'rgba(0,167,111,0.2)'
+                          : 'transparent',
+                      color:
+                        activeWordIndex >= 0 && i === activeWordIndex
+                          ? '#fff'
+                          : 'inherit',
                       borderRadius: 4,
                       padding: '1px 3px',
                       marginRight: 2,
