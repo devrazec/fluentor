@@ -17,6 +17,14 @@ import Pagination from '@mui/material/Pagination';
 import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Divider from '@mui/material/Divider';
 import { SearchNormal1 } from 'iconsax-reactjs';
 
 const PAGE_SIZE = 12;
@@ -37,6 +45,10 @@ export default function QuestionPage() {
     setSelectedAnswer,
     currentAnswer,
     setCurrentAnswer,
+    filterCategory,
+    setFilterCategory,
+    filterTense,
+    setFilterTense,
   } = useContext(GlobalContext);
 
   const [search, setSearch] = useState('');
@@ -44,13 +56,19 @@ export default function QuestionPage() {
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    return dbQuestion.filter(
-      item =>
+    return dbQuestion.filter(item => {
+      const matchSearch =
         item.name.toLowerCase().includes(q) ||
         item.category_name?.toLowerCase().includes(q) ||
-        item.tense_name?.toLowerCase().includes(q)
-    );
-  }, [dbQuestion, search]);
+        item.tense_name?.toLowerCase().includes(q);
+      const matchCategory =
+        filterCategory.length === 0 ||
+        filterCategory.includes(item.id_category);
+      const matchTense =
+        filterTense.length === 0 || filterTense.includes(item.id_tense);
+      return matchSearch && matchCategory && matchTense;
+    });
+  }, [dbQuestion, search, filterCategory, filterTense]);
 
   const pageCount = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -81,12 +99,90 @@ export default function QuestionPage() {
             mt: 2,
           }}
         >
-          {/* <Typography variant="h5" fontWeight={700}>
-                        Questions
-                        <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-                            ({filtered.length})
-                        </Typography>
-                    </Typography> */}
+          {/* Filters */}
+          <FormControl size="small" sx={{ width: { xs: '100%', sm: 260 } }}>
+            <InputLabel>Category</InputLabel>
+            <Select
+              multiple
+              value={filterCategory}
+              onChange={e => {
+                setFilterCategory(e.target.value);
+                setPage(1);
+              }}
+              input={<OutlinedInput label="Category" />}
+              renderValue={selected =>
+                selected.length === 0 ? '' : `${selected.length} selected`
+              }
+              MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+            >
+              <MenuItem
+                dense
+                disabled={filterCategory.length === 0}
+                onMouseDown={e => {
+                  e.preventDefault();
+                  setFilterCategory([]);
+                  setPage(1);
+                }}
+                sx={{
+                  justifyContent: 'center',
+                  color: 'error.main',
+                  fontWeight: 600,
+                }}
+              >
+                Clear selection
+              </MenuItem>
+              <Divider />
+              {dbCategory.map(cat => (
+                <MenuItem key={cat.id} value={cat.id}>
+                  <Checkbox checked={filterCategory.includes(cat.id)} />
+                  <ListItemText primary={cat.name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl size="small" sx={{ width: { xs: '100%', sm: 260 } }}>
+            <InputLabel>Tense</InputLabel>
+            <Select
+              multiple
+              value={filterTense}
+              onChange={e => {
+                setFilterTense(e.target.value);
+                setPage(1);
+              }}
+              input={<OutlinedInput label="Tense" />}
+              renderValue={selected =>
+                selected.length === 0 ? '' : `${selected.length} selected`
+              }
+              MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+            >
+              <MenuItem
+                dense
+                disabled={filterTense.length === 0}
+                onMouseDown={e => {
+                  e.preventDefault();
+                  setFilterTense([]);
+                  setPage(1);
+                }}
+                sx={{
+                  justifyContent: 'center',
+                  color: 'error.main',
+                  fontWeight: 600,
+                }}
+              >
+                Clear selection
+              </MenuItem>
+              <Divider />
+              {dbTense.map(tense => (
+                <MenuItem key={tense.id} value={tense.id}>
+                  <Checkbox checked={filterTense.includes(tense.id)} />
+                  <ListItemText primary={tense.name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {/* Search */}
           <TextField
             size="small"
             placeholder="Search questions..."
@@ -97,6 +193,18 @@ export default function QuestionPage() {
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchNormal1 size={18} color="#00a76f" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ ml: 1, whiteSpace: 'nowrap' }}
+                  >
+                    ({filtered.length})
+                  </Typography>
                 </InputAdornment>
               ),
             }}

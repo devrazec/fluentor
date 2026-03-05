@@ -21,6 +21,9 @@ export function GlobalProvider({ children }) {
   const [selectedAnswer, setSelectedAnswer] = useState([]);
   const [currentAnswer, setCurrentAnswer] = useState([]);
 
+  const [filterCategory, setFilterCategory] = useState([]);
+  const [filterTense, setFilterTense] = useState([]);
+
   useEffect(() => {
     const fetchTable = async (url, setter) => {
       try {
@@ -94,6 +97,11 @@ export function GlobalProvider({ children }) {
 
         currentAnswer,
         setCurrentAnswer,
+
+        filterCategory,
+        setFilterCategory,
+        filterTense,
+        setFilterTense,
       }}
     >
       {children}

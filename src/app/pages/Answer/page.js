@@ -94,6 +94,18 @@ export default function AnswerPage() {
                   <SearchNormal1 size={18} color="#00a76f" />
                 </InputAdornment>
               ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ ml: 1, whiteSpace: 'nowrap' }}
+                  >
+                    ({filtered.length})
+                  </Typography>
+                </InputAdornment>
+              ),
             }}
           />
         </Box>

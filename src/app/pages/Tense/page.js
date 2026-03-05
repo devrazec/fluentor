@@ -3,6 +3,7 @@
 import React, { useState, useContext, useMemo } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import { GlobalContext } from '../../context/GlobalContext';
+import Link from 'next/link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -18,7 +19,13 @@ import Stack from '@mui/material/Stack';
 import { SearchNormal1 } from 'iconsax-reactjs';
 
 export default function TensePage() {
-  const { dbTense } = useContext(GlobalContext);
+  const {
+    dbTense,
+    filterCategory,
+    setFilterCategory,
+    filterTense,
+    setFilterTense,
+  } = useContext(GlobalContext);
 
   const [search, setSearch] = useState('');
 
@@ -66,6 +73,18 @@ export default function TensePage() {
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchNormal1 size={18} color="#00a76f" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ ml: 1, whiteSpace: 'nowrap' }}
+                  >
+                    ({filtered.length})
+                  </Typography>
                 </InputAdornment>
               ),
             }}
@@ -128,7 +147,17 @@ export default function TensePage() {
                   )}
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'space-between' }}>
-                  <Button variant="contained" size="small" color="primary">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    component={Link}
+                    href={`/pages/Question`}
+                    onClick={() => {
+                      setFilterTense([tense.id]);
+                      setFilterCategory([]);
+                    }}
+                  >
                     See More
                   </Button>
                   {/* <Typography variant="body2" color="text.secondary">

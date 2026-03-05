@@ -3,6 +3,7 @@
 import React, { useState, useContext, useMemo } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import { GlobalContext } from '../../context/GlobalContext';
+import Link from 'next/link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -22,7 +23,13 @@ import { SearchNormal1 } from 'iconsax-reactjs';
 const PAGE_SIZE = 12;
 
 export default function CategoryPage() {
-  const { dbCategory } = useContext(GlobalContext);
+  const {
+    dbCategory,
+    filterCategory,
+    setFilterCategory,
+    filterTense,
+    setFilterTense,
+  } = useContext(GlobalContext);
   const loading = dbCategory.length === 0;
 
   const [search, setSearch] = useState('');
@@ -78,6 +85,18 @@ export default function CategoryPage() {
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchNormal1 size={18} color="#00a76f" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ ml: 1, whiteSpace: 'nowrap' }}
+                  >
+                    ({filtered.length})
+                  </Typography>
                 </InputAdornment>
               ),
             }}
@@ -140,7 +159,17 @@ export default function CategoryPage() {
                       )}
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'space-between' }}>
-                      <Button variant="contained" size="small" color="primary">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        component={Link}
+                        href={`/pages/Question`}
+                        onClick={() => {
+                          setFilterTense([]);
+                          setFilterCategory([cat.id]);
+                        }}
+                      >
                         See More
                       </Button>
                       {/* <Typography variant="body2" color="text.secondary">
