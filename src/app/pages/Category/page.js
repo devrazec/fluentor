@@ -19,6 +19,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
 import { SearchNormal1 } from 'iconsax-reactjs';
+import Tilt from 'react-parallax-tilt';
 
 const PAGE_SIZE = 12;
 
@@ -111,7 +112,7 @@ export default function CategoryPage() {
                   <Skeleton variant="rounded" height={240} />
                 </Grid>
               ))
-            : paginated.map(cat => (
+            : paginated.map((cat, idx) => (
                 <Grid key={cat.id} size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
                   <Card
                     sx={{
@@ -122,17 +123,45 @@ export default function CategoryPage() {
                       '&:hover': { bgcolor: '#00a76f1f' },
                     }}
                   >
-                    <CardMedia
-                      component="img"
-                      height="120"
-                      image={
-                        cat.image
-                          ? `/img/category/${cat.image}`
-                          : `/img/category/${cat.id}.jpg`
-                      }
-                      alt={cat.name}
-                      sx={{ objectFit: 'cover' }}
-                    />
+                    <Tilt
+                      perspective={900}
+                      tiltMaxAngleX={14}
+                      tiltMaxAngleY={14}
+                      scale={1.04}
+                      transitionSpeed={600}
+                      glareEnable={false}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <CardMedia
+                        component="img"
+                        height="120"
+                        image={
+                          cat.image
+                            ? `/img/category/${cat.image}`
+                            : `/img/category/${cat.id}.jpg`
+                        }
+                        alt={cat.name}
+                        sx={{
+                          objectFit: 'cover',
+                          // Continuously drift so the image is always in motion.
+                          // Each card uses a different duration + negative delay
+                          // so they all start mid-animation and are out of phase.
+                          animation: `catImgDrift ${3.2 + (idx % 4) * 0.6}s ease-in-out infinite alternate`,
+                          animationDelay: `-${(idx * 1.1) % 3.5}s`,
+                          transformOrigin: 'center center',
+                          '@keyframes catImgDrift': {
+                            '0%': {
+                              transform:
+                                'scale(1.12) rotateY(-4deg) rotateX(3deg) translateX(-4px) translateY(-3px)',
+                            },
+                            '100%': {
+                              transform:
+                                'scale(1.12) rotateY(4deg) rotateX(-3deg) translateX(4px) translateY(3px)',
+                            },
+                          },
+                        }}
+                      />
+                    </Tilt>
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography
                         variant="subtitle1"

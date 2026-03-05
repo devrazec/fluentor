@@ -176,6 +176,10 @@ npm i -S iconsax-reactjs
 
 npm i -S xlsx
 
+-- Image Effects
+
+npm i -s react-parallax-tilt
+
 ```
 
 # Domain Management
