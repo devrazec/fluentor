@@ -1,0 +1,237 @@
+'use client';
+
+import React, { useState, useRef, useCallback } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import Avatar from '@mui/material/Avatar';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import CircularProgress from '@mui/material/CircularProgress';
+import { ArrowLeft2, Profile2User, EmojiHappy, Lock1, TickCircle } from 'iconsax-reactjs';
+
+const ACCENT = '#00a76f';
+
+const POPUP_W = 480;
+const POPUP_H = 640;
+
+const Feature = ({ text }) => (
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <TickCircle size={16} color={ACCENT} variant="Bulk" />
+    <Typography variant="body2" color="text.secondary">{text}</Typography>
+  </Box>
+);
+
+export default function SigninForm({ loginUrl, registerUrl, postLoginUrl }) {
+  const [tab, setTab] = useState(0);
+  const [waiting, setWaiting] = useState(false);
+  const popupRef = useRef(null);
+  const timerRef = useRef(null);
+  const router = useRouter();
+
+  const openPopup = useCallback((url) => {
+    // Centre the popup on screen
+    const left = Math.max(0, (window.screen.width  - POPUP_W) / 2);
+    const top  = Math.max(0, (window.screen.height - POPUP_H) / 2);
+    const popup = window.open(
+      url,
+      'kinde_auth',
+      `width=${POPUP_W},height=${POPUP_H},left=${left},top=${top},resizable=yes,scrollbars=yes`
+    );
+    if (!popup) return; // blocked by browser
+    popupRef.current = popup;
+    setWaiting(true);
+
+    // Poll every 500 ms to detect when Kinde redirects back to our domain
+    timerRef.current = setInterval(() => {
+      try {
+        const href = popup.location.href;
+        // Once the URL is on our origin the auth callback has run
+        if (href && !href.startsWith('https://fluentor.kinde.com')) {
+          clearInterval(timerRef.current);
+          popup.close();
+          setWaiting(false);
+          router.push(postLoginUrl || '/pages/Dashboard/');
+        }
+      } catch {
+        // Still cross-origin — normal while on Kinde, keep polling
+      }
+
+      // User manually closed the popup
+      if (popup.closed) {
+        clearInterval(timerRef.current);
+        setWaiting(false);
+      }
+    }, 500);
+  }, [router, postLoginUrl]);
+
+  return (
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        px: 2,
+        py: 4,
+      }}
+    >
+      <Box sx={{ width: '100%', maxWidth: 440 }}>
+        {/* Back */}
+        <Box sx={{ mb: 2 }}>
+          <IconButton component={Link} href="/" size="small" sx={{ gap: 0.5 }}>
+            <ArrowLeft2 size={20} color={ACCENT} variant="Bulk" />
+            <Typography variant="body2" color={ACCENT} fontWeight={600}>
+              Back to app
+            </Typography>
+          </IconButton>
+        </Box>
+
+        <Card sx={{ borderRadius: 3, boxShadow: 4 }}>
+          <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+            {/* Branding */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
+              <Avatar
+                src="/img/logo3-500x500.png"
+                alt="Fluentor"
+                sx={{ width: 72, height: 72, mb: 1.5 }}
+              />
+              <Typography variant="h5" fontWeight={800} letterSpacing={-0.5}>
+                Fluentor
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, textAlign: 'center' }}>
+                {tab === 0
+                  ? 'Welcome back! Sign in to continue.'
+                  : 'Create your free account to get started.'}
+              </Typography>
+            </Box>
+
+            {/* Tabs */}
+            <Tabs
+              value={tab}
+              onChange={(_, v) => setTab(v)}
+              variant="fullWidth"
+              sx={{
+                mb: 3,
+                '& .MuiTabs-indicator': { backgroundColor: ACCENT },
+                '& .Mui-selected': { color: `${ACCENT} !important` },
+              }}
+            >
+              <Tab label="Sign in" />
+              <Tab label="Sign up" />
+            </Tabs>
+
+            {/* Sign in panel */}
+            {tab === 0 && (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, px: 0.5 }}>
+                  <Feature text="Track your practice sessions" />
+                  <Feature text="Sync progress across devices" />
+                  <Feature text="Access all categories and tenses" />
+                </Box>
+
+                <Divider />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, p: 1.5, borderRadius: 2, bgcolor: '#00a76f0f' }}>
+                  <Lock1 size={18} color={ACCENT} variant="Bulk" />
+                  <Typography variant="caption" color="text.secondary">
+                    A secure Kinde popup will open. Complete sign-in there and you&apos;ll be returned automatically.
+                  </Typography>
+                </Box>
+
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  disabled={waiting}
+                  startIcon={
+                    waiting
+                      ? <CircularProgress size={18} sx={{ color: '#fff' }} />
+                      : <Profile2User size={20} variant="Bulk" />
+                  }
+                  onClick={() => openPopup(loginUrl)}
+                  sx={{
+                    bgcolor: ACCENT,
+                    '&:hover': { bgcolor: '#007f55' },
+                    fontWeight: 700,
+                    borderRadius: 2,
+                    py: 1.5,
+                  }}
+                >
+                  {waiting ? 'Waiting for Kinde…' : 'Sign in with Kinde'}
+                </Button>
+
+                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+                  Don&apos;t have an account?{' '}
+                  <Box component="span" sx={{ color: ACCENT, cursor: 'pointer', fontWeight: 600 }} onClick={() => setTab(1)}>
+                    Sign up
+                  </Box>
+                </Typography>
+              </Box>
+            )}
+
+            {/* Sign up panel */}
+            {tab === 1 && (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, px: 0.5 }}>
+                  <Feature text="Free account, no credit card required" />
+                  <Feature text="Instant access to all content" />
+                  <Feature text="Progress saved automatically" />
+                </Box>
+
+                <Divider />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, p: 1.5, borderRadius: 2, bgcolor: '#00a76f0f' }}>
+                  <Lock1 size={18} color={ACCENT} variant="Bulk" />
+                  <Typography variant="caption" color="text.secondary">
+                    A secure Kinde popup will open. Complete registration there and you&apos;ll be returned automatically.
+                  </Typography>
+                </Box>
+
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  disabled={waiting}
+                  startIcon={
+                    waiting
+                      ? <CircularProgress size={18} sx={{ color: '#fff' }} />
+                      : <EmojiHappy size={20} variant="Bulk" />
+                  }
+                  onClick={() => openPopup(registerUrl)}
+                  sx={{
+                    bgcolor: ACCENT,
+                    '&:hover': { bgcolor: '#007f55' },
+                    fontWeight: 700,
+                    borderRadius: 2,
+                    py: 1.5,
+                  }}
+                >
+                  {waiting ? 'Waiting for Kinde…' : 'Create account with Kinde'}
+                </Button>
+
+                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+                  Already have an account?{' '}
+                  <Box component="span" sx={{ color: ACCENT, cursor: 'pointer', fontWeight: 600 }} onClick={() => setTab(0)}>
+                    Sign in
+                  </Box>
+                </Typography>
+              </Box>
+            )}
+          </CardContent>
+        </Card>
+
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center', mt: 2 }}>
+          By continuing, you agree to Fluentor&apos;s Terms of Service and Privacy Policy.
+        </Typography>
+      </Box>
+    </Box>
+  );
+}

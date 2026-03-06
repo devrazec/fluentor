@@ -160,6 +160,13 @@ export default function DashboardLayout({ children }) {
         href="/"
         active={pathname === '/'}
       />
+      {/* <NavItem
+        icon={<Profile variant="Bulk" color="#00a76f" />}
+        text="Dashboard"
+        open={desktopOpen}
+        href="/pages/Dashboard/"
+        active={pathname === '/pages/Dashboard/'}
+      /> */}
       <NavItem
         icon={<Category variant="Bulk" color="#00a76f" />}
         text="Category"
@@ -341,7 +348,43 @@ export default function DashboardLayout({ children }) {
             {pageTitle}
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <Link href="/pages/Dashboard/" style={{ textDecoration: 'none' }}>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '5px 14px',
+                  borderRadius: '6px',
+                  border: '1px solid #00a76f',
+                  color: '#00a76f',
+                  fontWeight: 600,
+                  fontSize: '0.8125rem',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                }}
+              >
+                Sign in
+              </span>
+            </Link>
+            <Link href="/pages/Dashboard/" style={{ textDecoration: 'none' }}>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '5px 14px',
+                  borderRadius: '6px',
+                  backgroundColor: '#00a76f',
+                  color: '#ffffff',
+                  fontWeight: 600,
+                  fontSize: '0.8125rem',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                }}
+              >
+                Sign up
+              </span>
+            </Link>
             <IconButton
               onClick={toggleMode}
               sx={{

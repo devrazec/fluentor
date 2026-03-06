@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -132,12 +131,14 @@ export default function QuestionPage() {
                 Clear selection
               </MenuItem>
               <Divider />
-              {dbCategory.map(cat => (
-                <MenuItem key={cat.id} value={cat.id}>
-                  <Checkbox checked={filterCategory.includes(cat.id)} />
-                  <ListItemText primary={cat.name} />
-                </MenuItem>
-              ))}
+              {[...dbCategory]
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map(cat => (
+                  <MenuItem key={cat.id} value={cat.id}>
+                    <Checkbox checked={filterCategory.includes(cat.id)} />
+                    <ListItemText primary={cat.name} />
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
 
@@ -173,12 +174,14 @@ export default function QuestionPage() {
                 Clear selection
               </MenuItem>
               <Divider />
-              {dbTense.map(tense => (
-                <MenuItem key={tense.id} value={tense.id}>
-                  <Checkbox checked={filterTense.includes(tense.id)} />
-                  <ListItemText primary={tense.name} />
-                </MenuItem>
-              ))}
+              {[...dbTense]
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map(tense => (
+                  <MenuItem key={tense.id} value={tense.id}>
+                    <Checkbox checked={filterTense.includes(tense.id)} />
+                    <ListItemText primary={tense.name} />
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
 
@@ -224,17 +227,23 @@ export default function QuestionPage() {
                   '&:hover': { bgcolor: '#00a76f1f' },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="120"
-                  image={
-                    item.category_image
-                      ? `/img/category/${item.category_image}`
-                      : `/img/category/${item.id_category}.jpg`
-                  }
-                  alt={item.category_name}
-                  sx={{ objectFit: 'cover' }}
-                />
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{
+                    width: '100%',
+                    height: '120px',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                >
+                  <source
+                    src={`/mp4/category/${item.id_category}.mp4`}
+                    type="video/mp4"
+                  />
+                </video>
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography
                     variant="subtitle1"

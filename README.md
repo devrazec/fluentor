@@ -180,6 +180,11 @@ npm i -S xlsx
 
 npm i -s react-parallax-tilt
 
+-- Kinde
+
+npx nypm add @kinde-oss/kinde-auth-nextjs
+npm remove @kinde-oss/kinde-auth-nextjs
+
 ```
 
 # Domain Management

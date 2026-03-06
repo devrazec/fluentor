@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -125,17 +124,23 @@ function GroupCarousel({
                 '&:hover': { bgcolor: '#00a76f1f' },
               }}
             >
-              <CardMedia
-                component="img"
-                height="110"
-                image={
-                  q.category_image
-                    ? `/img/category/${q.category_image}`
-                    : `/img/category/${q.id_category}.jpg`
-                }
-                alt={q.category_name}
-                sx={{ objectFit: 'cover' }}
-              />
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{
+                  width: '100%',
+                  height: '110px',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              >
+                <source
+                  src={`/mp4/category/${q.id_category}.mp4`}
+                  type="video/mp4"
+                />
+              </video>
               <CardContent sx={{ flexGrow: 1, pb: 0 }}>
                 <Typography
                   variant="body2"
