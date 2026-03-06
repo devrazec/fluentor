@@ -346,10 +346,10 @@ export default function DashboardLayout({ children }) {
           <Typography
             variant="h6"
             fontWeight={700}
+            noWrap
             sx={{
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(-50%)',
+              flex: 1,
+              textAlign: 'center',
               pointerEvents: 'none',
             }}
           >
