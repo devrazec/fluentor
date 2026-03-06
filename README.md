@@ -185,6 +185,11 @@ npm i -s react-parallax-tilt
 npx nypm add @kinde-oss/kinde-auth-nextjs
 npm remove @kinde-oss/kinde-auth-nextjs
 
+-- Clerk
+
+npm i -S @clerk/nextjs
+npm remove @clerk/ui
+
 ```
 
 # Domain Management

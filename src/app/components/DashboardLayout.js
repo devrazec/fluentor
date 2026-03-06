@@ -18,7 +18,9 @@ import {
   useTheme,
   useMediaQuery,
   Avatar,
+  Button,
   Checkbox,
+  Tooltip,
 } from '@mui/material';
 
 import {
@@ -60,9 +62,13 @@ import {
   Microphone2,
   DocumentText,
   EmojiHappy,
+  Login,
+  UserAdd,
 } from 'iconsax-reactjs';
 
 import CardAlert from './CardAlert';
+
+import { SignInButton, SignUpButton, UserButton, useAuth } from '@clerk/nextjs';
 
 const drawerWidth = 260;
 const collapsedWidth = 80;
@@ -94,6 +100,8 @@ export default function DashboardLayout({ children }) {
   } = useContext(GlobalContext);
   //const theme = useTheme();
   //const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const { isSignedIn } = useAuth();
 
   const [desktopOpen, setDesktopOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -349,42 +357,29 @@ export default function DashboardLayout({ children }) {
           </Typography>
 
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            <Link href="/pages/Dashboard/" style={{ textDecoration: 'none' }}>
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '5px 14px',
-                  borderRadius: '6px',
-                  border: '1px solid #00a76f',
-                  color: '#00a76f',
-                  fontWeight: 600,
-                  fontSize: '0.8125rem',
-                  cursor: 'pointer',
-                  transition: 'background 0.2s',
-                }}
-              >
-                Sign in
-              </span>
-            </Link>
-            <Link href="/pages/Dashboard/" style={{ textDecoration: 'none' }}>
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '5px 14px',
-                  borderRadius: '6px',
-                  backgroundColor: '#00a76f',
-                  color: '#ffffff',
-                  fontWeight: 600,
-                  fontSize: '0.8125rem',
-                  cursor: 'pointer',
-                  transition: 'background 0.2s',
-                }}
-              >
-                Sign up
-              </span>
-            </Link>
+            {!isSignedIn ? (
+              <SignInButton mode="modal">
+                <Button
+                  variant="contained"
+                  size="small"
+                  // startIcon={<Login variant="Bulk" size={18} />}
+                  sx={{
+                    bgcolor: '#00A76F',
+                    color: '#fff',
+                    fontWeight: 700,
+                    borderRadius: '0.2rem',
+                    textTransform: 'none',
+                    px: 2,
+                    boxShadow: 'none',
+                    '&:hover': { bgcolor: '#007867', boxShadow: 'none' },
+                  }}
+                >
+                  Login
+                </Button>
+              </SignInButton>
+            ) : (
+              <UserButton />
+            )}
             <IconButton
               onClick={toggleMode}
               sx={{
