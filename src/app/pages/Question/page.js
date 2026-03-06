@@ -234,7 +234,7 @@ export default function QuestionPage() {
                   playsInline
                   style={{
                     width: '100%',
-                    height: '120px',
+                    height: '160px',
                     objectFit: 'cover',
                     display: 'block',
                   }}

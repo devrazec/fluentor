@@ -106,7 +106,7 @@ export default function TensePage() {
               >
                 <CardMedia
                   component="img"
-                  height="120"
+                  height="160"
                   image={
                     tense.image
                       ? `/img/tense/${tense.image}`
