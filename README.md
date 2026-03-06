@@ -187,7 +187,7 @@ npm remove @kinde-oss/kinde-auth-nextjs
 
 -- Clerk
 
-npm i -S @clerk/nextjs
+npm i -S @clerk/nextjs@6.22.0
 npm remove @clerk/ui
 
 ```
