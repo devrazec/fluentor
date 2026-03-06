@@ -194,6 +194,11 @@ npm remove @clerk/ui
 npm install @clerk/nextjs@latest @clerk/backend@latest
 npm install --legacy-peer-deps
 
+-- Vercel
+
+npm i -g vercel
+vercel env add
+
 ```
 
 # Domain Management
