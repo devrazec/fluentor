@@ -179,6 +179,7 @@ npm i -S xlsx
 -- Image Effects
 
 npm i -s react-parallax-tilt
+npm remove react-parallax-tilt
 
 -- Kinde
 
@@ -191,6 +192,7 @@ npm i -S @clerk/nextjs@6.22.0
 npm remove @clerk/ui
 
 npm install @clerk/nextjs@latest @clerk/backend@latest
+npm install --legacy-peer-deps
 
 ```
 
