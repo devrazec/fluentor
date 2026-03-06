@@ -19,7 +19,8 @@
     "seed_answer": "node src/app/lib/db/seed_answer.js"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.22.0",
+    "@clerk/backend": "^3.0.1",
+    "@clerk/nextjs": "^7.0.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.9",
