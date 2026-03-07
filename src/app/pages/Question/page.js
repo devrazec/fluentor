@@ -330,6 +330,9 @@ export default function QuestionPage() {
               onChange={(_, val) => setPage(val)}
               color="primary"
               shape="rounded"
+              siblingCount={0}
+              boundaryCount={1}
+              size="small"
             />
           </Box>
         )}

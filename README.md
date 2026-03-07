@@ -219,6 +219,8 @@ https://github.com/devrazec/fluentor
 
 https://www.freeconvert.com/png-to-ico
 
+https://www.candyicons.com/free-tools/favicon-generator
+
 https://www.lightswind.com/components/
 
 https://example.crm.refine.dev/

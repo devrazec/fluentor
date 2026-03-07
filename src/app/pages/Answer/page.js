@@ -215,6 +215,8 @@ export default function AnswerPage() {
             onChange={(_, value) => setPage(value)}
             color="primary"
             shape="rounded"
+            siblingCount={0}
+            boundaryCount={1}
             size="small"
           />
         </Box>
