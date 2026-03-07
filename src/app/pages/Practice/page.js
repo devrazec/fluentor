@@ -147,6 +147,10 @@ export default function PracticePage() {
   const [voiceGender, setVoiceGender] = useState('male');
   const qResumeOnLoadRef = useRef(false);
 
+  // Voice gender for answer mp3
+  const [answerGender, setAnswerGender] = useState('male');
+  const aResumeOnLoadRef = useRef(false);
+
   // Recording state
   const mediaRecorderRef = useRef(null);
   const recChunksRef = useRef([]);
@@ -310,6 +314,12 @@ export default function PracticePage() {
     if (audioRef.current) {
       setDuration(audioRef.current.duration);
       audioRef.current.playbackRate = playbackRate;
+      if (aResumeOnLoadRef.current) {
+        aResumeOnLoadRef.current = false;
+        audioRef.current.play().catch(() => {});
+        startAnswerRaf();
+        setIsPlaying(true);
+      }
     }
   };
 
@@ -1005,9 +1015,9 @@ export default function PracticePage() {
               {/* Hidden audio element */}
               {answer.mp3 && (
                 <audio
-                  key={answer.mp3}
+                  key={answer.mp3 + answerGender}
                   ref={audioRef}
-                  src={`/mp3/answer/${answer.mp3}`}
+                  src={`/mp3/answer/${answerGender}/${answer.mp3}`}
                   onTimeUpdate={handleTimeUpdate}
                   onLoadedMetadata={handleLoadedMetadata}
                   onEnded={handleEnded}
@@ -1127,6 +1137,74 @@ export default function PracticePage() {
                   }}
                 >
                   <Repeat size={20} variant={loop ? 'Bulk' : 'Linear'} />
+                </IconButton>
+
+                {/* Male voice */}
+                <IconButton
+                  size="small"
+                  onClick={() => {
+                    if (answerGender === 'male') return;
+                    aResumeOnLoadRef.current = isPlaying;
+                    stopAnswerRaf();
+                    setIsPlaying(false);
+                    setCurrentTime(0);
+                    setAnswerGender('male');
+                  }}
+                  sx={{
+                    border: '1px solid',
+                    borderColor:
+                      answerGender === 'male' ? '#00a76f' : 'divider',
+                    color:
+                      answerGender === 'male' ? '#00a76f' : 'text.secondary',
+                    bgcolor:
+                      answerGender === 'male'
+                        ? 'rgba(0,167,111,0.08)'
+                        : 'transparent',
+                    width: 34,
+                    height: 34,
+                    '&:hover': {
+                      bgcolor:
+                        answerGender === 'male'
+                          ? 'rgba(0,167,111,0.18)'
+                          : 'action.hover',
+                    },
+                  }}
+                >
+                  <ManIcon sx={{ fontSize: 18 }} />
+                </IconButton>
+
+                {/* Female voice */}
+                <IconButton
+                  size="small"
+                  onClick={() => {
+                    if (answerGender === 'female') return;
+                    aResumeOnLoadRef.current = isPlaying;
+                    stopAnswerRaf();
+                    setIsPlaying(false);
+                    setCurrentTime(0);
+                    setAnswerGender('female');
+                  }}
+                  sx={{
+                    border: '1px solid',
+                    borderColor:
+                      answerGender === 'female' ? '#00a76f' : 'divider',
+                    color:
+                      answerGender === 'female' ? '#00a76f' : 'text.secondary',
+                    bgcolor:
+                      answerGender === 'female'
+                        ? 'rgba(0,167,111,0.08)'
+                        : 'transparent',
+                    width: 34,
+                    height: 34,
+                    '&:hover': {
+                      bgcolor:
+                        answerGender === 'female'
+                          ? 'rgba(0,167,111,0.18)'
+                          : 'action.hover',
+                    },
+                  }}
+                >
+                  <WomanIcon sx={{ fontSize: 18 }} />
                 </IconButton>
 
                 {/* Volume mute toggle — hidden on mobile */}
