@@ -22,6 +22,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
+import ManIcon from '@mui/icons-material/Man';
+import WomanIcon from '@mui/icons-material/Woman';
 import {
   Play,
   Pause,
@@ -141,6 +143,10 @@ export default function PracticePage() {
   const [qVolume, setQVolume] = useState(1);
   const [qMuted, setQMuted] = useState(false);
 
+  // Voice gender for question mp3
+  const [voiceGender, setVoiceGender] = useState('male');
+  const qResumeOnLoadRef = useRef(false);
+
   // Recording state
   const mediaRecorderRef = useRef(null);
   const recChunksRef = useRef([]);
@@ -258,10 +264,12 @@ export default function PracticePage() {
   useEffect(() => {
     setQSpeechBounds(null);
     if (!selectedQuestion?.mp3) return;
-    detectSpeechBounds(`/mp3/question/${selectedQuestion.mp3}`).then(bounds => {
+    detectSpeechBounds(
+      `/mp3/question/${voiceGender}/${selectedQuestion.mp3}`
+    ).then(bounds => {
       if (bounds) setQSpeechBounds(bounds);
     });
-  }, [selectedQuestion?.mp3]);
+  }, [selectedQuestion?.mp3, voiceGender]);
 
   const handleQPlayPause = useCallback(() => {
     const audio = questionAudioRef.current;
@@ -646,9 +654,9 @@ export default function PracticePage() {
             {selectedQuestion?.mp3 && (
               <>
                 <audio
-                  key={selectedQuestion.mp3}
+                  key={selectedQuestion.mp3 + voiceGender}
                   ref={questionAudioRef}
-                  src={`/mp3/question/${selectedQuestion.mp3}`}
+                  src={`/mp3/question/${voiceGender}/${selectedQuestion.mp3}`}
                   onTimeUpdate={() => {}}
                   onLoadedMetadata={() => {
                     if (questionAudioRef.current) {
@@ -656,6 +664,12 @@ export default function PracticePage() {
                       questionAudioRef.current.playbackRate = qPlaybackRate;
                       questionAudioRef.current.volume = qVolume;
                       questionAudioRef.current.muted = qMuted;
+                      if (qResumeOnLoadRef.current) {
+                        qResumeOnLoadRef.current = false;
+                        questionAudioRef.current.play().catch(() => {});
+                        startQuestionRaf();
+                        setQIsPlaying(true);
+                      }
                     }
                   }}
                   onEnded={() => {
@@ -746,6 +760,74 @@ export default function PracticePage() {
                     }}
                   >
                     <Repeat size={18} variant={qLoop ? 'Bulk' : 'Linear'} />
+                  </IconButton>
+
+                  {/* Male voice */}
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      if (voiceGender === 'male') return;
+                      qResumeOnLoadRef.current = qIsPlaying;
+                      stopQuestionRaf();
+                      setQIsPlaying(false);
+                      setQCurrentTime(0);
+                      setVoiceGender('male');
+                    }}
+                    sx={{
+                      border: '1px solid',
+                      borderColor:
+                        voiceGender === 'male' ? '#00a76f' : 'divider',
+                      color:
+                        voiceGender === 'male' ? '#00a76f' : 'text.secondary',
+                      bgcolor:
+                        voiceGender === 'male'
+                          ? 'rgba(0,167,111,0.08)'
+                          : 'transparent',
+                      width: 34,
+                      height: 34,
+                      '&:hover': {
+                        bgcolor:
+                          voiceGender === 'male'
+                            ? 'rgba(0,167,111,0.18)'
+                            : 'action.hover',
+                      },
+                    }}
+                  >
+                    <ManIcon sx={{ fontSize: 18 }} />
+                  </IconButton>
+
+                  {/* Female voice */}
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      if (voiceGender === 'female') return;
+                      qResumeOnLoadRef.current = qIsPlaying;
+                      stopQuestionRaf();
+                      setQIsPlaying(false);
+                      setQCurrentTime(0);
+                      setVoiceGender('female');
+                    }}
+                    sx={{
+                      border: '1px solid',
+                      borderColor:
+                        voiceGender === 'female' ? '#00a76f' : 'divider',
+                      color:
+                        voiceGender === 'female' ? '#00a76f' : 'text.secondary',
+                      bgcolor:
+                        voiceGender === 'female'
+                          ? 'rgba(0,167,111,0.08)'
+                          : 'transparent',
+                      width: 34,
+                      height: 34,
+                      '&:hover': {
+                        bgcolor:
+                          voiceGender === 'female'
+                            ? 'rgba(0,167,111,0.18)'
+                            : 'action.hover',
+                      },
+                    }}
+                  >
+                    <WomanIcon sx={{ fontSize: 18 }} />
                   </IconButton>
 
                   {/* Volume mute — hidden on mobile */}
