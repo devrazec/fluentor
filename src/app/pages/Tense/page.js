@@ -128,7 +128,7 @@ export default function TensePage() {
                   >
                     {tense.name}
                   </Typography>
-                  {tense.categories?.length > 0 && (
+                  {/* {tense.categories?.length > 0 && (
                     <Stack
                       direction="row"
                       spacing={0.5}
@@ -146,7 +146,7 @@ export default function TensePage() {
                         />
                       ))}
                     </Stack>
-                  )}
+                  )} */}
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'space-between' }}>
                   <Button
