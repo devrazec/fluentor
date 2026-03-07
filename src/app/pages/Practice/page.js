@@ -97,6 +97,7 @@ export default function PracticePage() {
     currentAnswer,
     selectedAnswer,
     setSelectedAnswer,
+    mobileDevice,
   } = useContext(GlobalContext);
 
   const router = useRouter();
@@ -576,7 +577,7 @@ export default function PracticePage() {
         <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3 }}>
           <CardMedia
             component="img"
-            height="200"
+            height={mobileDevice ? '160' : '200'}
             image={
               selectedQuestion?.category_image
                 ? `/img/category/${selectedQuestion.category_image}`
