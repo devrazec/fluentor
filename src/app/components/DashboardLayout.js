@@ -136,12 +136,12 @@ export default function DashboardLayout({ children }) {
           py: 1,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1 }}>
           <Avatar
             sizes="small"
             alt="Fluentor User"
-            src="/img/logo3-500x500.png"
-            sx={{ width: 48, height: 48 }}
+            src="/img/logo6-200x200.png"
+            sx={{ width: 48, height: 48, borderRadius: 0 }}
           />
           <Typography variant="h6" fontWeight={700} sx={{ pl: 1 }}>
             {desktopOpen ? 'Fluentor' : ''}
