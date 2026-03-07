@@ -13,7 +13,7 @@ export default function SignInPage() {
           'linear-gradient(135deg, #C8FAD6 0%, #f0fdf4 50%, #FFFFFF 100%)',
       }}
     >
-      <SignIn />
+      <SignIn fallbackRedirectUrl="/" signUpUrl="/sign-up" />
     </Box>
   );
 }

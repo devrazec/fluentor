@@ -21,3 +21,23 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.cl-navbarMobileMenuRow {
+  background: #e6f5ee;
+}
+
+.cl-footerAction .cl-footerAction__signIn {
+  background: #e6f5ee;
+}
+
+.cl-footer {
+  background: #e6f5ee;
+}
+
+.cl-internal-1dauvpw {
+  display: none;
+}
+
+.cl-internal-l2l775 {
+  display: none;
+}
