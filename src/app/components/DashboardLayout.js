@@ -131,7 +131,8 @@ export default function DashboardLayout({ children }) {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: desktopOpen ? 'space-between' : 'center',
+          justifyContent:
+            desktopOpen || mobileDevice ? 'space-between' : 'center',
           mb: 0,
           px: 1,
           py: 1,
@@ -144,14 +145,16 @@ export default function DashboardLayout({ children }) {
             src="/img/logo6-200x200.png"
             sx={{ width: 48, height: 48, borderRadius: 0 }}
           />
-          <Typography variant="h6" fontWeight={700} sx={{ pl: 1 }}>
-            {desktopOpen ? 'Fluentor' : ''}
-          </Typography>
+
+          {(desktopOpen || mobileDevice) && (
+            <Typography variant="h6" fontWeight={700} sx={{}}>
+              {'Fluentor'}
+            </Typography>
+          )}
         </Box>
 
-        {/* Only show close icon on mobile */}
         {mobileDevice && (
-          <IconButton onClick={() => setMobileOpen(false)}>
+          <IconButton onClick={() => setMobileOpen(false)} sx={{ ml: 5 }}>
             <CloseCircle variant="Bulk" color="#00a76f" size={36} />
           </IconButton>
         )}
