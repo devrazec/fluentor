@@ -64,6 +64,7 @@ import {
   EmojiHappy,
   Login,
   UserAdd,
+  MessageText1,
 } from 'iconsax-reactjs';
 
 import CardAlert from './CardAlert';
@@ -136,7 +137,7 @@ export default function DashboardLayout({ children }) {
           py: 1,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Avatar
             sizes="small"
             alt="Fluentor User"
@@ -197,7 +198,7 @@ export default function DashboardLayout({ children }) {
         active={pathname === '/pages/Question/'}
       />
       <NavItem
-        icon={<Microphone2 variant="Bulk" color="#00a76f" />}
+        icon={<MessageText1 variant="Bulk" color="#00a76f" />}
         text="Answer"
         open={desktopOpen}
         href="/pages/Answer/"
