@@ -700,21 +700,6 @@ export default function PracticePage() {
                   spacing={1}
                   sx={{ mb: 0.5 }}
                 >
-                  {/* Play/Pause */}
-                  <IconButton
-                    onClick={handleQPlayPause}
-                    sx={{
-                      bgcolor: '#00a76f',
-                      color: '#fff',
-                      '&:hover': { bgcolor: '#007a52' },
-                    }}
-                  >
-                    {qIsPlaying ? (
-                      <Pause variant="Bulk" size={18} />
-                    ) : (
-                      <Play variant="Bulk" size={18} />
-                    )}
-                  </IconButton>
                   <Typography
                     variant="caption"
                     color="text.secondary"
@@ -750,6 +735,22 @@ export default function PracticePage() {
                   spacing={0.75}
                   sx={{ mb: 0.5 }}
                 >
+                  {/* Play/Pause */}
+                  <IconButton
+                    onClick={handleQPlayPause}
+                    sx={{
+                      bgcolor: '#00a76f',
+                      color: '#fff',
+                      '&:hover': { bgcolor: '#007a52' },
+                    }}
+                  >
+                    {qIsPlaying ? (
+                      <Pause variant="Bulk" size={22} />
+                    ) : (
+                      <Play variant="Bulk" size={22} />
+                    )}
+                  </IconButton>
+
                   {/* Loop */}
                   <IconButton
                     size="small"
@@ -1068,21 +1069,6 @@ export default function PracticePage() {
                 spacing={1}
                 sx={{ mb: 0.5 }}
               >
-                {/* Play / Pause */}
-                <IconButton
-                  onClick={handlePlayPause}
-                  sx={{
-                    bgcolor: '#00a76f',
-                    color: '#fff',
-                    '&:hover': { bgcolor: '#007a52' },
-                  }}
-                >
-                  {isPlaying ? (
-                    <Pause variant="Bulk" size={18} />
-                  ) : (
-                    <Play variant="Bulk" size={18} />
-                  )}
-                </IconButton>
                 <Typography
                   variant="caption"
                   color="text.secondary"
@@ -1118,6 +1104,22 @@ export default function PracticePage() {
                 spacing={0.75}
                 sx={{ mb: 0.5 }}
               >
+                {/* Play / Pause */}
+                <IconButton
+                  onClick={handlePlayPause}
+                  sx={{
+                    bgcolor: '#00a76f',
+                    color: '#fff',
+                    '&:hover': { bgcolor: '#007a52' },
+                  }}
+                >
+                  {isPlaying ? (
+                    <Pause variant="Bulk" size={26} />
+                  ) : (
+                    <Play variant="Bulk" size={26} />
+                  )}
+                </IconButton>
+
                 {/* Loop toggle */}
                 <IconButton
                   size="small"
@@ -1265,6 +1267,313 @@ export default function PracticePage() {
             </CardContent>
           </Card>
         )}
+
+        {/* Record Player Card */}
+        <Card sx={{ borderRadius: 1, boxShadow: 2 }}>
+          <CardContent>
+            {/* Hidden audio for playback */}
+            <audio
+              ref={recAudioRef}
+              style={{ display: 'none' }}
+              onLoadedMetadata={() => {
+                const audio = recAudioRef.current;
+                if (!audio || !playingRecIdRef.current) return;
+                const realDur = audio.duration;
+                const id = playingRecIdRef.current;
+                setRecordings(prev =>
+                  prev.map(r => (r.id === id ? { ...r, duration: realDur } : r))
+                );
+              }}
+              onEnded={() => {
+                stopRecRaf();
+                setRecIsPlaying(false);
+                setRecCurrentTime(0);
+              }}
+            />
+
+            {/* Header row */}
+            {/* <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ mb: 1.5 }}
+            >
+              <Typography variant="subtitle2" fontWeight={700} sx={{ flex: 1 }}>
+                Your Recording
+              </Typography>
+              {isRecording && (
+                <Stack direction="row" alignItems="center" spacing={0.75}>
+                  <Box
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      bgcolor: 'error.main',
+                      animation: 'recBlink 1s step-start infinite',
+                      '@keyframes recBlink': {
+                        '0%,100%': { opacity: 1 },
+                        '50%': { opacity: 0 },
+                      },
+                    }}
+                  />
+                  <Typography variant="caption" color="error" fontWeight={600}>
+                    {formatTime(recordingSeconds)}
+                    {answer?.timed ? ` / ${formatTime(answer.timed)}` : ''}
+                  </Typography>
+                </Stack>
+              )}
+            </Stack> */}
+
+            {/* Recording progress bar */}
+            {/* {isRecording && (
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                sx={{ mb: 1.5 }}
+              >
+                <Slider
+                  size="small"
+                  min={0}
+                  max={answer?.timed || 60}
+                  value={recordingSeconds}
+                  sx={{
+                    flex: 1,
+                    color: 'error.main',
+                    pointerEvents: 'none',
+                    '& .MuiSlider-thumb': { display: 'none' },
+                    '& .MuiSlider-rail': { opacity: 0.2 },
+                  }}
+                />
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ minWidth: 32, whiteSpace: 'nowrap' }}
+                >
+                  {formatTime(answer?.timed)}
+                </Typography>
+              </Stack>
+            )} */}
+
+            {/* Placeholder when no recordings yet */}
+            {/* {recordings.length === 0 && !isRecording && (
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Your recordings will appear here after you finish practicing!
+              </Typography>
+            )} */}
+
+            {/* Recordings table */}
+            {/* {recordings.length > 0 && (
+              <Box sx={{ mb: 1 }}>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        sx={{
+                          color: 'text.secondary',
+                          fontWeight: 600,
+                          py: 0.5,
+                          width: 28,
+                          pr: 0,
+                        }}
+                      >
+                        #
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: 'text.secondary',
+                          fontWeight: 600,
+                          py: 0.5,
+                        }}
+                      >
+                        Progress
+                      </TableCell>
+                      <TableCell sx={{ py: 0.5, width: 104 }} />
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {recordings.map((rec, idx) => {
+                      const isActive = playingRecId === rec.id;
+                      const sliderValue = isActive ? recCurrentTime : 0;
+                      return (
+                        <TableRow
+                          key={rec.id}
+                          sx={{ '&:last-child td': { border: 0 } }}
+                        >
+                          <TableCell
+                            sx={{
+                              py: 0.75,
+                              color: 'text.secondary',
+                              pr: 0,
+                              width: 28,
+                            }}
+                          >
+                            {idx + 1}
+                          </TableCell>
+                          <TableCell sx={{ py: 0.75 }}>
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={0.75}
+                            >
+                              <Typography
+                                variant="caption"
+                                color={isActive ? '#00a76f' : 'text.secondary'}
+                                sx={{
+                                  minWidth: 28,
+                                  textAlign: 'right',
+                                  fontVariantNumeric: 'tabular-nums',
+                                }}
+                              >
+                                {formatTime(sliderValue)}
+                              </Typography>
+                              <Slider
+                                size="small"
+                                min={0}
+                                max={rec.duration || 1}
+                                value={sliderValue}
+                                onChange={
+                                  isActive
+                                    ? (_, val) => {
+                                        if (recAudioRef.current) {
+                                          recAudioRef.current.currentTime = val;
+                                          setRecCurrentTime(val);
+                                        }
+                                      }
+                                    : undefined
+                                }
+                                sx={{
+                                  flex: 1,
+                                  color: isActive ? '#00a76f' : 'text.disabled',
+                                  pointerEvents: isActive ? 'auto' : 'none',
+                                  '& .MuiSlider-thumb': {
+                                    width: isActive ? 12 : 0,
+                                    height: isActive ? 12 : 0,
+                                  },
+                                  '& .MuiSlider-rail': { opacity: 0.2 },
+                                }}
+                              />
+                              <Typography
+                                variant="caption"
+                                color="text.secondary"
+                                sx={{
+                                  minWidth: 28,
+                                  fontVariantNumeric: 'tabular-nums',
+                                }}
+                              >
+                                {formatTime(rec.duration)}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            sx={{ py: 0.75, width: 104 }}
+                          >
+                            <Stack
+                              direction="row"
+                              justifyContent="flex-end"
+                              spacing={0.5}
+                            >
+                              <IconButton
+                                size="small"
+                                onClick={() => handleRecPlay(rec)}
+                                sx={{
+                                  border: '1px solid',
+                                  borderColor:
+                                    isActive && recIsPlaying
+                                      ? '#00a76f'
+                                      : 'divider',
+                                  color:
+                                    isActive && recIsPlaying
+                                      ? '#00a76f'
+                                      : 'text.secondary',
+                                  width: 30,
+                                  height: 30,
+                                  '&:hover': { bgcolor: '#00a76f1f' },
+                                }}
+                              >
+                                {isActive && recIsPlaying ? (
+                                  <Pause variant="Bulk" size={16} />
+                                ) : (
+                                  <Play variant="Bulk" size={16} />
+                                )}
+                              </IconButton>
+                              <IconButton
+                                size="small"
+                                onClick={() => handleRecValidate(rec)}
+                                sx={{
+                                  border: '1px solid',
+                                  borderColor: rec.validated
+                                    ? '#00a76f'
+                                    : 'divider',
+                                  color: rec.validated
+                                    ? '#00a76f'
+                                    : 'text.secondary',
+                                  bgcolor: rec.validated
+                                    ? 'rgba(0,167,111,0.08)'
+                                    : 'transparent',
+                                  width: 30,
+                                  height: 30,
+                                  '&:hover': {
+                                    bgcolor: rec.validated
+                                      ? 'rgba(0,167,111,0.18)'
+                                      : '#00a76f1f',
+                                  },
+                                }}
+                              >
+                                <TickCircle
+                                  size={16}
+                                  variant={rec.validated ? 'Bulk' : 'Linear'}
+                                />
+                              </IconButton>
+                              <IconButton
+                                size="small"
+                                onClick={() => handleRecDelete(rec)}
+                                sx={{
+                                  color: 'text.secondary',
+                                  width: 30,
+                                  height: 30,
+                                  '&:hover': {
+                                    color: 'error.main',
+                                    bgcolor: 'rgba(255,86,48,0.08)',
+                                  },
+                                }}
+                              >
+                                <Trash size={16} />
+                              </IconButton>
+                            </Stack>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </Box>
+            )} */}
+
+            {/* <Divider sx={{ my: 1.5 }} /> */}
+
+            {/* Controls row */}
+            {/* <Stack direction="row" alignItems="center" spacing={0.75}>
+              <IconButton
+                onClick={handleRecordStop}
+                sx={{
+                  bgcolor: isRecording ? 'error.main' : '#00a76f',
+                  color: '#fff',
+                  '&:hover': {
+                    bgcolor: isRecording ? 'error.dark' : '#007a52',
+                  },
+                }}
+              >
+                {isRecording ? (
+                  <Stop variant="Bulk" size={26} />
+                ) : (
+                  <Record variant="Bulk" size={26} />
+                )}
+              </IconButton>
+            </Stack> */}
+          </CardContent>
+        </Card>
       </Box>
     </DashboardLayout>
   );

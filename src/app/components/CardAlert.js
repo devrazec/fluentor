@@ -17,13 +17,13 @@ export default function CardAlert() {
         <Typography gutterBottom sx={{ fontWeight: 600 }}>
           Fluentor analyzes your speaking skills and helps you
         </Typography>
-        <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ mb: 0, color: 'text.secondary' }}>
           improve your pronunciation, fluency, and confidence through
           personalized feedback.
         </Typography>
-        <Button variant="contained" size="small" fullWidth>
+        {/* <Button variant="contained" size="small" fullWidth>
           Practice More
-        </Button>
+        </Button> */}
       </CardContent>
     </Card>
   );
