@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -104,16 +103,15 @@ export default function TensePage() {
                   '&:hover': { bgcolor: '#00a76f1f' },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="160"
-                  image={
-                    tense.image
-                      ? `/img/tense/${tense.image}`
-                      : `/img/tense/${tense.id}.jpg`
-                  }
-                  alt={tense.name}
-                  sx={{ objectFit: 'cover' }}
+                <Box
+                  component="video"
+                  src={`/mp4/tense/${tense.id}.mp4`}
+                  height={160}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  sx={{ width: '100%', objectFit: 'cover', display: 'block' }}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography
