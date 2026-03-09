@@ -137,6 +137,7 @@ npm run deploy
 npm i -S @fontsource/roboto
 npm i -S @mui/material @emotion/react @emotion/styled @mui/icons-material
 npm i -S @mui/x-date-pickers dayjs @mui/x-data-grid
+npm i -S @mui/x-charts@^8.0.0
 
 -- Database Create Table
 
@@ -197,7 +198,12 @@ npm install --legacy-peer-deps
 -- Vercel
 
 npm i -g vercel
-vercel env add
+
+-- Azure Pronunciation Assessment
+
+npm i -S microsoft-cognitiveservices-speech-sdk
+
+
 
 ```
 
