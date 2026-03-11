@@ -24,7 +24,15 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import LinearProgress from '@mui/material/LinearProgress';
-import { Play, Pause, Record, Trash, TickCircle } from 'iconsax-reactjs';
+import {
+  Play,
+  Pause,
+  Record,
+  Trash,
+  TickCircle,
+  ArrowDown2,
+  ArrowUp2,
+} from 'iconsax-reactjs';
 
 function formatTime(secs) {
   if (!secs || isNaN(secs)) return '0:00';
@@ -57,6 +65,7 @@ export default function RecordPlayer() {
   const [playingRecId, setPlayingRecId] = useState(null);
   const [recCurrentTime, setRecCurrentTime] = useState(0);
   const [recIsPlaying, setRecIsPlaying] = useState(false);
+  const [minimized, setMinimized] = useState(false);
 
   // rAF helpers
   const startRecRaf = useCallback(() => {
@@ -234,26 +243,46 @@ export default function RecordPlayer() {
   const progress = timed && isRecording ? (recordingSeconds / timed) * 100 : 0;
 
   return (
-    <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3 }}>
+    <Card
+      sx={{
+        borderRadius: { xs: '12px 12px 0 0', sm: 1 },
+        boxShadow: { xs: 6, sm: 2 },
+        mb: { xs: 0, sm: 3 },
+        position: { xs: 'fixed', sm: 'relative' },
+        bottom: { xs: 0, sm: 'auto' },
+        left: { xs: 0, sm: 'auto' },
+        right: { xs: 0, sm: 'auto' },
+        zIndex: { xs: 1200, sm: 'auto' },
+      }}
+    >
       <CardContent>
         {/* Header row */}
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
-          sx={{ mb: 2 }}
+          sx={{ mb: minimized ? 0 : 2 }}
         >
           <Typography variant="h6" fontWeight={600}>
             Your Recording
           </Typography>
-          {timed && (
-            <Chip
-              label={`${timed}s limit`}
+          <Stack direction="row" alignItems="center" spacing={1}>
+            {timed && (
+              <Chip
+                label={`${timed}s limit`}
+                size="small"
+                color="primary"
+                variant="outlined"
+              />
+            )}
+            <IconButton
               size="small"
-              color="primary"
-              variant="outlined"
-            />
-          )}
+              onClick={() => setMinimized(v => !v)}
+              sx={{ color: 'text.secondary' }}
+            >
+              {minimized ? <ArrowUp2 size={18} /> : <ArrowDown2 size={18} />}
+            </IconButton>
+          </Stack>
         </Stack>
 
         {/* Record button + timer */}
@@ -327,7 +356,7 @@ export default function RecordPlayer() {
         />
 
         {/* Recordings list */}
-        {recordings.length > 0 && (
+        {!minimized && recordings.length > 0 && (
           <>
             <Divider sx={{ mb: 1.5 }} />
 
