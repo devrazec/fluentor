@@ -1,3 +1,17 @@
 User-agent: *
 Allow: /
-Sitemap: https://fluentor.app/sitemap.xml
+
+# Private / authenticated pages
+Disallow: /pages/Practice/
+Disallow: /pages/Answer/
+Disallow: /pages/Question/
+Disallow: /pages/Test/
+
+# Auth pages
+Disallow: /sign-in/
+Disallow: /sign-up/
+
+# API routes
+Disallow: /api/
+
+Sitemap: https://www.fluentor.app/sitemap.xml
