@@ -41,6 +41,12 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import TextField from '@mui/material/TextField';
 
 function formatTime(secs) {
   if (!secs || isNaN(secs)) return '0:00';
@@ -51,9 +57,9 @@ function formatTime(secs) {
   return `${m}:${s}`;
 }
 
-function getPreview(name) {
-  return name.split(' ').slice(0, 5).join(' ') + '…';
-}
+//function getPreview(name) {
+//  return name.split(' ').slice(0, 5).join(' ') + '…';
+//}
 
 // Detect actual speech start/end by scanning amplitude
 async function detectSpeechBounds(url, threshold = 0.015) {
@@ -103,6 +109,8 @@ export default function PracticePage() {
     setSelectedCategory,
     setSelectedTense,
     mobileDevice,
+    filterQuestion,
+    setFilterQuestion,
   } = useContext(GlobalContext);
 
   // Auto-select first question if none is set
@@ -597,6 +605,17 @@ export default function PracticePage() {
     return idx;
   }, [qCurrentTime, qWordTimings]);
 
+  function getPreviewQuestion(name) {
+    if (mobileDevice) {
+      return name.length > 25 ? name.slice(0, 25) + '…' : name;
+    }
+    return name;
+  }
+
+  function getPreview(name) {
+    return name.length > 15 ? name.slice(0, 15) + '…' : name;
+  }
+
   //console.log(selectedAnswer);
 
   //console.log(currentAnswer);
@@ -647,6 +666,8 @@ export default function PracticePage() {
                 color="primary"
               />
             </Box>
+            <Divider sx={{ my: 1.5 }} />
+
             <Box
               sx={{
                 lineHeight: 1.9,
@@ -655,7 +676,44 @@ export default function PracticePage() {
                 mb: 0.5,
               }}
             >
-              {questionWords.map((word, i) => (
+              <FormControl size="small" sx={{ width: { xs: '100%' } }}>
+                <InputLabel>Question</InputLabel>
+                <Select
+                  value={selectedQuestion?.id ?? ''}
+                  onChange={e => {
+                    const question = dbQuestion.find(
+                      q => q.id === e.target.value
+                    );
+                    if (question) {
+                      setFilterQuestion(question.id);
+                      setSelectedQuestion(question);
+                      setSelectedCategory(
+                        dbCategory.find(c => c.id === question.id_category) ??
+                          {}
+                      );
+                      setSelectedTense(
+                        dbTense.find(t => t.id === question.id_tense) ?? {}
+                      );
+                    }
+                  }}
+                  renderValue={selected => {
+                    const q = dbQuestion.find(item => item.id === selected);
+                    return q ? getPreviewQuestion(q.name) : '';
+                  }}
+                  input={<OutlinedInput label="Question" />}
+                  MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+                  displayEmpty
+                >
+                  {[...dbQuestion]
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map(q => (
+                      <MenuItem key={q.id} value={q.id}>
+                        {q.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              {/* {questionWords.map((word, i) => (
                 <span
                   key={i}
                   style={{
@@ -678,7 +736,7 @@ export default function PracticePage() {
                 >
                   {word}
                 </span>
-              ))}
+              ))} */}
             </Box>
 
             {/* Question audio player */}

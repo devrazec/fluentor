@@ -8,6 +8,7 @@ import React, {
   useContext,
 } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
+import RecordPlayer from './RecordPlayer';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -29,7 +30,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
 import Popover from '@mui/material/Popover';
-import { Play, Pause, DocumentDownload } from 'iconsax-reactjs';
+import { Play, Pause, DocumentDownload, Record } from 'iconsax-reactjs';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
 import FormControl from '@mui/material/FormControl';
