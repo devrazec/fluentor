@@ -117,6 +117,7 @@ export default function DashboardLayout({ children }) {
     '/pages/Question/': 'Question',
     '/pages/Answer/': 'Answer',
     '/pages/Practice/': 'Practice',
+    '/pages/Test/': 'Test',
   };
   const pageTitle = pageTitles[pathname] ?? '';
 
@@ -207,13 +208,20 @@ export default function DashboardLayout({ children }) {
         href="/pages/Answer/"
         active={pathname === '/pages/Answer/'}
       />
-      {/*       <NavItem
+      <NavItem
         icon={<EmojiHappy variant="Bulk" color="#00a76f" />}
         text="Practice"
         open={desktopOpen}
         href="/pages/Practice/"
         active={pathname === '/pages/Practice/'}
-      /> */}
+      />
+      <NavItem
+        icon={<Microphone2 variant="Bulk" color="#00a76f" />}
+        text="Test"
+        open={desktopOpen}
+        href="/pages/Test/"
+        active={pathname === '/pages/Test/'}
+      />
 
       {/* <NavItem icon={<Chart21 variant="Bulk" color="#00a76f" />} text="Analytics" open={desktopOpen} /> */}
 
@@ -250,11 +258,11 @@ export default function DashboardLayout({ children }) {
                     })}
                 </List>
             </Collapse> */}
-      {desktopOpen && (
+      {/* {desktopOpen && (
         <Box sx={{ position: 'absolute', bottom: 0, left: 0, right: 0, p: 2 }}>
           <CardAlert />
         </Box>
-      )}
+      )} */}
     </Box>
   );
 

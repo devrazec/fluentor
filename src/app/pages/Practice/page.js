@@ -10,7 +10,6 @@ import React, {
 } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import { GlobalContext } from '../../context/GlobalContext';
-import { useRouter } from 'next/navigation';
 import { flushSync } from 'react-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -96,24 +95,41 @@ export default function PracticePage() {
     dbTense,
     dbAnswer,
     selectedQuestion,
+    setSelectedQuestion,
     currentAnswer,
+    setCurrentAnswer,
     selectedAnswer,
     setSelectedAnswer,
+    setSelectedCategory,
+    setSelectedTense,
     mobileDevice,
   } = useContext(GlobalContext);
 
-  const router = useRouter();
-
+  // Auto-select first question if none is set
   useEffect(() => {
-    if (
-      !selectedQuestion ||
-      (Array.isArray(selectedQuestion) && selectedQuestion.length === 0) ||
-      !currentAnswer ||
-      (Array.isArray(currentAnswer) && currentAnswer.length === 0)
-    ) {
-      router.replace('/');
+    if (!selectedQuestion?.id && dbQuestion?.length > 0) {
+      const first = [...dbQuestion].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      )[0];
+      setSelectedQuestion(first);
+      setSelectedCategory(
+        dbCategory.find(c => c.id === first.id_category) ?? {}
+      );
+      setSelectedTense(dbTense.find(t => t.id === first.id_tense) ?? {});
     }
-  }, [selectedQuestion]);
+  }, [dbQuestion]);
+
+  // Sync answers whenever selectedQuestion changes
+  useEffect(() => {
+    if (selectedQuestion?.id && dbAnswer?.length > 0) {
+      const answers = dbAnswer.filter(
+        a => a.id_question === selectedQuestion.id
+      );
+      setCurrentAnswer(answers);
+      const alreadyValid = answers.some(a => a.id === selectedAnswer);
+      if (!alreadyValid && answers.length > 0) setSelectedAnswer(answers[0].id);
+    }
+  }, [selectedQuestion, dbAnswer]);
 
   // Answer audio player state
   const audioRef = useRef(null);
@@ -215,7 +231,8 @@ export default function PracticePage() {
 
   useEffect(() => {
     if (currentAnswer?.length > 0) {
-      setSelectedAnswer(currentAnswer[0].id);
+      const alreadyValid = currentAnswer.some(a => a.id === selectedAnswer);
+      if (!alreadyValid) setSelectedAnswer(currentAnswer[0].id);
     }
   }, [currentAnswer]);
 
@@ -259,10 +276,10 @@ export default function PracticePage() {
     setAnswerSpeechBounds(null);
     const mp3 = currentAnswer?.find(a => a.id === selectedAnswer)?.mp3;
     if (!mp3) return;
-    detectSpeechBounds(`/mp3/answer/${mp3}`).then(bounds => {
+    detectSpeechBounds(`/mp3/answer/${answerGender}/${mp3}`).then(bounds => {
       if (bounds) setAnswerSpeechBounds(bounds);
     });
-  }, [selectedAnswer, currentAnswer]);
+  }, [selectedAnswer, currentAnswer, answerGender]);
 
   // Detect speech bounds for question audio
   useEffect(() => {
@@ -580,6 +597,10 @@ export default function PracticePage() {
     return idx;
   }, [qCurrentTime, qWordTimings]);
 
+  //console.log(selectedAnswer);
+
+  //console.log(currentAnswer);
+
   return (
     <DashboardLayout>
       <Box
@@ -742,6 +763,8 @@ export default function PracticePage() {
                     {formatTime(qDuration)}
                   </Typography>
                 </Stack>
+
+                <Divider sx={{ my: 1.5 }} />
 
                 {/* Controls row */}
                 <Stack
@@ -1110,6 +1133,8 @@ export default function PracticePage() {
                   {formatTime(duration)}
                 </Typography>
               </Stack>
+
+              <Divider sx={{ my: 1.5 }} />
 
               {/* Controls row */}
               <Stack

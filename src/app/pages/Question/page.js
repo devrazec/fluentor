@@ -299,15 +299,37 @@ export default function QuestionPage() {
                   >
                     Practice
                   </Button>
+
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="warning"
+                    component={Link}
+                    href={`/pages/Test`}
+                    onClick={() => {
+                      setSelectedQuestion(item);
+                      setSelectedCategory(
+                        dbCategory.find(c => c.id === item.id_category) ?? {}
+                      );
+                      setSelectedTense(
+                        dbTense.find(t => t.id === item.id_tense) ?? {}
+                      );
+                      setCurrentAnswer(
+                        dbAnswer.filter(a => a.id_question === item.id)
+                      );
+                    }}
+                  >
+                    Test
+                  </Button>
                   {/* <Typography variant="body2" color="text.secondary">
                                         {item.total_answers}
                                     </Typography> */}
-                  <Chip
+                  {/* <Chip
                     label={item.total_answers + ' answers'}
                     size="small"
                     variant="outlined"
                     color="error"
-                  />
+                  /> */}
                 </CardActions>
               </Card>
             </Grid>

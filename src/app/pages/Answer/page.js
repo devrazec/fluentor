@@ -194,12 +194,44 @@ export default function AnswerPage() {
                       >
                         Practice
                       </Button>
-                      <Chip
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="warning"
+                        component={Link}
+                        href={`/pages/Test`}
+                        onClick={() => {
+                          const question = dbQuestion.find(
+                            q => q.id === row.id_question
+                          );
+                          if (question) {
+                            setSelectedQuestion(question);
+                            setSelectedCategory(
+                              dbCategory.find(
+                                c => c.id === question.id_category
+                              ) ?? {}
+                            );
+                            setSelectedTense(
+                              dbTense.find(t => t.id === question.id_tense) ??
+                                {}
+                            );
+                          }
+                          setSelectedAnswer(row.id);
+                          setCurrentAnswer(
+                            dbAnswer.filter(
+                              a => a.id_question === row.id_question
+                            )
+                          );
+                        }}
+                      >
+                        Test
+                      </Button>
+                      {/* <Chip
                         label={`${row.timed} seconds`}
                         size="small"
                         variant="outlined"
                         color="error"
-                      />
+                      /> */}
                     </Box>
                   </CardContent>
                 </Card>

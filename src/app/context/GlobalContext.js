@@ -18,11 +18,12 @@ export function GlobalProvider({ children }) {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTense, setSelectedTense] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState([]);
-  const [selectedAnswer, setSelectedAnswer] = useState([]);
-  const [currentAnswer, setCurrentAnswer] = useState([]);
+  const [selectedAnswer, setSelectedAnswer] = useState([]); // id of the selected answer
+  const [currentAnswer, setCurrentAnswer] = useState([]); // answers of the selected question
 
   const [filterCategory, setFilterCategory] = useState([]);
   const [filterTense, setFilterTense] = useState([]);
+  const [filterQuestion, setFilterQuestion] = useState([]);
 
   useEffect(() => {
     const fetchTable = async (url, setter) => {
@@ -102,6 +103,8 @@ export function GlobalProvider({ children }) {
         setFilterCategory,
         filterTense,
         setFilterTense,
+        filterQuestion,
+        setFilterQuestion,
       }}
     >
       {children}
