@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
             <ClerkProvider appearance={clerkAppearance}>
               {children}
               <Script
-                src="https://www.googletagmanager.com/gtag/js?id=G-W6K0H5V1LM"
+                src="https://www.googletagmanager.com/gtag/js?id=G-KH0NX580QF"
                 strategy="afterInteractive"
               />
               <Script id="google-analytics" strategy="afterInteractive">
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  gtag('config', 'G-W6K0H5V1LM');
+                  gtag('config', 'G-KH0NX580QF');
                 `}
               </Script>
             </ClerkProvider>
