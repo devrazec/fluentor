@@ -44,7 +44,20 @@ function formatTime(secs) {
 }
 
 export default function RecordPlayer() {
-  const { currentAnswer, selectedAnswer } = useContext(GlobalContext);
+  const {
+    currentAnswer,
+    selectedAnswer,
+    selectedRecord,
+    setSelectedRecord,
+    selectedResult,
+    setSelectedResult,
+    pronunciationLabel,
+    setPronunciationLabel,
+    errorLabel,
+    setErrorLabel,
+    scoreLabel,
+    setScoreLabel,
+  } = useContext(GlobalContext);
 
   const timed =
     currentAnswer?.find(a => a.id === selectedAnswer)?.timed ?? null;

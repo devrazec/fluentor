@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "id_user": "user_001",
+    "id_answer": 10,
+    "duration": 70,
+    "mp3": "audio_001.mp3",
+    "date": "2026-03-01",
+    "active": "true"
+  },
+  {
+    "id": 2,
+    "id_user": "user_002",
+    "id_answer": 11,
+    "duration": 35,
+    "mp3": "audio_002.mp3",
+    "date": "2026-03-01",
+    "active": "true"
+  },
+  {
+    "id": 3,
+    "id_user": "user_003",
+    "id_answer": 10,
+    "duration": 45,
+    "mp3": "audio_003.mp3",
+    "date": "2026-03-01",
+    "active": "true"
+  },
+  {
+    "id": 4,
+    "id_user": "user_004",
+    "id_answer": 12,
+    "duration": 15,
+    "mp3": "audio_004.mp3",
+    "date": "2026-03-01",
+    "active": "true"
+  },
+  {
+    "id": 5,
+    "id_user": "user_005",
+    "id_answer": 13,
+    "duration": 75,
+    "mp3": "audio_005.mp3",
+    "date": "2026-03-01",
+    "active": "false"
+  },
+  {
+    "id": 6,
+    "id_user": "user_006",
+    "id_answer": 14,
+    "duration": 32,
+    "mp3": "audio_006.mp3",
+    "date": "2026-03-01",
+    "active": "true"
+  }
+]

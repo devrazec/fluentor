@@ -43,6 +43,36 @@ CREATE TABLE IF NOT EXISTS answer (
   FOREIGN KEY(id_question) REFERENCES question(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS record (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_user TEXT,
+  id_answer INTEGER,
+  duration INTEGER, 
+  mp3 TEXT,
+  date TEXT,
+  active TEXT,
+  FOREIGN KEY(id_answer) REFERENCES answer(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS result (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_record INTEGER,
+  pronunciation INTEGER,
+  accuracy INTEGER,
+  fluency INTEGER,
+  completeness INTEGER,
+  prosody INTEGER,
+  mispronunciation INTEGER,
+  omission INTEGER,
+  insertion INTEGER,
+  unexpected_break INTEGER,
+  missing_break INTEGER,
+  monotone INTEGER,
+  json_file TEXT,
+  active TEXT,
+  FOREIGN KEY(id_record) REFERENCES record(id) ON DELETE CASCADE
+);
+
 COMMIT;
 `;
 

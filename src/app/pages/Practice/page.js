@@ -168,11 +168,11 @@ export default function PracticePage() {
   const [qMuted, setQMuted] = useState(false);
 
   // Voice gender for question mp3
-  const [voiceGender, setVoiceGender] = useState('male');
+  const [voiceGender, setVoiceGender] = useState('female');
   const qResumeOnLoadRef = useRef(false);
 
   // Voice gender for answer mp3
-  const [answerGender, setAnswerGender] = useState('male');
+  const [answerGender, setAnswerGender] = useState('female');
   const aResumeOnLoadRef = useRef(false);
 
   // Recording state

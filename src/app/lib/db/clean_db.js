@@ -7,6 +7,8 @@ db.exec(`
   DROP TABLE IF EXISTS question;
   DROP TABLE IF EXISTS tense;
   DROP TABLE IF EXISTS category;
+  DROP TABLE IF EXISTS result;
+  DROP TABLE IF EXISTS record;
 `);
 
 db.exec('PRAGMA foreign_keys = ON');

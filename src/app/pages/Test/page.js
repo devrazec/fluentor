@@ -51,9 +51,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import TextField from '@mui/material/TextField';
 
 export default function ResultPage() {
-  const value = 64;
-  const color = getGaugeColor(value);
-
   const [popoverAnchor, setPopoverAnchor] = React.useState(null);
   const [popoverText, setPopoverText] = React.useState('');
   const [minimizedResult, setMinimizedResult] = useState(false);
@@ -66,6 +63,12 @@ export default function ResultPage() {
     dbCategory,
     dbTense,
     dbAnswer,
+
+    dbRecord,
+    setDbRecord,
+    dbResult,
+    setDbResult,
+
     selectedQuestion,
     currentAnswer,
     selectedAnswer,
@@ -73,122 +76,66 @@ export default function ResultPage() {
     mobileDevice,
     filterQuestion,
     setFilterQuestion,
+
+    selectedRecord,
+    setSelectedRecord,
+    selectedResult,
+    setSelectedResult,
+
+    pronunciationLabel,
+    setPronunciationLabel,
+    errorLabel,
+    setErrorLabel,
+    scoreLabel,
+    setScoreLabel,
   } = useContext(GlobalContext);
 
-  const handlePopoverOpen = (event, description) => {
+  const value = selectedRecord?.pronunciation ?? 0;
+  const color = getGaugeColor(value);
+
+  useEffect(() => {
+    if (dbRecord?.length > 0) {
+      setSelectedRecord(dbRecord[2]);
+    }
+  }, [dbRecord]);
+
+  useEffect(() => {
+    if (!selectedRecord) return;
+    setErrorLabel(prev =>
+      prev.map(item => {
+        const fieldMap = {
+          Mispronunciation: selectedRecord.mispronunciation,
+          Omission: selectedRecord.omission,
+          Insertion: selectedRecord.insertion,
+          'Unexpected break': selectedRecord.unexpected_break,
+          'Missing break': selectedRecord.missing_break,
+          Monotone: selectedRecord.monotone,
+        };
+        return { ...item, value: fieldMap[item.label] ?? 0 };
+      })
+    );
+    setScoreLabel(prev =>
+      prev.map(item => {
+        const fieldMap = {
+          Accuracy: selectedRecord.accuracy,
+          Fluency: selectedRecord.fluency,
+          Completeness: selectedRecord.completeness,
+          Prosody: selectedRecord.prosody,
+        };
+        return { ...item, value: fieldMap[item.label] ?? 0 };
+      })
+    );
+  }, [selectedRecord]);
+
+  const handlePopoverOpen = (event, note) => {
     setPopoverAnchor(event.currentTarget);
-    setPopoverText(description);
+    setPopoverText(note);
   };
 
   const handlePopoverClose = () => {
     setPopoverAnchor(null);
     setPopoverText('');
   };
-
-  const legendItems = [
-    {
-      label: '0–59',
-      color: '#f44336',
-      level: 'Basic',
-      cefr: 'A1–A2',
-      ielts: '0–3.5',
-      toefl: '0–40',
-      description:
-        'Speech has many pronunciation errors. Listeners may struggle to understand without repetition. Limited fluency and accuracy.',
-    },
-    {
-      label: '60–79',
-      color: '#ffc107',
-      level: 'Intermediate',
-      cefr: 'B1–B2',
-      ielts: '4.0–6.0',
-      toefl: '41–90',
-      description:
-        'Pronunciation is generally understandable but contains noticeable errors. Fluency is moderate. Communication works but with some effort.',
-    },
-    {
-      label: '80–100',
-      color: '#4caf50',
-      level: 'Advanced',
-      cefr: 'C1–C2',
-      ielts: '6.5–9.0',
-      toefl: '91–120',
-      description:
-        'Clear pronunciation close to native-like patterns. High fluency and accuracy. Easy to understand.',
-    },
-  ];
-
-  const errorItems = [
-    {
-      label: 'Mispronunciations',
-      value: 3,
-      color: '#e53935',
-      description:
-        'The words that are spoken incorrectly. This can include wrong vowel or consonant sounds, stress on the wrong syllable, or incorrect intonation patterns.',
-    },
-    {
-      label: 'Omissions',
-      value: 9,
-      color: '#fb8c00',
-      description:
-        'The words that are provided in the script but are not spoken. This can indicate difficulty in recalling or pronouncing certain words, or it may reflect a lack of familiarity with the vocabulary.',
-    },
-    {
-      label: 'Insertions',
-      value: 8,
-      color: '#8e24aa',
-      description:
-        'The words that are not in the script but are detected in the recording. This can indicate overcompensation or misunderstanding of the content.',
-    },
-    {
-      label: 'Unexpected breaks',
-      value: 7,
-      color: '#1e88e5',
-      description:
-        'Improperly paused in between words within same sentence. This can indicate hesitation, difficulty in recalling the next word, or uncertainty in pronunciation.',
-    },
-    {
-      label: 'Missing breaks',
-      value: 6,
-      color: '#00897b',
-      description:
-        'Missing pauses between words when there is a punctuation in present between them. This can indicate a lack of awareness of natural speech patterns or difficulty in controlling the flow of speech.',
-    },
-    {
-      label: 'Monotone',
-      value: 4,
-      color: '#6d4c41',
-      description:
-        'The words are being read in a flat and unexciting tone, without any rhythm or expression. This can indicate a lack of engagement with the content or difficulty in conveying emotions through speech.',
-    },
-  ];
-
-  const scoreItems = [
-    {
-      label: 'Accuracy',
-      value: 44,
-      description:
-        'Pronunciation accuracy of the speech. Accuracy indicates how closely the phonemes match a native speaker`s pronunciation. Word and full text accuracy scores are aggregated from phoneme-level accuracy score.',
-    },
-    {
-      label: 'Fluency',
-      value: 64,
-      description:
-        'Fluency of the given speech. Fluency indicates how closely the speech matches a native speaker`s use of silent breaks between words.',
-    },
-    {
-      label: 'Completeness',
-      value: 78,
-      description:
-        'Completeness of the speech, calculated by the ratio of pronounced words to the input reference text.',
-    },
-    {
-      label: 'Prosody',
-      value: 90,
-      description:
-        'Prosody of the given speech. Prosody indicates how nature of the given speech, including stress, intonation, speaking speed and rhythm.',
-    },
-  ];
 
   function getGaugeColor(value) {
     if (value >= 80) return '#4caf50';
@@ -216,6 +163,7 @@ export default function ResultPage() {
         <Question />
 
         <RecordPlayer />
+
         <Grid container spacing={2} alignItems="stretch">
           <Grid size={{ xs: 12, md: 6 }}>
             <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3, height: '100%' }}>
@@ -245,13 +193,13 @@ export default function ResultPage() {
                   <>
                     <Typography
                       variant="body2"
-                      sx={{ mb: 2, color: 'text.secondary' }}
+                      sx={{ mb: 1, color: 'text.secondary' }}
                     >
-                      Based on your performance, your speaking skills are at the
-                      intermediate level. You have a good grasp of basic
-                      pronunciation and can communicate effectively in familiar
-                      situations. To reach the advanced level, focus on
-                      improving your fluency and reducing pronunciation errors.
+                      {
+                        pronunciationLabel.find(item =>
+                          isActiveRow(item, value)
+                        )?.feedback
+                      }
                     </Typography>
 
                     {/* Gauge + Legend table */}
@@ -367,7 +315,7 @@ export default function ResultPage() {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {legendItems.map(item => {
+                              {pronunciationLabel.map(item => {
                                 const active = isActiveRow(item, value);
                                 return (
                                   <TableRow
@@ -413,7 +361,7 @@ export default function ResultPage() {
                                           mx: 'auto',
                                         }}
                                         onClick={e =>
-                                          handlePopoverOpen(e, item.description)
+                                          handlePopoverOpen(e, item.note)
                                         }
                                       />
                                     </TableCell>
@@ -431,7 +379,7 @@ export default function ResultPage() {
                                       {item.level}
                                     </Typography>
                                     <Typography variant="caption">
-                                      {item.description}
+                                      {item.note}
                                     </Typography>
                                   </Box>
                                 }
@@ -531,7 +479,7 @@ export default function ResultPage() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {errorItems.map(item => (
+                          {errorLabel.map(item => (
                             <TableRow
                               key={item.label}
                               hover
@@ -570,9 +518,7 @@ export default function ResultPage() {
                                     cursor: 'pointer',
                                     mx: 'auto',
                                   }}
-                                  onClick={e =>
-                                    handlePopoverOpen(e, item.description)
-                                  }
+                                  onClick={e => handlePopoverOpen(e, item.note)}
                                 />
                               </TableCell>
                             </TableRow>
@@ -653,7 +599,7 @@ export default function ResultPage() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {scoreItems.map(item => {
+                          {scoreLabel.map(item => {
                             const itemColor = getGaugeColor(item.value);
                             return (
                               <TableRow
@@ -721,7 +667,7 @@ export default function ResultPage() {
                                       mx: 'auto',
                                     }}
                                     onClick={e =>
-                                      handlePopoverOpen(e, item.description)
+                                      handlePopoverOpen(e, item.note)
                                     }
                                   />
                                 </TableCell>

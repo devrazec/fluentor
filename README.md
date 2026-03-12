@@ -150,6 +150,8 @@ npm run seed_category
 npm run seed_tense
 npm run seed_question
 npm run seed_answer
+npm run seed_result
+npm run seed_record
 
 npm run seed_training
 npm run seed_exam
@@ -202,6 +204,8 @@ npm i -g vercel
 -- Azure Pronunciation Assessment
 
 npm i -S microsoft-cognitiveservices-speech-sdk
+
+-- API
 
 
 
