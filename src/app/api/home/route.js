@@ -6,7 +6,7 @@ const TENSE_GROUPS = [
   { id: 1, name: 'Present', tenseIds: [1, 2, 13, 14] },
   { id: 2, name: 'Past', tenseIds: [4, 8, 9, 10] },
   { id: 3, name: 'Future', tenseIds: [3, 5, 6, 7] },
-  { id: 4, name: 'Conditional', tenseIds: [11, 12] },
+  //{ id: 4, name: 'Conditional', tenseIds: [11, 12] },
 ];
 
 export async function GET() {

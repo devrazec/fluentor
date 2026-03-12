@@ -180,10 +180,31 @@ function GroupCarousel({
                 >
                   Practice
                 </Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="warning"
+                  component={Link}
+                  href={`/pages/Test`}
+                  onClick={() => {
+                    setSelectedQuestion(q);
+                    setSelectedCategory(
+                      dbCategory.find(c => c.id === q.id_category) ?? {}
+                    );
+                    setSelectedTense(
+                      dbTense.find(t => t.id === q.id_tense) ?? {}
+                    );
+                    setCurrentAnswer(
+                      dbAnswer.filter(a => a.id_question === q.id)
+                    );
+                  }}
+                >
+                  Test
+                </Button>
                 {/* <Typography variant="caption" color="text.secondary">
                   {q.total_answers}
                 </Typography> */}
-                <Chip
+                {/* <Chip
                   label={
                     q.total_answers +
                     ' answer' +
@@ -192,7 +213,7 @@ function GroupCarousel({
                   size="small"
                   variant="outlined"
                   color="error"
-                />
+                /> */}
               </CardActions>
             </Card>
           ))}

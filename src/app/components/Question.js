@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -108,6 +109,17 @@ export default function Question() {
 
   return (
     <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3 }}>
+      <CardMedia
+        component="img"
+        height={mobileDevice ? '120' : '200'}
+        image={
+          selectedQuestion?.category_image
+            ? `/img/category/${selectedQuestion.category_image}`
+            : `/img/category/${selectedQuestion?.id_category}.jpg`
+        }
+        alt={selectedQuestion?.category_name}
+        sx={{ objectFit: 'cover', objectPosition: 'top' }}
+      />
       <CardContent>
         <Box
           sx={{
