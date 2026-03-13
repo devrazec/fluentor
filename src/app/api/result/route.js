@@ -1,34 +1,6 @@
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
-import { spawn } from 'child_process';
-import { tmpdir } from 'os';
-import { join } from 'path';
-import { writeFile, unlink, readFile } from 'fs/promises';
-import { randomUUID } from 'crypto';
 
 export const runtime = 'nodejs';
-
-function convertToWav(inputPath, outputPath) {
-  return new Promise((resolve, reject) => {
-    const ff = spawn('ffmpeg', [
-      '-y',
-      '-i',
-      inputPath,
-      '-ar',
-      '16000',
-      '-ac',
-      '1',
-      '-f',
-      'wav',
-      outputPath,
-    ]);
-    ff.on('close', code =>
-      code === 0
-        ? resolve()
-        : reject(new Error(`ffmpeg exited with code ${code}`))
-    );
-    ff.on('error', reject);
-  });
-}
 
 export async function POST(request) {
   const formData = await request.formData();
@@ -40,20 +12,9 @@ export async function POST(request) {
     return Response.json({ error: 'No audio file provided' }, { status: 400 });
   }
 
-  const id = randomUUID();
-  const ext =
-    audioFile.type?.includes('mp3') || audioFile.type?.includes('mpeg')
-      ? 'mp3'
-      : 'webm';
-  const inputPath = join(tmpdir(), `speech-in-${id}.${ext}`);
-  const wavPath = join(tmpdir(), `speech-out-${id}.wav`);
-
   try {
     const arrayBuffer = await audioFile.arrayBuffer();
-    await writeFile(inputPath, Buffer.from(arrayBuffer));
-    await convertToWav(inputPath, wavPath);
-
-    const wavBuffer = await readFile(wavPath);
+    const wavBuffer = Buffer.from(arrayBuffer);
 
     const speechConfig = sdk.SpeechConfig.fromSubscription(
       process.env.NEXT_PUBLIC_SPEECH_KEY,
@@ -140,8 +101,5 @@ export async function POST(request) {
   } catch (err) {
     console.error('Pronunciation assessment error:', err);
     return Response.json({ error: err.message }, { status: 500 });
-  } finally {
-    await unlink(inputPath).catch(() => {});
-    await unlink(wavPath).catch(() => {});
   }
 }

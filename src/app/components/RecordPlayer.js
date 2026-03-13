@@ -35,6 +35,56 @@ import {
   ArrowUp2,
 } from 'iconsax-reactjs';
 
+function encodeWav(audioBuffer) {
+  const numChannels = 1;
+  const sampleRate = audioBuffer.sampleRate;
+  const channelData = audioBuffer.getChannelData(0);
+  const samples = new Int16Array(channelData.length);
+  for (let i = 0; i < channelData.length; i++) {
+    samples[i] = Math.max(-1, Math.min(1, channelData[i])) * 0x7fff;
+  }
+  const dataLength = samples.length * 2;
+  const buffer = new ArrayBuffer(44 + dataLength);
+  const view = new DataView(buffer);
+  const writeStr = (offset, str) => {
+    for (let i = 0; i < str.length; i++)
+      view.setUint8(offset + i, str.charCodeAt(i));
+  };
+  writeStr(0, 'RIFF');
+  view.setUint32(4, 36 + dataLength, true);
+  writeStr(8, 'WAVE');
+  writeStr(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, numChannels, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeStr(36, 'data');
+  view.setUint32(40, dataLength, true);
+  for (let i = 0; i < samples.length; i++) {
+    view.setInt16(44 + i * 2, samples[i], true);
+  }
+  return buffer;
+}
+
+async function convertBlobToWav(blob) {
+  const arrayBuffer = await blob.arrayBuffer();
+  const tmpCtx = new AudioContext();
+  const decoded = await tmpCtx.decodeAudioData(arrayBuffer);
+  await tmpCtx.close();
+  const targetRate = 16000;
+  const numFrames = Math.ceil(decoded.duration * targetRate);
+  const offlineCtx = new OfflineAudioContext(1, numFrames, targetRate);
+  const source = offlineCtx.createBufferSource();
+  source.buffer = decoded;
+  source.connect(offlineCtx.destination);
+  source.start();
+  const resampled = await offlineCtx.startRendering();
+  return new Blob([encodeWav(resampled)], { type: 'audio/wav' });
+}
+
 function formatTime(secs) {
   if (!secs || isNaN(secs)) return '0:00';
   const m = Math.floor(secs / 60);
@@ -171,8 +221,9 @@ export default function RecordPlayer() {
           // Call pronunciation assessment API
           const referenceText =
             currentAnswer?.find(a => a.id === selectedAnswer)?.name ?? '';
+          const wavBlob = await convertBlobToWav(blob);
           const formData = new FormData();
-          formData.append('audio', blob, 'recording.webm');
+          formData.append('audio', wavBlob, 'recording.wav');
           formData.append('referenceText', referenceText);
           formData.append('scripted', 'true');
 
