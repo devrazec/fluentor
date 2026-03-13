@@ -64,7 +64,7 @@ export default function WordTable() {
   };
 
   return (
-    <Grid size={{ xs: 12, md: 6 }} sx={{ mb: !mobileDevice ? 0 : 12 }}>
+    <Grid size={{ xs: 12, md: 6 }} sx={{ mb: mobileDevice ? 10 : 12 }}>
       <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3, height: '100%' }}>
         <CardContent>
           <Stack

@@ -391,11 +391,56 @@ export default function RecordPlayer() {
           sx={{ mb: isRecording ? 1.5 : 2, position: 'relative' }}
         >
           {isAnalyzing && (
-            <CircularProgress
-              size={48}
-              thickness={2}
-              sx={{ color: '#00a76f', position: 'absolute' }}
-            />
+            <Box
+              sx={{
+                position: 'fixed',
+                inset: 0,
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                backdropFilter: 'blur(4px)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 3,
+                zIndex: 1300,
+              }}
+            >
+              <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                {/* Outer glow ring */}
+                <CircularProgress
+                  size={120}
+                  thickness={1}
+                  sx={{
+                    color: 'rgba(0,167,111,0.2)',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                />
+                {/* Main spinner */}
+                <CircularProgress
+                  size={96}
+                  thickness={2.5}
+                  sx={{
+                    color: '#00a76f',
+                    filter:
+                      'drop-shadow(0 0 12px rgba(0,167,111,0.9)) drop-shadow(0 0 24px rgba(0,167,111,0.5))',
+                  }}
+                />
+              </Box>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: '#fff',
+                  fontWeight: 600,
+                  letterSpacing: 1,
+                  textShadow: '0 0 12px rgba(0,167,111,0.8)',
+                }}
+              >
+                Analyzing…
+              </Typography>
+            </Box>
           )}
           <IconButton
             onClick={handleRecordStop}
