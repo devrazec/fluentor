@@ -46,98 +46,6 @@ export function GlobalProvider({ children }) {
     },
   ]);
 
-  const [pronunciationLabel, setPronunciationLabel] = useState([
-    {
-      label: '0–59',
-      color: '#f44336',
-      level: 'Basic',
-      cefr: 'A1–A2',
-      ielts: '0–3.5',
-      toefl: '0–40',
-      feedback:
-        'Based on your performance, your speaking skills are at the basic level. You are able to use simple words and phrases to communicate in familiar situations. To reach the intermediate level, focus on expanding your vocabulary, practicing sentence structure, and improving pronunciation.',
-      note: 'Speech has many pronunciation errors. Listeners may struggle to understand without repetition. Limited fluency and accuracy.',
-    },
-    {
-      label: '60–79',
-      color: '#ffc107',
-      level: 'Intermediate',
-      cefr: 'B1–B2',
-      ielts: '4.0–6.0',
-      toefl: '41–90',
-      feedback:
-        'Based on your performance, your speaking skills are at the intermediate level. You have a good grasp of basic pronunciation and can communicate effectively in familiar situations. To reach the advanced level, focus on improving your fluency, expanding your vocabulary.',
-      note: 'Pronunciation is generally understandable but contains noticeable errors. Fluency is moderate. Communication works but with some effort.',
-    },
-    {
-      label: '80–100',
-      color: '#4caf50',
-      level: 'Advanced',
-      cefr: 'C1–C2',
-      ielts: '6.5–9.0',
-      toefl: '91–120',
-      feedback:
-        'Based on your performance, your speaking skills are at the advanced level. You communicate clearly and confidently in a wide range of situations, with good control of vocabulary and pronunciation. To continue improving, focus on refining your fluency, using more nuanced expressions.',
-      note: 'Clear pronunciation close to native-like patterns. High fluency and accuracy. Easy to understand.',
-    },
-  ]);
-
-  const [errorLabel, setErrorLabel] = useState([
-    {
-      label: 'Mispronunciation',
-      color: '#e53935',
-      note: 'The words that are spoken incorrectly. This can include wrong vowel or consonant sounds, stress on the wrong syllable, or incorrect intonation patterns.',
-    },
-    {
-      label: 'Omission',
-      color: '#fb8c00',
-      note: 'The words that are provided in the script but are not spoken. This can indicate difficulty in recalling or pronouncing certain words, or it may reflect a lack of familiarity with the vocabulary.',
-    },
-    {
-      label: 'Insertion',
-      color: '#8e24aa',
-      note: 'The words that are not in the script but are detected in the recording. This can indicate overcompensation or misunderstanding of the content.',
-    },
-    {
-      label: 'Unexpected break',
-      color: '#1e88e5',
-      note: 'Improperly paused in between words within same sentence. This can indicate hesitation, difficulty in recalling the next word, or uncertainty in pronunciation.',
-    },
-    {
-      label: 'Missing break',
-      color: '#00897b',
-      note: 'Missing pauses between words when there is a punctuation in present between them. This can indicate a lack of awareness of natural speech patterns or difficulty in controlling the flow of speech.',
-    },
-    {
-      label: 'Monotone',
-      color: '#6d4c41',
-      note: 'The words are being read in a flat and unexciting tone, without any rhythm or expression. This can indicate a lack of engagement with the content or difficulty in conveying emotions through speech.',
-    },
-  ]);
-
-  const [scoreLabel, setScoreLabel] = useState([
-    {
-      label: 'Accuracy',
-      value: 0,
-      note: 'Pronunciation accuracy of the speech. Accuracy indicates how closely the phonemes match a native speaker`s pronunciation. Word and full text accuracy scores are aggregated from phoneme-level accuracy score.',
-    },
-    {
-      label: 'Fluency',
-      value: 0,
-      note: 'Fluency of the given speech. Fluency indicates how closely the speech matches a native speaker`s use of silent breaks between words.',
-    },
-    {
-      label: 'Completeness',
-      value: 0,
-      note: 'Completeness of the speech, calculated by the ratio of pronounced words to the input reference text.',
-    },
-    {
-      label: 'Prosody',
-      value: 0,
-      note: 'Prosody of the given speech. Prosody indicates how nature of the given speech, including stress, intonation, speaking speed and rhythm.',
-    },
-  ]);
-
   useEffect(() => {
     const fetchTable = async (url, setter) => {
       try {
@@ -226,13 +134,6 @@ export function GlobalProvider({ children }) {
         setFilterTense,
         filterQuestion,
         setFilterQuestion,
-
-        pronunciationLabel,
-        setPronunciationLabel,
-        errorLabel,
-        setErrorLabel,
-        scoreLabel,
-        setScoreLabel,
 
         testResult,
         setTestResult,
