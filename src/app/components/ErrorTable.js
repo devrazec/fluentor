@@ -90,12 +90,11 @@ export default function ErrorTable() {
                   variant="body2"
                   sx={{ mb: 2, color: 'text.secondary' }}
                 >
-                  This value indicates the error type compared to the reference
+                  This table indicates the error type compared to the reference
                   text. Options include whether a word is omitted, inserted, or
                   improperly inserted with a break. It also indicates a missing
                   break at punctuation. It also indicates whether a word is
-                  badly pronounced, or monotonically rising, falling, or flat on
-                  the utterance.
+                  badly pronounced.
                 </Typography>
 
                 {/* Error Type + Legend table */}

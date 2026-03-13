@@ -48,7 +48,7 @@ export default function ScoreTable() {
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [popoverText, setPopoverText] = useState('');
 
-  const { testResult } = useContext(GlobalContext);
+  const { testResult, mobileDevice } = useContext(GlobalContext);
 
   const handlePopoverOpen = (event, note) => {
     setPopoverAnchor(event.currentTarget);
@@ -62,7 +62,7 @@ export default function ScoreTable() {
 
   return (
     <>
-      <Grid size={{ xs: 12, md: 6 }}>
+      <Grid size={{ xs: 12, md: 6 }} sx={{ mb: !mobileDevice ? 0 : 12 }}>
         <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3, height: '100%' }}>
           <CardContent>
             <Stack
