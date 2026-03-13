@@ -84,8 +84,8 @@ export default function ResultPage() {
     scoreLabel,
     setScoreLabel,
 
-    testResult, setTestResult,
-
+    testResult,
+    setTestResult,
   } = useContext(GlobalContext);
 
   return (
@@ -104,7 +104,6 @@ export default function ResultPage() {
         <RecordPlayer />
 
         <Grid container spacing={2} alignItems="stretch">
-
           <ResultTable />
 
           <ErrorTable />
@@ -112,11 +111,8 @@ export default function ResultPage() {
           <ScoreTable />
 
           <FeedbackTable />
-
         </Grid>
-
       </Box>
-
     </DashboardLayout>
   );
 }

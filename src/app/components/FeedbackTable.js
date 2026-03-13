@@ -35,17 +35,10 @@ import {
   ArrowUp2,
 } from 'iconsax-reactjs';
 
-
-
 export default function WordTable() {
-
   const [minimizedFeedback, setMinimizedFeedback] = useState(false);
 
-    const {
-  
-      testResult, setTestResult,
-  
-    } = useContext(GlobalContext);
+  const { testResult, setTestResult } = useContext(GlobalContext);
 
   return (
     <Grid size={{ xs: 12, md: 6 }}>
@@ -78,11 +71,10 @@ export default function WordTable() {
                 variant="body2"
                 sx={{ mb: 2, color: 'text.secondary' }}
               >
-                Here is the detailed feedback on your pronunciation. Words
-                in green are pronounced well, while words in red indicate
-                mispronunciations. Pay attention to the mispronounced
-                words and practice them to improve your pronunciation
-                skills.
+                Here is the detailed feedback on your pronunciation. Words in
+                green are pronounced well, while words in red indicate
+                mispronunciations. Pay attention to the mispronounced words and
+                practice them to improve your pronunciation skills.
               </Typography>
             </>
           )}

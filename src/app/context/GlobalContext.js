@@ -234,7 +234,8 @@ export function GlobalProvider({ children }) {
         scoreLabel,
         setScoreLabel,
 
-        testResult, setTestResult,
+        testResult,
+        setTestResult,
       }}
     >
       {children}

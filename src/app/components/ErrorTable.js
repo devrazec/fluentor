@@ -38,14 +38,11 @@ import {
 } from 'iconsax-reactjs';
 
 export default function ErrorTable() {
-
   const [minimizedError, setMinimizedError] = useState(false);
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [popoverText, setPopoverText] = useState('');
 
-  const {
-    testResult,
-  } = useContext(GlobalContext);
+  const { testResult } = useContext(GlobalContext);
 
   useEffect(() => {
     // runs whenever testResult is updated from any page or component
@@ -93,12 +90,12 @@ export default function ErrorTable() {
                   variant="body2"
                   sx={{ mb: 2, color: 'text.secondary' }}
                 >
-                  This value indicates the error type compared to the
-                  reference text. Options include whether a word is omitted,
-                  inserted, or improperly inserted with a break. It also
-                  indicates a missing break at punctuation. It also
-                  indicates whether a word is badly pronounced, or
-                  monotonically rising, falling, or flat on the utterance.
+                  This value indicates the error type compared to the reference
+                  text. Options include whether a word is omitted, inserted, or
+                  improperly inserted with a break. It also indicates a missing
+                  break at punctuation. It also indicates whether a word is
+                  badly pronounced, or monotonically rising, falling, or flat on
+                  the utterance.
                 </Typography>
 
                 {/* Error Type + Legend table */}
@@ -136,14 +133,44 @@ export default function ErrorTable() {
                       <TableRow hover sx={{ cursor: 'default' }}>
                         <TableCell sx={{ width: '80%' }}>
                           <Box display="flex" alignItems="center" gap={1}>
-                            <Chip label={testResult?.[0]?.mispronunciation ?? 0} size="small"
-                              sx={{ backgroundColor: '#e5393522', color: '#e53935', fontWeight: 700, border: '1px solid #e53935', flexShrink: 0 }} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>Mispronunciation</Typography>
+                            <Chip
+                              label={testResult?.[0]?.mispronunciation ?? 0}
+                              size="small"
+                              sx={{
+                                backgroundColor: '#e5393522',
+                                color: '#e53935',
+                                fontWeight: 700,
+                                border: '1px solid #e53935',
+                                flexShrink: 0,
+                              }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: 600 }}
+                            >
+                              Mispronunciation
+                            </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell align="center" sx={{ px: 0.5, width: '20%' }}>
-                          <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                            onClick={e => handlePopoverOpen(e, 'The words that are spoken incorrectly. This can include wrong vowel or consonant sounds, stress on the wrong syllable, or incorrect intonation patterns.')} />
+                        <TableCell
+                          align="center"
+                          sx={{ px: 0.5, width: '20%' }}
+                        >
+                          <InfoOutlinedIcon
+                            fontSize="small"
+                            sx={{
+                              color: 'text.secondary',
+                              display: 'block',
+                              cursor: 'pointer',
+                              mx: 'auto',
+                            }}
+                            onClick={e =>
+                              handlePopoverOpen(
+                                e,
+                                'The words that are spoken incorrectly. This can include wrong vowel or consonant sounds, stress on the wrong syllable, or incorrect intonation patterns.'
+                              )
+                            }
+                          />
                         </TableCell>
                       </TableRow>
 
@@ -151,14 +178,44 @@ export default function ErrorTable() {
                       <TableRow hover sx={{ cursor: 'default' }}>
                         <TableCell sx={{ width: '80%' }}>
                           <Box display="flex" alignItems="center" gap={1}>
-                            <Chip label={testResult?.[0]?.omission ?? 0} size="small"
-                              sx={{ backgroundColor: '#fb8c0022', color: '#fb8c00', fontWeight: 700, border: '1px solid #fb8c00', flexShrink: 0 }} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>Omission</Typography>
+                            <Chip
+                              label={testResult?.[0]?.omission ?? 0}
+                              size="small"
+                              sx={{
+                                backgroundColor: '#fb8c0022',
+                                color: '#fb8c00',
+                                fontWeight: 700,
+                                border: '1px solid #fb8c00',
+                                flexShrink: 0,
+                              }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: 600 }}
+                            >
+                              Omission
+                            </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell align="center" sx={{ px: 0.5, width: '20%' }}>
-                          <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                            onClick={e => handlePopoverOpen(e, 'The words that are provided in the script but are not spoken. This can indicate difficulty in recalling or pronouncing certain words, or it may reflect a lack of familiarity with the vocabulary.')} />
+                        <TableCell
+                          align="center"
+                          sx={{ px: 0.5, width: '20%' }}
+                        >
+                          <InfoOutlinedIcon
+                            fontSize="small"
+                            sx={{
+                              color: 'text.secondary',
+                              display: 'block',
+                              cursor: 'pointer',
+                              mx: 'auto',
+                            }}
+                            onClick={e =>
+                              handlePopoverOpen(
+                                e,
+                                'The words that are provided in the script but are not spoken. This can indicate difficulty in recalling or pronouncing certain words, or it may reflect a lack of familiarity with the vocabulary.'
+                              )
+                            }
+                          />
                         </TableCell>
                       </TableRow>
 
@@ -166,14 +223,44 @@ export default function ErrorTable() {
                       <TableRow hover sx={{ cursor: 'default' }}>
                         <TableCell sx={{ width: '80%' }}>
                           <Box display="flex" alignItems="center" gap={1}>
-                            <Chip label={testResult?.[0]?.insertion ?? 0} size="small"
-                              sx={{ backgroundColor: '#8e24aa22', color: '#8e24aa', fontWeight: 700, border: '1px solid #8e24aa', flexShrink: 0 }} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>Insertion</Typography>
+                            <Chip
+                              label={testResult?.[0]?.insertion ?? 0}
+                              size="small"
+                              sx={{
+                                backgroundColor: '#8e24aa22',
+                                color: '#8e24aa',
+                                fontWeight: 700,
+                                border: '1px solid #8e24aa',
+                                flexShrink: 0,
+                              }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: 600 }}
+                            >
+                              Insertion
+                            </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell align="center" sx={{ px: 0.5, width: '20%' }}>
-                          <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                            onClick={e => handlePopoverOpen(e, 'The words that are not in the script but are detected in the recording. This can indicate overcompensation or misunderstanding of the content.')} />
+                        <TableCell
+                          align="center"
+                          sx={{ px: 0.5, width: '20%' }}
+                        >
+                          <InfoOutlinedIcon
+                            fontSize="small"
+                            sx={{
+                              color: 'text.secondary',
+                              display: 'block',
+                              cursor: 'pointer',
+                              mx: 'auto',
+                            }}
+                            onClick={e =>
+                              handlePopoverOpen(
+                                e,
+                                'The words that are not in the script but are detected in the recording. This can indicate overcompensation or misunderstanding of the content.'
+                              )
+                            }
+                          />
                         </TableCell>
                       </TableRow>
 
@@ -181,14 +268,44 @@ export default function ErrorTable() {
                       <TableRow hover sx={{ cursor: 'default' }}>
                         <TableCell sx={{ width: '80%' }}>
                           <Box display="flex" alignItems="center" gap={1}>
-                            <Chip label={testResult?.[0]?.unexpected_break ?? 0} size="small"
-                              sx={{ backgroundColor: '#1e88e522', color: '#1e88e5', fontWeight: 700, border: '1px solid #1e88e5', flexShrink: 0 }} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>Unexpected break</Typography>
+                            <Chip
+                              label={testResult?.[0]?.unexpected_break ?? 0}
+                              size="small"
+                              sx={{
+                                backgroundColor: '#1e88e522',
+                                color: '#1e88e5',
+                                fontWeight: 700,
+                                border: '1px solid #1e88e5',
+                                flexShrink: 0,
+                              }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: 600 }}
+                            >
+                              Unexpected break
+                            </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell align="center" sx={{ px: 0.5, width: '20%' }}>
-                          <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                            onClick={e => handlePopoverOpen(e, 'Improperly paused in between words within same sentence. This can indicate hesitation, difficulty in recalling the next word, or uncertainty in pronunciation.')} />
+                        <TableCell
+                          align="center"
+                          sx={{ px: 0.5, width: '20%' }}
+                        >
+                          <InfoOutlinedIcon
+                            fontSize="small"
+                            sx={{
+                              color: 'text.secondary',
+                              display: 'block',
+                              cursor: 'pointer',
+                              mx: 'auto',
+                            }}
+                            onClick={e =>
+                              handlePopoverOpen(
+                                e,
+                                'Improperly paused in between words within same sentence. This can indicate hesitation, difficulty in recalling the next word, or uncertainty in pronunciation.'
+                              )
+                            }
+                          />
                         </TableCell>
                       </TableRow>
 
@@ -196,14 +313,44 @@ export default function ErrorTable() {
                       <TableRow hover sx={{ cursor: 'default' }}>
                         <TableCell sx={{ width: '80%' }}>
                           <Box display="flex" alignItems="center" gap={1}>
-                            <Chip label={testResult?.[0]?.missing_break ?? 0} size="small"
-                              sx={{ backgroundColor: '#00897b22', color: '#00897b', fontWeight: 700, border: '1px solid #00897b', flexShrink: 0 }} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>Missing break</Typography>
+                            <Chip
+                              label={testResult?.[0]?.missing_break ?? 0}
+                              size="small"
+                              sx={{
+                                backgroundColor: '#00897b22',
+                                color: '#00897b',
+                                fontWeight: 700,
+                                border: '1px solid #00897b',
+                                flexShrink: 0,
+                              }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: 600 }}
+                            >
+                              Missing break
+                            </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell align="center" sx={{ px: 0.5, width: '20%' }}>
-                          <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                            onClick={e => handlePopoverOpen(e, 'Missing pauses between words when there is a punctuation in present between them. This can indicate a lack of awareness of natural speech patterns or difficulty in controlling the flow of speech.')} />
+                        <TableCell
+                          align="center"
+                          sx={{ px: 0.5, width: '20%' }}
+                        >
+                          <InfoOutlinedIcon
+                            fontSize="small"
+                            sx={{
+                              color: 'text.secondary',
+                              display: 'block',
+                              cursor: 'pointer',
+                              mx: 'auto',
+                            }}
+                            onClick={e =>
+                              handlePopoverOpen(
+                                e,
+                                'Missing pauses between words when there is a punctuation in present between them. This can indicate a lack of awareness of natural speech patterns or difficulty in controlling the flow of speech.'
+                              )
+                            }
+                          />
                         </TableCell>
                       </TableRow>
 
@@ -211,14 +358,44 @@ export default function ErrorTable() {
                       <TableRow hover sx={{ cursor: 'default' }}>
                         <TableCell sx={{ width: '80%' }}>
                           <Box display="flex" alignItems="center" gap={1}>
-                            <Chip label={testResult?.[0]?.monotone ?? 0} size="small"
-                              sx={{ backgroundColor: '#6d4c4122', color: '#6d4c41', fontWeight: 700, border: '1px solid #6d4c41', flexShrink: 0 }} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>Monotone</Typography>
+                            <Chip
+                              label={testResult?.[0]?.monotone ?? 0}
+                              size="small"
+                              sx={{
+                                backgroundColor: '#6d4c4122',
+                                color: '#6d4c41',
+                                fontWeight: 700,
+                                border: '1px solid #6d4c41',
+                                flexShrink: 0,
+                              }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: 600 }}
+                            >
+                              Monotone
+                            </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell align="center" sx={{ px: 0.5, width: '20%' }}>
-                          <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                            onClick={e => handlePopoverOpen(e, 'The words are being read in a flat and unexciting tone, without any rhythm or expression. This can indicate a lack of engagement with the content or difficulty in conveying emotions through speech.')} />
+                        <TableCell
+                          align="center"
+                          sx={{ px: 0.5, width: '20%' }}
+                        >
+                          <InfoOutlinedIcon
+                            fontSize="small"
+                            sx={{
+                              color: 'text.secondary',
+                              display: 'block',
+                              cursor: 'pointer',
+                              mx: 'auto',
+                            }}
+                            onClick={e =>
+                              handlePopoverOpen(
+                                e,
+                                'The words are being read in a flat and unexciting tone, without any rhythm or expression. This can indicate a lack of engagement with the content or difficulty in conveying emotions through speech.'
+                              )
+                            }
+                          />
                         </TableCell>
                       </TableRow>
                     </TableBody>

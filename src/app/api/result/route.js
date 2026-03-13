@@ -10,11 +10,22 @@ export const runtime = 'nodejs';
 function convertToWav(inputPath, outputPath) {
   return new Promise((resolve, reject) => {
     const ff = spawn('ffmpeg', [
-      '-y', '-i', inputPath,
-      '-ar', '16000', '-ac', '1', '-f', 'wav',
+      '-y',
+      '-i',
+      inputPath,
+      '-ar',
+      '16000',
+      '-ac',
+      '1',
+      '-f',
+      'wav',
       outputPath,
     ]);
-    ff.on('close', code => code === 0 ? resolve() : reject(new Error(`ffmpeg exited with code ${code}`)));
+    ff.on('close', code =>
+      code === 0
+        ? resolve()
+        : reject(new Error(`ffmpeg exited with code ${code}`))
+    );
     ff.on('error', reject);
   });
 }
@@ -30,7 +41,10 @@ export async function POST(request) {
   }
 
   const id = randomUUID();
-  const ext = (audioFile.type?.includes('mp3') || audioFile.type?.includes('mpeg')) ? 'mp3' : 'webm';
+  const ext =
+    audioFile.type?.includes('mp3') || audioFile.type?.includes('mpeg')
+      ? 'mp3'
+      : 'webm';
   const inputPath = join(tmpdir(), `speech-in-${id}.${ext}`);
   const wavPath = join(tmpdir(), `speech-out-${id}.wav`);
 
@@ -45,7 +59,8 @@ export async function POST(request) {
       process.env.NEXT_PUBLIC_SPEECH_KEY,
       process.env.NEXT_PUBLIC_SPEECH_REGION
     );
-    speechConfig.speechRecognitionLanguage = process.env.NEXT_PUBLIC_LANGUAGE || 'en-US';
+    speechConfig.speechRecognitionLanguage =
+      process.env.NEXT_PUBLIC_LANGUAGE || 'en-US';
 
     const audioConfig = sdk.AudioConfig.fromWavFileInput(wavBuffer);
 
@@ -63,8 +78,14 @@ export async function POST(request) {
 
     const result = await new Promise((resolve, reject) => {
       reco.recognizeOnceAsync(
-        res => { reco.close(); resolve(res); },
-        err => { reco.close(); reject(new Error(err)); }
+        res => {
+          reco.close();
+          resolve(res);
+        },
+        err => {
+          reco.close();
+          reject(new Error(err));
+        }
       );
     });
 
@@ -73,7 +94,9 @@ export async function POST(request) {
     if (result.reason === sdk.ResultReason.Canceled) {
       const cancellation = sdk.CancellationDetails.fromResult(result);
       return Response.json(
-        { error: `Recognition canceled: ${cancellation.reason} — ${cancellation.errorDetails}` },
+        {
+          error: `Recognition canceled: ${cancellation.reason} — ${cancellation.errorDetails}`,
+        },
         { status: 422 }
       );
     }
@@ -85,12 +108,12 @@ export async function POST(request) {
       );
     }
 
-    const pronunciationResult = sdk.PronunciationAssessmentResult.fromResult(result);
+    const pronunciationResult =
+      sdk.PronunciationAssessmentResult.fromResult(result);
     const words = pronunciationResult.detailResult?.Words ?? [];
 
-    const countError = type => words.filter(
-      w => w.PronunciationAssessment?.ErrorType === type
-    ).length;
+    const countError = type =>
+      words.filter(w => w.PronunciationAssessment?.ErrorType === type).length;
 
     const output = {
       reference_text: referenceText,

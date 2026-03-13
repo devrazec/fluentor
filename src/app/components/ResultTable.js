@@ -37,14 +37,11 @@ import {
 } from 'iconsax-reactjs';
 
 export default function ScoreTable() {
-
   const [minimizedResult, setMinimizedResult] = useState(false);
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [popoverText, setPopoverText] = useState('');
 
-  const {
-    testResult,
-  } = useContext(GlobalContext);
+  const { testResult } = useContext(GlobalContext);
 
   const value = testResult?.[0]?.pronunciation ?? 0;
   const color = value >= 80 ? '#4caf50' : value >= 60 ? '#ffc107' : '#f44336';
@@ -132,8 +129,7 @@ export default function ScoreTable() {
                         },
                         [`& .${gaugeClasses.referenceArc}`]: {
                           fill: '#c8cdd8',
-                          filter:
-                            'drop-shadow(0px 2px 3px rgba(0,0,0,0.18))',
+                          filter: 'drop-shadow(0px 2px 3px rgba(0,0,0,0.18))',
                         },
                       }}
                       text={({ value }) => `${value}`}
@@ -146,9 +142,7 @@ export default function ScoreTable() {
                     <TableContainer sx={{ overflowX: 'auto' }}>
                       <Table size="small" aria-label="score legend">
                         <TableHead>
-                          <TableRow
-                            sx={{ backgroundColor: 'primary.main' }}
-                          >
+                          <TableRow sx={{ backgroundColor: 'primary.main' }}>
                             <TableCell
                               sx={{
                                 fontWeight: 700,
@@ -199,17 +193,53 @@ export default function ScoreTable() {
                           {(() => {
                             const active = value < 60;
                             return (
-                              <TableRow hover={!active} sx={{ cursor: 'default', ...(active && { backgroundColor: '#f4433622', outline: '2px solid #f44336', outlineOffset: '-2px', '& td': { fontWeight: 700 } }) }}>
+                              <TableRow
+                                hover={!active}
+                                sx={{
+                                  cursor: 'default',
+                                  ...(active && {
+                                    backgroundColor: '#f4433622',
+                                    outline: '2px solid #f44336',
+                                    outlineOffset: '-2px',
+                                    '& td': { fontWeight: 700 },
+                                  }),
+                                }}
+                              >
                                 <TableCell>
-                                  <Box display="flex" alignItems="center" gap={1}>
-                                    <Box sx={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#f44336', flexShrink: 0 }} />
+                                  <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    gap={1}
+                                  >
+                                    <Box
+                                      sx={{
+                                        width: 12,
+                                        height: 12,
+                                        borderRadius: '50%',
+                                        backgroundColor: '#f44336',
+                                        flexShrink: 0,
+                                      }}
+                                    />
                                     0–59
                                   </Box>
                                 </TableCell>
                                 <TableCell>Basic</TableCell>
                                 <TableCell align="center">
-                                  <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                                    onClick={e => handlePopoverOpen(e, 'Speech has many pronunciation errors. Listeners may struggle to understand without repetition. Limited fluency and accuracy.')} />
+                                  <InfoOutlinedIcon
+                                    fontSize="small"
+                                    sx={{
+                                      color: 'text.secondary',
+                                      display: 'block',
+                                      cursor: 'pointer',
+                                      mx: 'auto',
+                                    }}
+                                    onClick={e =>
+                                      handlePopoverOpen(
+                                        e,
+                                        'Speech has many pronunciation errors. Listeners may struggle to understand without repetition. Limited fluency and accuracy.'
+                                      )
+                                    }
+                                  />
                                 </TableCell>
                               </TableRow>
                             );
@@ -219,17 +249,53 @@ export default function ScoreTable() {
                           {(() => {
                             const active = value >= 60 && value < 80;
                             return (
-                              <TableRow hover={!active} sx={{ cursor: 'default', ...(active && { backgroundColor: '#ffc10722', outline: '2px solid #ffc107', outlineOffset: '-2px', '& td': { fontWeight: 700 } }) }}>
+                              <TableRow
+                                hover={!active}
+                                sx={{
+                                  cursor: 'default',
+                                  ...(active && {
+                                    backgroundColor: '#ffc10722',
+                                    outline: '2px solid #ffc107',
+                                    outlineOffset: '-2px',
+                                    '& td': { fontWeight: 700 },
+                                  }),
+                                }}
+                              >
                                 <TableCell>
-                                  <Box display="flex" alignItems="center" gap={1}>
-                                    <Box sx={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#ffc107', flexShrink: 0 }} />
+                                  <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    gap={1}
+                                  >
+                                    <Box
+                                      sx={{
+                                        width: 12,
+                                        height: 12,
+                                        borderRadius: '50%',
+                                        backgroundColor: '#ffc107',
+                                        flexShrink: 0,
+                                      }}
+                                    />
                                     60–79
                                   </Box>
                                 </TableCell>
                                 <TableCell>Intermediate</TableCell>
                                 <TableCell align="center">
-                                  <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                                    onClick={e => handlePopoverOpen(e, 'Pronunciation is generally understandable but contains noticeable errors. Fluency is moderate. Communication works but with some effort.')} />
+                                  <InfoOutlinedIcon
+                                    fontSize="small"
+                                    sx={{
+                                      color: 'text.secondary',
+                                      display: 'block',
+                                      cursor: 'pointer',
+                                      mx: 'auto',
+                                    }}
+                                    onClick={e =>
+                                      handlePopoverOpen(
+                                        e,
+                                        'Pronunciation is generally understandable but contains noticeable errors. Fluency is moderate. Communication works but with some effort.'
+                                      )
+                                    }
+                                  />
                                 </TableCell>
                               </TableRow>
                             );
@@ -239,17 +305,53 @@ export default function ScoreTable() {
                           {(() => {
                             const active = value >= 80;
                             return (
-                              <TableRow hover={!active} sx={{ cursor: 'default', ...(active && { backgroundColor: '#4caf5022', outline: '2px solid #4caf50', outlineOffset: '-2px', '& td': { fontWeight: 700 } }) }}>
+                              <TableRow
+                                hover={!active}
+                                sx={{
+                                  cursor: 'default',
+                                  ...(active && {
+                                    backgroundColor: '#4caf5022',
+                                    outline: '2px solid #4caf50',
+                                    outlineOffset: '-2px',
+                                    '& td': { fontWeight: 700 },
+                                  }),
+                                }}
+                              >
                                 <TableCell>
-                                  <Box display="flex" alignItems="center" gap={1}>
-                                    <Box sx={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#4caf50', flexShrink: 0 }} />
+                                  <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    gap={1}
+                                  >
+                                    <Box
+                                      sx={{
+                                        width: 12,
+                                        height: 12,
+                                        borderRadius: '50%',
+                                        backgroundColor: '#4caf50',
+                                        flexShrink: 0,
+                                      }}
+                                    />
                                     80–100
                                   </Box>
                                 </TableCell>
                                 <TableCell>Advanced</TableCell>
                                 <TableCell align="center">
-                                  <InfoOutlinedIcon fontSize="small" sx={{ color: 'text.secondary', display: 'block', cursor: 'pointer', mx: 'auto' }}
-                                    onClick={e => handlePopoverOpen(e, 'Clear pronunciation close to native-like patterns. High fluency and accuracy. Easy to understand.')} />
+                                  <InfoOutlinedIcon
+                                    fontSize="small"
+                                    sx={{
+                                      color: 'text.secondary',
+                                      display: 'block',
+                                      cursor: 'pointer',
+                                      mx: 'auto',
+                                    }}
+                                    onClick={e =>
+                                      handlePopoverOpen(
+                                        e,
+                                        'Clear pronunciation close to native-like patterns. High fluency and accuracy. Easy to understand.'
+                                      )
+                                    }
+                                  />
                                 </TableCell>
                               </TableRow>
                             );
@@ -275,6 +377,5 @@ export default function ScoreTable() {
         <Typography variant="body2">{popoverText}</Typography>
       </Popover>
     </>
-
   );
 }

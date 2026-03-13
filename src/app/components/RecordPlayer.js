@@ -45,12 +45,8 @@ function formatTime(secs) {
 }
 
 export default function RecordPlayer() {
-  const {
-    currentAnswer,
-    selectedAnswer,
-    testResult,
-    setTestResult,
-  } = useContext(GlobalContext);
+  const { currentAnswer, selectedAnswer, testResult, setTestResult } =
+    useContext(GlobalContext);
 
   const timed =
     currentAnswer?.find(a => a.id === selectedAnswer)?.timed ?? null;
@@ -188,22 +184,24 @@ export default function RecordPlayer() {
             });
             if (res.ok) {
               const data = await res.json();
-              setTestResult([{
-                reference_text: data.reference_text ?? '',
-                recognized_text: data.recognized_text ?? '',
-                pronunciation: data.pronunciation ?? 0,
-                accuracy: data.accuracy ?? 0,
-                fluency: data.fluency ?? 0,
-                completeness: data.completeness ?? 0,
-                prosody: data.prosody ?? 0,
-                mispronunciation: data.mispronunciation ?? 0,
-                omission: data.omission ?? 0,
-                insertion: data.insertion ?? 0,
-                unexpected_break: data.unexpected_break ?? 0,
-                missing_break: data.missing_break ?? 0,
-                monotone: data.monotone ?? 0,
-                words: data.words ?? [],
-              }]);
+              setTestResult([
+                {
+                  reference_text: data.reference_text ?? '',
+                  recognized_text: data.recognized_text ?? '',
+                  pronunciation: data.pronunciation ?? 0,
+                  accuracy: data.accuracy ?? 0,
+                  fluency: data.fluency ?? 0,
+                  completeness: data.completeness ?? 0,
+                  prosody: data.prosody ?? 0,
+                  mispronunciation: data.mispronunciation ?? 0,
+                  omission: data.omission ?? 0,
+                  insertion: data.insertion ?? 0,
+                  unexpected_break: data.unexpected_break ?? 0,
+                  missing_break: data.missing_break ?? 0,
+                  monotone: data.monotone ?? 0,
+                  words: data.words ?? [],
+                },
+              ]);
             } else {
               console.error('Assessment API error:', res.status);
             }
@@ -342,7 +340,11 @@ export default function RecordPlayer() {
           sx={{ mb: isRecording ? 1.5 : 2, position: 'relative' }}
         >
           {isAnalyzing && (
-            <CircularProgress size={48} thickness={2} sx={{ color: '#00a76f', position: 'absolute' }} />
+            <CircularProgress
+              size={48}
+              thickness={2}
+              sx={{ color: '#00a76f', position: 'absolute' }}
+            />
           )}
           <IconButton
             onClick={handleRecordStop}
