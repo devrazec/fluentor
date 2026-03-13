@@ -24,6 +24,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import LinearProgress from '@mui/material/LinearProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import {
   Play,
   Pause,
@@ -47,16 +48,8 @@ export default function RecordPlayer() {
   const {
     currentAnswer,
     selectedAnswer,
-    selectedRecord,
-    setSelectedRecord,
-    selectedResult,
-    setSelectedResult,
-    pronunciationLabel,
-    setPronunciationLabel,
-    errorLabel,
-    setErrorLabel,
-    scoreLabel,
-    setScoreLabel,
+    testResult,
+    setTestResult,
   } = useContext(GlobalContext);
 
   const timed =
@@ -79,6 +72,7 @@ export default function RecordPlayer() {
   const [recCurrentTime, setRecCurrentTime] = useState(0);
   const [recIsPlaying, setRecIsPlaying] = useState(false);
   const [minimized, setMinimized] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // rAF helpers
   const startRecRaf = useCallback(() => {
@@ -128,6 +122,7 @@ export default function RecordPlayer() {
           audio: true,
         });
         recChunksRef.current = [];
+        setRecordings([]);
         const mr = new MediaRecorder(stream);
         mediaRecorderRef.current = mr;
 
@@ -135,7 +130,7 @@ export default function RecordPlayer() {
           if (e.data.size > 0) recChunksRef.current.push(e.data);
         };
 
-        mr.onstop = () => {
+        mr.onstop = async () => {
           stream.getTracks().forEach(t => t.stop());
           const blob = new Blob(recChunksRef.current, { type: 'audio/webm' });
           const url = URL.createObjectURL(blob);
@@ -154,7 +149,7 @@ export default function RecordPlayer() {
                 isFinite(tmp.duration) && tmp.duration > 0
                   ? tmp.duration
                   : fallback;
-              setRecordings(prev => [...prev, { id, url, duration: dur }]);
+              setRecordings([{ id, url, duration: dur }]);
               tmp.src = '';
             },
             { once: true }
@@ -164,7 +159,7 @@ export default function RecordPlayer() {
             () => {
               if (resolved) return;
               resolved = true;
-              setRecordings(prev => [...prev, { id, url, duration: fallback }]);
+              setRecordings([{ id, url, duration: fallback }]);
             },
             { once: true }
           );
@@ -176,6 +171,47 @@ export default function RecordPlayer() {
           setRecIsPlaying(false);
           setRecordingSeconds(0);
           recSecondsRef.current = 0;
+
+          // Call pronunciation assessment API
+          const referenceText =
+            currentAnswer?.find(a => a.id === selectedAnswer)?.name ?? '';
+          const formData = new FormData();
+          formData.append('audio', blob, 'recording.webm');
+          formData.append('referenceText', referenceText);
+          formData.append('scripted', 'true');
+
+          setIsAnalyzing(true);
+          try {
+            const res = await fetch('/api/result', {
+              method: 'POST',
+              body: formData,
+            });
+            if (res.ok) {
+              const data = await res.json();
+              setTestResult([{
+                reference_text: data.reference_text ?? '',
+                recognized_text: data.recognized_text ?? '',
+                pronunciation: data.pronunciation ?? 0,
+                accuracy: data.accuracy ?? 0,
+                fluency: data.fluency ?? 0,
+                completeness: data.completeness ?? 0,
+                prosody: data.prosody ?? 0,
+                mispronunciation: data.mispronunciation ?? 0,
+                omission: data.omission ?? 0,
+                insertion: data.insertion ?? 0,
+                unexpected_break: data.unexpected_break ?? 0,
+                missing_break: data.missing_break ?? 0,
+                monotone: data.monotone ?? 0,
+                words: data.words ?? [],
+              }]);
+            } else {
+              console.error('Assessment API error:', res.status);
+            }
+          } catch (err) {
+            console.error('Assessment fetch error:', err);
+          } finally {
+            setIsAnalyzing(false);
+          }
         };
 
         mr.start();
@@ -193,7 +229,7 @@ export default function RecordPlayer() {
         alert('Microphone access denied.');
       }
     }
-  }, [isRecording, stopRecRaf]);
+  }, [isRecording, stopRecRaf, currentAnswer, selectedAnswer]);
 
   const handleRecPlay = useCallback(
     rec => {
@@ -303,10 +339,14 @@ export default function RecordPlayer() {
           direction="row"
           alignItems="center"
           spacing={2}
-          sx={{ mb: isRecording ? 1.5 : 2 }}
+          sx={{ mb: isRecording ? 1.5 : 2, position: 'relative' }}
         >
+          {isAnalyzing && (
+            <CircularProgress size={48} thickness={2} sx={{ color: '#00a76f', position: 'absolute' }} />
+          )}
           <IconButton
             onClick={handleRecordStop}
+            disabled={isAnalyzing}
             sx={{
               bgcolor: isRecording ? '#f44336' : '#00a76f',
               color: '#fff',
@@ -328,9 +368,11 @@ export default function RecordPlayer() {
               fontWeight={600}
               color={isRecording ? 'error.main' : 'text.primary'}
             >
-              {isRecording
-                ? `Recording… ${formatTime(recordingSeconds)}${timed ? ` / ${formatTime(timed)}` : ''}`
-                : 'Tap to record'}
+              {isAnalyzing
+                ? 'Analyzing…'
+                : isRecording
+                  ? `Recording… ${formatTime(recordingSeconds)}${timed ? ` / ${formatTime(timed)}` : ''}`
+                  : 'Tap to record'}
             </Typography>
             <Typography variant="caption" color="text.secondary">
               {isRecording

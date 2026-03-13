@@ -27,8 +27,24 @@ export function GlobalProvider({ children }) {
   const [filterTense, setFilterTense] = useState([]);
   const [filterQuestion, setFilterQuestion] = useState([]);
 
-  const [selectedRecord, setSelectedRecord] = useState([]);
-  const [selectedResult, setSelectedResult] = useState([]);
+  const [testResult, setTestResult] = useState([
+    {
+      reference_text: '',
+      recognized_text: '',
+      pronunciation: 0,
+      accuracy: 0,
+      fluency: 0,
+      completeness: 0,
+      prosody: 0,
+      mispronunciation: 0,
+      omission: 0,
+      insertion: 0,
+      unexpected_break: 0,
+      missing_break: 0,
+      monotone: 0,
+      words: [],
+    },
+  ]);
 
   const [pronunciationLabel, setPronunciationLabel] = useState([
     {
@@ -69,37 +85,31 @@ export function GlobalProvider({ children }) {
   const [errorLabel, setErrorLabel] = useState([
     {
       label: 'Mispronunciation',
-      value: 0,
       color: '#e53935',
       note: 'The words that are spoken incorrectly. This can include wrong vowel or consonant sounds, stress on the wrong syllable, or incorrect intonation patterns.',
     },
     {
       label: 'Omission',
-      value: 0,
       color: '#fb8c00',
       note: 'The words that are provided in the script but are not spoken. This can indicate difficulty in recalling or pronouncing certain words, or it may reflect a lack of familiarity with the vocabulary.',
     },
     {
       label: 'Insertion',
-      value: 0,
       color: '#8e24aa',
       note: 'The words that are not in the script but are detected in the recording. This can indicate overcompensation or misunderstanding of the content.',
     },
     {
       label: 'Unexpected break',
-      value: 0,
       color: '#1e88e5',
       note: 'Improperly paused in between words within same sentence. This can indicate hesitation, difficulty in recalling the next word, or uncertainty in pronunciation.',
     },
     {
       label: 'Missing break',
-      value: 0,
       color: '#00897b',
       note: 'Missing pauses between words when there is a punctuation in present between them. This can indicate a lack of awareness of natural speech patterns or difficulty in controlling the flow of speech.',
     },
     {
       label: 'Monotone',
-      value: 0,
       color: '#6d4c41',
       note: 'The words are being read in a flat and unexciting tone, without any rhythm or expression. This can indicate a lack of engagement with the content or difficulty in conveying emotions through speech.',
     },
@@ -167,7 +177,7 @@ export function GlobalProvider({ children }) {
     fetchTable('/api/category', setDbCategory);
     fetchTable('/api/tense', setDbTense);
     fetchTable('/api/question', setDbQuestion);
-    fetchTable('/api/record', setDbRecord);
+    //fetchTable('/api/record', setDbRecord);
 
     fetchAllAnswers();
   }, []);
@@ -217,17 +227,14 @@ export function GlobalProvider({ children }) {
         filterQuestion,
         setFilterQuestion,
 
-        selectedRecord,
-        setSelectedRecord,
-        selectedResult,
-        setSelectedResult,
-
         pronunciationLabel,
         setPronunciationLabel,
         errorLabel,
         setErrorLabel,
         scoreLabel,
         setScoreLabel,
+
+        testResult, setTestResult,
       }}
     >
       {children}
