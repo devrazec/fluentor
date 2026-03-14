@@ -14,6 +14,7 @@ import FeedbackTable from '../../components/FeedbackTable';
 import ScoreTable from '../../components/ScoreTable';
 import ErrorTable from '../../components/ErrorTable';
 import ResultTable from '../../components/ResultTable';
+import RecognizedText from '../../components/RecognizedText';
 
 import { GlobalContext } from '../../context/GlobalContext';
 
@@ -100,6 +101,8 @@ export default function ResultPage() {
         }}
       >
         <Question />
+
+        <RecognizedText />
 
         <RecordPlayer />
 

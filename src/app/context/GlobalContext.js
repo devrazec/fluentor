@@ -46,6 +46,8 @@ export function GlobalProvider({ children }) {
     },
   ]);
 
+  const [scriptedWord, setScriptedWord] = useState(true);
+
   useEffect(() => {
     const fetchTable = async (url, setter) => {
       try {
@@ -137,6 +139,9 @@ export function GlobalProvider({ children }) {
 
         testResult,
         setTestResult,
+
+        scriptedWord,
+        setScriptedWord,
       }}
     >
       {children}

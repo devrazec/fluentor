@@ -60,6 +60,8 @@ export default function Question() {
     mobileDevice,
     filterQuestion,
     setFilterQuestion,
+    scriptedWord,
+    setScriptedWord,
   } = useContext(GlobalContext);
 
   const answer = currentAnswer?.find(a => a.id === selectedAnswer);
@@ -168,138 +170,196 @@ export default function Question() {
             </Select>
           </FormControl>
         </Box>
-        {answer && (
-          <Box
+
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            justifyContent: 'flex-end',
+            alignItems: { xs: 'flex-end', sm: 'center' },
+            gap: 1.5,
+            mb: 2,
+            mt: 2,
+          }}
+        >
+          {/* Answer Selector */}
+          <ToggleButtonGroup
+            value={selectedAnswer}
+            exclusive
+            onChange={(_, val) => {
+              if (val !== null) {
+                setSelectedAnswer(val);
+                setScriptedWord(val !== 'free');
+              }
+            }}
             sx={{
               display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              justifyContent: 'flex-end',
-              alignItems: { xs: 'flex-end', sm: 'center' },
-              gap: 1.5,
-              mb: 2,
-              mt: 2,
+              flexWrap: { xs: 'wrap', sm: 'nowrap' },
+              width: '100%',
+              gap: 1,
+              //mb: 2,
+              '& .MuiToggleButtonGroup-grouped': {
+                borderRadius: '8px !important',
+                border: '1px solid rgba(0,0,0,0.12) !important',
+                mx: 0,
+              },
             }}
           >
-            {/* Answer Selector */}
-            <ToggleButtonGroup
-              value={selectedAnswer}
-              exclusive
-              onChange={(_, val) => {
-                if (val !== null) {
-                  setSelectedAnswer(val);
-                }
-              }}
-              sx={{
-                display: 'flex',
-                flexWrap: { xs: 'wrap', sm: 'nowrap' },
-                width: '100%',
-                gap: 1,
-                mb: 2,
-                '& .MuiToggleButtonGroup-grouped': {
-                  borderRadius: '8px !important',
-                  border: '1px solid rgba(0,0,0,0.12) !important',
-                  mx: 0,
-                },
-              }}
-            >
-              {currentAnswer?.map((a, index) => (
-                <ToggleButton
-                  key={a.id}
-                  value={a.id}
-                  sx={{
-                    flex: { xs: '1 1 calc(50% - 4px)', sm: 1 },
-                    minWidth: 0,
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    px: 1.5,
-                    py: 1,
-                    textAlign: 'left',
-                    textTransform: 'none',
-                    position: 'relative',
-                    transition: 'background-color 0.2s',
-                    '&:hover': { bgcolor: '#00a76f1f' },
-                    backgroundColor:
-                      selectedAnswer === a.id
-                        ? '#00a76f1f !important'
-                        : undefined,
-                    borderColor:
-                      selectedAnswer === a.id
-                        ? '#00a76f1f !important'
-                        : undefined,
-                  }}
+            {currentAnswer?.map((a, index) => (
+              <ToggleButton
+                key={a.id}
+                value={a.id}
+                sx={{
+                  flex: { xs: '1 1 calc(50% - 4px)', sm: 1 },
+                  minWidth: 0,
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  px: 1.5,
+                  py: 1,
+                  textAlign: 'left',
+                  textTransform: 'none',
+                  position: 'relative',
+                  transition: 'background-color 0.2s',
+                  '&:hover': { bgcolor: '#00a76f1f' },
+                  backgroundColor:
+                    selectedAnswer === a.id
+                      ? '#00a76f1f !important'
+                      : undefined,
+                  borderColor:
+                    selectedAnswer === a.id
+                      ? '#00a76f1f !important'
+                      : undefined,
+                }}
+              >
+                {selectedAnswer === a.id && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 7,
+                      right: 7,
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      bgcolor: '#00a76f',
+                      boxShadow: '0 0 0 2px rgba(0,167,111,0.25)',
+                    }}
+                  />
+                )}
+                <Typography variant="caption" fontWeight={600} sx={{ mb: 0.5 }}>
+                  Answer {index + 1}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  noWrap
+                  sx={{ width: '100%', display: 'block' }}
                 >
-                  {selectedAnswer === a.id && (
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        top: 7,
-                        right: 7,
-                        width: 8,
-                        height: 8,
-                        borderRadius: '50%',
-                        bgcolor: '#00a76f',
-                        boxShadow: '0 0 0 2px rgba(0,167,111,0.25)',
-                      }}
-                    />
-                  )}
-                  <Typography
-                    variant="caption"
-                    fontWeight={600}
-                    sx={{ mb: 0.5 }}
-                  >
-                    Answer {index + 1}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    noWrap
-                    sx={{ width: '100%', display: 'block' }}
-                  >
-                    {getPreviewAnswer(a.name)}
-                  </Typography>
-                  <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
-                    <Chip
-                      label={`${a.timed}sec`}
-                      size="small"
-                      color="primary"
-                      variant="outlined"
-                      sx={{ pointerEvents: 'none' }}
-                    />
-                    <Chip
+                  {getPreviewAnswer(a.name)}
+                </Typography>
+                <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
+                  <Chip
+                    label={`${a.timed} sec`}
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                    sx={{ pointerEvents: 'none' }}
+                  />
+                  {/* <Chip
                       label={`${a.word}words`}
                       size="small"
                       variant="outlined"
                       sx={{ pointerEvents: 'none' }}
-                    />
-                  </Box>
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </Box>
-        )}
+                    /> */}
+                </Box>
+              </ToggleButton>
+            ))}
+            <ToggleButton
+              key="free"
+              value="free"
+              sx={{
+                flex: { xs: '1 1 calc(50% - 4px)', sm: 1 },
+                minWidth: 0,
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                px: 1.5,
+                py: 1,
+                textAlign: 'left',
+                textTransform: 'none',
+                position: 'relative',
+                transition: 'background-color 0.2s',
+                '&:hover': { bgcolor: '#00a76f1f' },
+                backgroundColor:
+                  selectedAnswer === 'free'
+                    ? '#00a76f1f !important'
+                    : undefined,
+                borderColor:
+                  selectedAnswer === 'free'
+                    ? '#00a76f1f !important'
+                    : undefined,
+              }}
+            >
+              {selectedAnswer === 'free' && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 7,
+                    right: 7,
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    bgcolor: '#00a76f',
+                    boxShadow: '0 0 0 2px rgba(0,167,111,0.25)',
+                  }}
+                />
+              )}
+              <Typography variant="caption" fontWeight={600} sx={{ mb: 0.5 }}>
+                Free Answer
+              </Typography>
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                noWrap
+                sx={{ width: '100%', display: 'block' }}
+              >
+                Your own words
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
+                <Chip
+                  label="60 sec"
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                  sx={{ pointerEvents: 'none' }}
+                />
+              </Box>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
 
-        <Box
-          sx={{
-            mb: 2,
-            lineHeight: 1.9,
-            fontSize: '1.25rem',
-            fontWeight: 700,
-          }}
-        >
-          <span
-            style={{
-              transition: 'background 0.15s, color 0.15s',
-              borderRadius: 4,
-              padding: '1px 3px',
-              marginRight: 2,
-              display: 'inline-block',
+        {selectedAnswer !== 'free' && (
+          <Box
+            sx={{
+              mb: 2,
+              lineHeight: 1.9,
+              fontSize: '1.25rem',
+              fontWeight: 700,
             }}
           >
-            {selectedAnswer
-              ? answer?.name
-              : 'Please select an answer to see details'}
-          </span>
-        </Box>
+            <span
+              style={{
+                transition: 'background 0.15s, color 0.15s',
+                borderRadius: 4,
+                padding: '1px 3px',
+                marginRight: 2,
+                display: 'inline-block',
+              }}
+            >
+              {selectedAnswer
+                ? answer?.name
+                : 'Please select an answer to see details'}
+            </span>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );

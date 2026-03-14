@@ -95,11 +95,19 @@ function formatTime(secs) {
 }
 
 export default function RecordPlayer() {
-  const { currentAnswer, selectedAnswer, testResult, setTestResult } =
-    useContext(GlobalContext);
+  const {
+    currentAnswer,
+    selectedAnswer,
+    testResult,
+    setTestResult,
+    scriptedWord,
+    setScriptedWord,
+  } = useContext(GlobalContext);
 
   const timed =
-    currentAnswer?.find(a => a.id === selectedAnswer)?.timed ?? null;
+    selectedAnswer === 'free'
+      ? 60
+      : (currentAnswer?.find(a => a.id === selectedAnswer)?.timed ?? null);
 
   // Refs
   const mediaRecorderRef = useRef(null);
@@ -225,7 +233,7 @@ export default function RecordPlayer() {
           const formData = new FormData();
           formData.append('audio', wavBlob, 'recording.wav');
           formData.append('referenceText', referenceText);
-          formData.append('scripted', 'true');
+          formData.append('scripted', scriptedWord);
 
           setIsAnalyzing(true);
           try {
@@ -658,6 +666,21 @@ export default function RecordPlayer() {
                 ))}
               </TableBody>
             </Table>
+
+            {testResult?.[0]?.recognized_text && (
+              <Box sx={{ mt: 1.5 }}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  fontWeight={600}
+                >
+                  Recognized text:
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 0.5 }}>
+                  {testResult[0].recognized_text}
+                </Typography>
+              </Box>
+            )}
           </>
         )}
       </CardContent>

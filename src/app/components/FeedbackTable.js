@@ -16,6 +16,7 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
@@ -64,7 +65,7 @@ export default function WordTable() {
   };
 
   return (
-    <Grid size={{ xs: 12, md: 6 }} sx={{ mb: mobileDevice ? 10 : 12 }}>
+    <Grid size={{ xs: 12, md: 6 }} sx={{ mb: mobileDevice ? 12 : 12 }}>
       <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3, height: '100%' }}>
         <CardContent>
           <Stack
@@ -90,6 +91,8 @@ export default function WordTable() {
           </Stack>
           {!minimizedFeedback && (
             <>
+              <Divider sx={{ mb: 1.5 }} />
+
               <Typography
                 variant="body2"
                 sx={{ mb: 2, color: 'text.secondary' }}

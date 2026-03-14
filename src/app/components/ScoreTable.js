@@ -16,6 +16,7 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
@@ -88,6 +89,8 @@ export default function ScoreTable() {
             </Stack>
             {!minimizedScore && (
               <>
+                <Divider sx={{ mb: 1.5 }} />
+
                 <Typography
                   variant="body2"
                   sx={{ mb: 2, color: 'text.secondary' }}
