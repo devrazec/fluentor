@@ -6,9 +6,34 @@ import { clerkAppearance } from './lib/clerkAppearance';
 import Script from 'next/script';
 
 export const metadata = {
-  title: 'Fluentor - Intelligent Tutoring Platform',
+  title: 'Fluentor - Speak English naturally and fluently',
+  description:
+    'Practice English pronunciation with AI-powered feedback. Improve your speaking fluency, accuracy, and confidence with Fluentor.',
+  metadataBase: new URL('https://www.fluentor.app'),
+  alternates: {
+    canonical: 'https://www.fluentor.app',
+  },
   icons: {
     icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Fluentor - Speak English naturally and fluently',
+    description:
+      'Practice English pronunciation with AI-powered feedback. Improve your speaking fluency, accuracy, and confidence with Fluentor.',
+    url: 'https://www.fluentor.app',
+    siteName: 'Fluentor',
+    images: [
+      { url: '/og-image.png', width: 1200, height: 630, alt: 'Fluentor' },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fluentor - Speak English naturally and fluently',
+    description:
+      'Practice English pronunciation with AI-powered feedback. Improve your speaking fluency, accuracy, and confidence with Fluentor.',
+    images: ['/og-image.png'],
   },
 };
 
