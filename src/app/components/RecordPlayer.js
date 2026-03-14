@@ -673,7 +673,7 @@ export default function RecordPlayer() {
               </TableBody>
             </Table>
 
-            {testResult?.[0]?.recognized_text && (
+            {/* {testResult?.[0]?.recognized_text && (
               <Box sx={{ mt: 1.5 }}>
                 <Typography
                   variant="caption"
@@ -686,7 +686,7 @@ export default function RecordPlayer() {
                   {testResult[0].recognized_text}
                 </Typography>
               </Box>
-            )}
+            )} */}
           </>
         )}
       </CardContent>
