@@ -413,7 +413,16 @@ export default function RecordPlayer() {
                 zIndex: 1300,
               }}
             >
-              <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 120,
+                  height: 120,
+                }}
+              >
                 {/* Outer glow ring */}
                 <CircularProgress
                   size={120}
@@ -421,9 +430,6 @@ export default function RecordPlayer() {
                   sx={{
                     color: 'rgba(0,167,111,0.2)',
                     position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
                   }}
                 />
                 {/* Main spinner */}
