@@ -32,6 +32,7 @@
     "@mui/x-charts": "^8.27.4",
     "@mui/x-data-grid": "^8.27.0",
     "@mui/x-date-pickers": "^8.27.0",
+    "@vercel/analytics": "^2.0.1",
     "better-sqlite3": "^12.6.2",
     "dayjs": "^1.11.19",
     "iconsax-reactjs": "^0.0.8",
