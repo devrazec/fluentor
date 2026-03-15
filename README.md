@@ -242,3 +242,42 @@ https://icon-sets.iconify.design/
 https://dashboard.clerk.com/
 
 # Azure Pronunciation Assessment
+
+https://portal.azure.com/#@uabpt.onmicrosoft.com/blade/Microsoft_Azure_CostManagement/Menu/open/CostAnalysis/scope/%2Fproviders%2FMicrosoft.Billing%2FbillingAccounts%2Fed40c9cc-66da-47fe-912a-07a8165de8a8%3A56dc52a1-6ae6-49d7-9a69-b62b0ce83644_2019-05-31/viewId/%2Fproviders%2FMicrosoft.Billing%2FbillingAccounts%2Fed40c9cc-66da-47fe-912a-07a8165de8a8%3A56dc52a1-6ae6-49d7-9a69-b62b0ce83644_2019-05-31%2Fproviders%2FMicrosoft.CostManagement%2Fviews%2Fms%3AAccumulatedCosts
+
+
+# Google Analytics
+
+https://search.google.com/search-console?utm_source=about-page&resource_id=https://www.fluentor.app/
+
+https://analytics.google.com/analytics/web/#/a387332422p528060744/reports/dashboard?params=_u..nav%3Dmaui&ruid=user-demographics-overview,user,demographics&restoreUserState=true&r=user-demographics-overview
+
+
+# Pronunciation Assessment
+
+https://ai.azure.com/explore/models/aiservices/Azure-AI-Speech/version/1/registry/azureml-cogsvc
+
+https://learn.microsoft.com/en-us/azure/ai-services/speech-service/how-to-pronunciation-assessment?pivots=programming-language-javascript
+
+https://github.com/Azure-Samples/cognitive-services-speech-sdk/blob/master/scenarios/javascript/node/language-learning/pronunciationAssessment.js
+
+https://ai.azure.com/explore/aiservices/speech/pronunciationassessment
+
+https://ai.azure.com/explore/models/aiservices/Azure-AI-Speech/version/1/registry/azureml-cogsvc/tryout
+
+# Voice Live
+
+https://github.com/microsoft-foundry/voicelive-samples/tree/main/voice-live-universal-assistant
+
+# Web Interface
+
+http://localhost:3000
+
+![Pic1](./public/img/screenshot/pic1.png)
+![Pic2](./public/img/screenshot/pic2.png)
+![Pic3](./public/img/screenshot/pic3.png)
+![Pic4](./public/img/screenshot/pic4.png)
+![Pic5](./public/img/screenshot/pic5.png)
+![Pic6](./public/img/screenshot/pic6.png)
+![Pic7](./public/img/screenshot/pic7.png)
+![Pic8](./public/img/screenshot/pic8.png)
