@@ -110,6 +110,7 @@ CNAME
 .eslintrc.json
 .prettierrc
 .prettierignore
+.npmrc
 
 -- Copy files to /src/app/context
 
@@ -194,8 +195,8 @@ npm remove @kinde-oss/kinde-auth-nextjs
 npm i -S @clerk/nextjs@6.22.0
 npm remove @clerk/ui
 
-npm install @clerk/nextjs@latest @clerk/backend@latest
-npm install --legacy-peer-deps
+npm i -S @clerk/nextjs@latest @clerk/backend@latest
+npm i -S --legacy-peer-deps
 
 -- Vercel
 
