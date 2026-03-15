@@ -245,13 +245,11 @@ https://dashboard.clerk.com/
 
 https://portal.azure.com/#@uabpt.onmicrosoft.com/blade/Microsoft_Azure_CostManagement/Menu/open/CostAnalysis/scope/%2Fproviders%2FMicrosoft.Billing%2FbillingAccounts%2Fed40c9cc-66da-47fe-912a-07a8165de8a8%3A56dc52a1-6ae6-49d7-9a69-b62b0ce83644_2019-05-31/viewId/%2Fproviders%2FMicrosoft.Billing%2FbillingAccounts%2Fed40c9cc-66da-47fe-912a-07a8165de8a8%3A56dc52a1-6ae6-49d7-9a69-b62b0ce83644_2019-05-31%2Fproviders%2FMicrosoft.CostManagement%2Fviews%2Fms%3AAccumulatedCosts
 
-
 # Google Analytics
 
 https://search.google.com/search-console?utm_source=about-page&resource_id=https://www.fluentor.app/
 
 https://analytics.google.com/analytics/web/#/a387332422p528060744/reports/dashboard?params=_u..nav%3Dmaui&ruid=user-demographics-overview,user,demographics&restoreUserState=true&r=user-demographics-overview
-
 
 # Pronunciation Assessment
 
