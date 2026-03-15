@@ -616,10 +616,6 @@ export default function PracticePage() {
     return name.length > 15 ? name.slice(0, 15) + '…' : name;
   }
 
-  //console.log(selectedAnswer);
-
-  //console.log(currentAnswer);
-
   return (
     <DashboardLayout>
       <Box
