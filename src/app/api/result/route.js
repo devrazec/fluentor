@@ -34,7 +34,7 @@ export async function POST(request) {
     pronunciationAssessmentConfig.enableProsodyAssessment = true;
 
     const reco = new sdk.SpeechRecognizer(speechConfig, audioConfig);
-    reco.sessionStarted = (_s, e) => console.log(`SESSION ID: ${e.sessionId}`);
+    //reco.sessionStarted = (_s, e) => console.log(`SESSION ID: ${e.sessionId}`);
     pronunciationAssessmentConfig.applyTo(reco);
 
     const result = await new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ export async function POST(request) {
       );
     });
 
-    console.log('result.reason:', result.reason, '| text:', result.text);
+    //console.log('result.reason:', result.reason, '| text:', result.text);
 
     if (result.reason === sdk.ResultReason.Canceled) {
       const cancellation = sdk.CancellationDetails.fromResult(result);
