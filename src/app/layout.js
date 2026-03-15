@@ -5,6 +5,7 @@ import Providers from './providers';
 import { clerkAppearance } from './lib/clerkAppearance';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata = {
   title: 'Fluentor - Speak English naturally and fluently',
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
             <ClerkProvider appearance={clerkAppearance}>
               {children}
               <Analytics />
+              <SpeedInsights />
               <Script
                 src="https://www.googletagmanager.com/gtag/js?id=G-KH0NX580QF"
                 strategy="afterInteractive"

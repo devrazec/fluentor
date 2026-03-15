@@ -210,6 +210,7 @@ npm i -S microsoft-cognitiveservices-speech-sdk
 --  Vercel Analytics
 
 npm i -S @vercel/analytics
+npm i -S @vercel/speed-insights
 
 ```
 
