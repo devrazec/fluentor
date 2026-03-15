@@ -56,8 +56,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import TextField from '@mui/material/TextField';
 
 export default function ResultPage() {
-  const [popoverAnchor, setPopoverAnchor] = React.useState(null);
-  const [popoverText, setPopoverText] = React.useState('');
+  //const [popoverAnchor, setPopoverAnchor] = React.useState(null);
+  //const [popoverText, setPopoverText] = React.useState('');
 
   const {
     dbQuestion,
