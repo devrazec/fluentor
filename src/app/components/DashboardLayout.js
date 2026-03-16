@@ -71,6 +71,8 @@ import CardAlert from './CardAlert';
 
 import { SignInButton, SignUpButton, UserButton, useAuth } from '@clerk/nextjs';
 
+import CarouselDrawer from './CarouselDrawer';
+
 const drawerWidth = 260;
 const collapsedWidth = 80;
 
@@ -101,6 +103,8 @@ export default function DashboardLayout({ children }) {
   } = useContext(GlobalContext);
   //const theme = useTheme();
   //const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const carouselImages = ['/img/banner/1.jpg', '/img/banner/2.jpg'];
 
   const { isSignedIn } = useAuth();
 
@@ -361,12 +365,14 @@ export default function DashboardLayout({ children }) {
             noWrap
             sx={{
               flex: 1,
-              textAlign: 'center',
+              textAlign: 'left',
               pointerEvents: 'none',
             }}
           >
             {pageTitle}
           </Typography>
+
+          <CarouselDrawer images={carouselImages} />
 
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             {!isSignedIn ? (
