@@ -105,7 +105,7 @@ export default function CarouselDrawer({ images = [] }) {
         onClose={handleDrawerToggle}
         PaperProps={{
           sx: {
-            borderRadius: '24px 24px 0 0',
+            borderRadius: '10px 10px 0 0',
             maxHeight: open ? '80vh' : '120px',
             background: 'linear-gradient(135deg, #004d40 0%, #00A76F 100%)',
             animation: open
@@ -119,12 +119,12 @@ export default function CarouselDrawer({ images = [] }) {
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              mb: 2,
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+              //mb: 2,
             }}
           >
-            <h2 style={{ margin: 0, color: 'white' }}>Fluentor</h2>
+            {/* <h2 style={{ margin: 0, color: 'white' }}>Fluentor</h2> */}
             <IconButton onClick={handleDrawerToggle} sx={{ color: 'white' }}>
               <Close />
             </IconButton>
@@ -136,7 +136,7 @@ export default function CarouselDrawer({ images = [] }) {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              mb: 2,
+              //mb: 2,
             }}
           >
             {images.length > 0 ? (
@@ -145,7 +145,7 @@ export default function CarouselDrawer({ images = [] }) {
                 sx={{
                   position: 'relative',
                   //width: '220px',
-                  height: '220px',
+                  height: '320px',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   backgroundColor: '#f5f5f5',
@@ -166,7 +166,7 @@ export default function CarouselDrawer({ images = [] }) {
               <Paper
                 sx={{
                   //width: '220px',
-                  height: '220px',
+                  height: '320px',
                   borderRadius: '12px',
                   display: 'flex',
                   alignItems: 'center',
@@ -185,7 +185,7 @@ export default function CarouselDrawer({ images = [] }) {
           </Box>
 
           {/* Controls */}
-          {images.length > 0 && (
+          {/* {images.length > 0 && (
             <Box>
               <MobileStepper
                 steps={images.length}
@@ -219,7 +219,7 @@ export default function CarouselDrawer({ images = [] }) {
                 }
               />
             </Box>
-          )}
+          )} */}
         </Box>
       </Drawer>
     </>
