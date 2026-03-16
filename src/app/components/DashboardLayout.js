@@ -372,7 +372,7 @@ export default function DashboardLayout({ children }) {
             {pageTitle}
           </Typography>
 
-          <CarouselDrawer images={carouselImages} />
+          {/* <CarouselDrawer images={carouselImages} /> */}
 
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             {!isSignedIn ? (
