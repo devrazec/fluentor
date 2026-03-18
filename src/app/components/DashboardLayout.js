@@ -262,11 +262,11 @@ export default function DashboardLayout({ children }) {
                     })}
                 </List>
             </Collapse> */}
-      {/* {desktopOpen && (
-        <Box sx={{ position: 'absolute', bottom: 0, left: 0, right: 0, p: 2 }}>
+      {desktopOpen && (
+        <Box sx={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
           <CardAlert />
         </Box>
-      )} */}
+      )}
     </Box>
   );
 
