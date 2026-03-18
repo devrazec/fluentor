@@ -247,7 +247,9 @@ https://dashboard.clerk.com/
 
 # Azure Pronunciation Assessment
 
-https://portal.azure.com/#@uabpt.onmicrosoft.com/blade/Microsoft_Azure_CostManagement/Menu/open/CostAnalysis/scope/%2Fproviders%2FMicrosoft.Billing%2FbillingAccounts%2Fed40c9cc-66da-47fe-912a-07a8165de8a8%3A56dc52a1-6ae6-49d7-9a69-b62b0ce83644_2019-05-31/viewId/%2Fproviders%2FMicrosoft.Billing%2FbillingAccounts%2Fed40c9cc-66da-47fe-912a-07a8165de8a8%3A56dc52a1-6ae6-49d7-9a69-b62b0ce83644_2019-05-31%2Fproviders%2FMicrosoft.CostManagement%2Fviews%2Fms%3AAccumulatedCosts
+https://portal.azure.com/#view/Microsoft_Azure_CostManagement/Menu/~/costanalysis
+
+https://ai.azure.com/build/overview?tid=58e31257-f77f-4d58-9705-d0b6ea0f9ee4&wsid=/subscriptions/3cd4d0fd-b0ac-4e13-a6d1-6a970f3f4f91/resourcegroups/rg-Voice-Live/providers/Microsoft.MachineLearningServices/workspaces/voice-live
 
 # Google Analytics
 
