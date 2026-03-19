@@ -66,13 +66,15 @@ function GroupCarousel({
 
   return (
     <Box sx={{ mb: 5, mt: 2 }}>
+      <Divider sx={{ mb: 1 }} />
+
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 1.5,
-          mb: 1,
+          gap: 1,
+          //mb: 1,
         }}
       >
         <Typography variant="h6" fontWeight={700}>
@@ -95,7 +97,6 @@ function GroupCarousel({
           color="success"
         />
       </Box>
-      <Divider sx={{ mb: 2 }} />
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <IconButton
@@ -118,7 +119,7 @@ function GroupCarousel({
               sx={{
                 flex: `0 0 calc(100% / ${visibleCount} - ${((visibleCount - 1) * 16) / visibleCount}px)`,
                 display: 'flex',
-                mb: 0.1,
+                margin: 0.1,
                 flexDirection: 'column',
                 transition: 'background-color 0.2s',
                 '&:hover': { bgcolor: '#00a76f1f' },
@@ -156,7 +157,7 @@ function GroupCarousel({
                 >
                   {q.name}
                 </Typography>
-                <Chip label={q.tense_name} size="small" />
+                {/* <Chip label={q.tense_name} size="small" /> */}
               </CardContent>
               <CardActions sx={{ justifyContent: 'space-between' }}>
                 <Button

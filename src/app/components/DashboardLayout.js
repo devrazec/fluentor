@@ -262,11 +262,11 @@ export default function DashboardLayout({ children }) {
                     })}
                 </List>
             </Collapse> */}
-      {desktopOpen && (
+      {/* {desktopOpen && (
         <Box sx={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
           <CardAlert />
         </Box>
-      )}
+      )} */}
     </Box>
   );
 
@@ -422,7 +422,7 @@ export default function DashboardLayout({ children }) {
                         </IconButton> */}
           </Box>
         </Box>
-
+        <CardAlert />
         {children}
       </Box>
     </Box>
