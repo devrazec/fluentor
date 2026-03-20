@@ -285,3 +285,17 @@ http://localhost:3000
 ![Pic6](./public/img/screenshot/pic6.png)
 ![Pic7](./public/img/screenshot/pic7.png)
 ![Pic8](./public/img/screenshot/pic8.png)
+
+# Email Forward
+
+https://app.improvmx.com/
+
+hello@fluentor.app
+
+# Links
+
+https://www.youtube.com/channel/UCtU0aQ7W6yQCR_dewakTFbg
+
+https://www.facebook.com/61578543483205/
+
+https://www.instagram.com/fluentor.app/

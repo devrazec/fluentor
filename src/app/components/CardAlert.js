@@ -11,26 +11,6 @@ const banners = [
     href: 'https://www.instagram.com/ana_englishclub/',
     label: 'Learn More',
   },
-  {
-    src: '/img/banner/4.jpg',
-    href: 'https://www.youtube.com/watch?v=g_d6VZnaWwA&list=PLbArmOUBFBgUXVuHQzoFgNpCO2w8U7FsE',
-    label: 'Learn More',
-  },
-  {
-    src: '/img/banner/5.jpg',
-    href: 'https://www.youtube.com/watch?v=1tcsjmFBoNA&pp=ygUOZW5nbGlzaCBicmFzaWw%3D',
-    label: 'Learn More',
-  },
-  {
-    src: '/img/banner/6.jpg',
-    href: 'https://www.youtube.com/watch?v=fHSi9Adg2LE',
-    label: 'Learn More',
-  },
-  {
-    src: '/img/banner/7.jpg',
-    href: 'https://www.youtube.com/watch?v=g6eC2MQ1Kv8&list=PLZ65xj2SRHQB0T2GGk-R7bYxorKUkcyoj',
-    label: 'Learn More',
-  },
 ];
 
 const INTERVAL = 4000;
