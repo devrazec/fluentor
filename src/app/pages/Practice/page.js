@@ -1077,12 +1077,12 @@ export default function PracticePage() {
                         variant="outlined"
                         sx={{ pointerEvents: 'none' }}
                       />
-                      <Chip
+                      {/* <Chip
                         label={`${a.word}words`}
                         size="small"
                         variant="outlined"
                         sx={{ pointerEvents: 'none' }}
-                      />
+                      /> */}
                     </Box>
                   </ToggleButton>
                 ))}

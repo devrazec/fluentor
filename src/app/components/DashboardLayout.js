@@ -65,6 +65,7 @@ import {
   Login,
   UserAdd,
   MessageText1,
+  Book,
 } from 'iconsax-reactjs';
 
 import CardAlert from './CardAlert';
@@ -226,6 +227,13 @@ export default function DashboardLayout({ children }) {
         href="/pages/Test/"
         active={pathname === '/pages/Test/'}
       />
+      {/* <NavItem
+        icon={<Book variant="Bulk" color="#00a76f" />}
+        text="Vocabulary"
+        open={desktopOpen}
+        href="/pages/Vocabulary/"
+        active={pathname === '/pages/Vocabulary/'}
+      /> */}
 
       {/* <NavItem icon={<Chart21 variant="Bulk" color="#00a76f" />} text="Analytics" open={desktopOpen} /> */}
 
@@ -271,7 +279,7 @@ export default function DashboardLayout({ children }) {
   );
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', overflow: 'hidden' }}>
       {/* Sidebar */}
       <Box sx={{ position: 'relative' }}>
         <Drawer
@@ -302,6 +310,8 @@ export default function DashboardLayout({ children }) {
       <Box
         sx={{
           flexGrow: 1,
+          minWidth: 0,
+          overflowX: 'hidden',
           p: { xs: 1, sm: 2, md: 4 },
           //pt: 1,
           transition: 'margin 0.3s ease',
@@ -365,7 +375,7 @@ export default function DashboardLayout({ children }) {
             noWrap
             sx={{
               flex: 1,
-              textAlign: 'left',
+              textAlign: 'center',
               pointerEvents: 'none',
             }}
           >
@@ -422,7 +432,9 @@ export default function DashboardLayout({ children }) {
                         </IconButton> */}
           </Box>
         </Box>
-        <CardAlert />
+
+        {pathname === '/' && <CardAlert />}
+
         {children}
       </Box>
     </Box>

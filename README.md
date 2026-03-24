@@ -299,3 +299,56 @@ https://www.youtube.com/channel/UCtU0aQ7W6yQCR_dewakTFbg
 https://www.facebook.com/61578543483205/
 
 https://www.instagram.com/fluentor.app/
+
+https://fluentor.vercel.app/
+
+https://fluentor.app/
+
+https://www.fluentor.app/
+
+# Texts
+
+TESTE SUA PRONÚNCIA DO INGLÊS (AVANÇADO ...
+
+Pronúncia em inglês — Pratique sua conversação sem medo e sem julgamentos. Garanta 60% de desconto agora!
+
+Ótimo aplicativo para melhorar sua pronúncia em inglês
+
+Linguaskill é um teste de inglês multível com resultados em 48 horas. Realiza-se por computador e permite-lhe avaliar as quatro competências de forma rápida e
+
+Iniciar o Teste! Perguntas e respostas frequentes sobre este teste de compreensão oral. Quantas palavras há em cada nível?
+
+Treinar pronúncia em inglês pode ser uma parte desafiadora do aprendizado de um novo idioma, mas nossos exercícios e materiais imprimíveis podem ajudar a
+
+Professionals trust Pronounce's free speech checker to improve their pronunciation. Speak English clearly and effectively. Simply begin by recording your
+
+Pronunciation Test. Students can test their pronuniciation, speaking and listening fluency. Student need to listen to a short audio clip and repeat what they
+
+We are the first and only speech recognition API designed for evaluating and giving feedback on pronunciation and fluency.
+
+Improve Speaking — Master your English speaking skills with Fluently. Practice & get instant AI feedback! Fix your
+
+Find Out About Your Accurate English Level. 100 questions for a precise result (A1-C2). Find your true English level now. Free Test.
+
+english dialogue practice — SpeakFlow: Beyond simple vocabulary. Build your English Speaking Skills with AI. From Zero to
+
+SpeakFlow is 20x more affordable than human tutors and available 24/7 for unlimited speaking practice, pronunciation correction, and personalized feedback.
+
+Everything you need to speak confidently
+Our AI tutor adapts to your level, corrects your mistakes in real-time, and helps you build lasting confidence.
+
+Real-time Speech Analysis
+Get instant feedback on pronunciation, intonation, and rhythm as you speak naturally.
+
+e play para escutar o audio da pergunta e da resposta.
+
+Fluêntor. Pratique sua pronúncia em inglês com o Fluêntor. Ótimo aplicativo para melhorar sua pronúncia. Veja como é fácil usar o Fluêntor. Apenas click no botão practice.
+Depois, click no botão play para ouvir a pergunta e a resposta.
+
+Repita para praticar a pronúncia.
+
+https://youtube.com/shorts/yHawgGe3u3Y?feature=share
+
+# Facebook
+
+https://developers.facebook.com/apps/1471387871331001/dashboard/?business_id=905291982279288

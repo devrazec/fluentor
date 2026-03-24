@@ -38,8 +38,8 @@ import {
   ArrowUp2,
 } from 'iconsax-reactjs';
 
-export default function FeedbackTable() {
-  const [minimizedFeedback, setMinimizedFeedback] = useState(false);
+export default function VocabularyTable() {
+  const [minimizedVocabulary, setMinimizedVocabulary] = useState(false);
 
   const { testResult, mobileDevice } = useContext(GlobalContext);
 
@@ -72,24 +72,24 @@ export default function FeedbackTable() {
             direction="row"
             alignItems="center"
             justifyContent="space-between"
-            sx={{ mb: minimizedFeedback ? 0 : 1 }}
+            sx={{ mb: minimizedVocabulary ? 0 : 1 }}
           >
             <Typography variant="h6" sx={{ fontWeight: 600 }}>
-              Detailed Feedback
+              Vocabulary
             </Typography>
             <IconButton
               size="small"
-              onClick={() => setMinimizedFeedback(v => !v)}
+              onClick={() => setMinimizedVocabulary(v => !v)}
               sx={{ color: 'text.secondary' }}
             >
-              {minimizedFeedback ? (
+              {minimizedVocabulary ? (
                 <ArrowUp2 size={18} />
               ) : (
                 <ArrowDown2 size={18} />
               )}
             </IconButton>
           </Stack>
-          {!minimizedFeedback && (
+          {!minimizedVocabulary && (
             <>
               <Divider sx={{ mb: 1.5 }} />
 
@@ -103,9 +103,7 @@ export default function FeedbackTable() {
                 practice them to improve your pronunciation.
               </Typography>
 
-              <TableContainer
-                sx={{ width: '100%', maxHeight: 320, overflowY: 'auto' }}
-              >
+              <TableContainer sx={{ width: '100%', overflowY: 'auto' }}>
                 <Table
                   stickyHeader
                   size="small"
@@ -132,7 +130,7 @@ export default function FeedbackTable() {
                           backgroundColor: 'primary.main',
                         }}
                       >
-                        Accuracy
+                        Translation
                       </TableCell>
                       <TableCell
                         sx={{
@@ -143,7 +141,7 @@ export default function FeedbackTable() {
                         }}
                         align="center"
                       >
-                        Error
+                        Play
                       </TableCell>
                     </TableRow>
                   </TableHead>
