@@ -36,7 +36,7 @@ export default function VocabularyTable() {
   const [playbackRate, setPlaybackRate] = useState(1);
   const [activeVoice, setActiveVoice] = useState('female');
 
-  const SPEEDS = [1, 2, 3];
+  const SPEEDS = [1, 1.5, 2];
   const VOICES = [
     {
       code: 'female',
