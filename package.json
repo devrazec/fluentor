@@ -11,14 +11,15 @@
     "format": "prettier --write .",
     "predeploy": "echo > out/.nojekyll && echo > out/_next/.nojekyll",
     "deploy": "gh-pages -d out",
-    "clean-db": "node src/app/lib/db/clean_db.js",
+    "clean_db": "node src/app/lib/db/clean_db.js",
     "migrate": "node src/app/lib/db/migrate.js",
     "seed_category": "node src/app/lib/db/seed_category.js",
     "seed_tense": "node src/app/lib/db/seed_tense.js",
     "seed_question": "node src/app/lib/db/seed_question.js",
     "seed_answer": "node src/app/lib/db/seed_answer.js",
     "seed_result": "node src/app/lib/db/seed_result.js",
-    "seed_record": "node src/app/lib/db/seed_record.js"
+    "seed_record": "node src/app/lib/db/seed_record.js",
+    "seed_vocabulary": "node src/app/lib/db/seed_vocabulary.js"
   },
   "dependencies": {
     "@clerk/backend": "^3.0.1",

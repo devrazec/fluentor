@@ -70,6 +70,8 @@ export default function VocabularyPage() {
     setDbRecord,
     dbResult,
     setDbResult,
+    dbVocabulary,
+    setDbVocabulary,
 
     selectedQuestion,
     currentAnswer,
@@ -95,15 +97,13 @@ export default function VocabularyPage() {
       <Box
         sx={{
           width: '100%',
-          //maxWidth: 700,
+          maxWidth: 800,
           mx: 'auto',
           px: { xs: 2, sm: 0 },
           mt: 2,
         }}
       >
-        <Grid container spacing={1} alignItems="stretch">
-          <VocabularyTable />
-        </Grid>
+        <VocabularyTable />
       </Box>
     </DashboardLayout>
   );

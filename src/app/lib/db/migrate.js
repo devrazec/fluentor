@@ -73,6 +73,45 @@ CREATE TABLE IF NOT EXISTS result (
   FOREIGN KEY(id_record) REFERENCES record(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS catvocab (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  en TEXT,
+  pt TEXT,
+  description TEXT,
+  mp3 TEXT,
+  image TEXT,
+  active TEXT
+);
+
+CREATE TABLE IF NOT EXISTS subcatvocab (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_catvocab INTEGER,
+  en TEXT,
+  pt TEXT,
+  description TEXT,
+  mp3 TEXT,
+  image TEXT,
+  active TEXT,
+  FOREIGN KEY(id_catvocab) REFERENCES catvocab(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS vocabulary (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_subcatvocab INTEGER,
+  en TEXT,
+  pt TEXT,
+  es TEXT,
+  fr TEXT,
+  de TEXT,
+  ru TEXT,
+  ar TEXT,
+  description TEXT,
+  mp3 TEXT,
+  image TEXT,
+  active TEXT,
+  FOREIGN KEY(id_subcatvocab) REFERENCES subcatvocab(id) ON DELETE CASCADE
+);
+
 COMMIT;
 `;
 

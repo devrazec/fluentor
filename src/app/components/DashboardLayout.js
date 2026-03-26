@@ -227,13 +227,13 @@ export default function DashboardLayout({ children }) {
         href="/pages/Test/"
         active={pathname === '/pages/Test/'}
       />
-      {/* <NavItem
+      <NavItem
         icon={<Book variant="Bulk" color="#00a76f" />}
         text="Vocabulary"
         open={desktopOpen}
         href="/pages/Vocabulary/"
         active={pathname === '/pages/Vocabulary/'}
-      /> */}
+      />
 
       {/* <NavItem icon={<Chart21 variant="Bulk" color="#00a76f" />} text="Analytics" open={desktopOpen} /> */}
 
