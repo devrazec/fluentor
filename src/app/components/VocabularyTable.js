@@ -65,6 +65,16 @@ export default function VocabularyTable() {
   const audioRef = useRef(null);
   const tableContainerRef = useRef(null);
   const playAllCancelRef = useRef(false);
+  const activeVoiceRef = useRef(activeVoice);
+  const playbackRateRef = useRef(playbackRate);
+
+  useEffect(() => {
+    activeVoiceRef.current = activeVoice;
+  }, [activeVoice]);
+
+  useEffect(() => {
+    playbackRateRef.current = playbackRate;
+  }, [playbackRate]);
 
   // Stop audio when navigating away
   useEffect(() => {
@@ -189,8 +199,10 @@ export default function VocabularyTable() {
         return;
       }
       const row = playQueueRef.current[index];
-      const audio = new Audio(`/mp3/vocabulary/${activeVoice}/${row.mp3}`);
-      audio.playbackRate = playbackRate;
+      const audio = new Audio(
+        `/mp3/vocabulary/${activeVoiceRef.current}/${row.mp3}`
+      );
+      audio.playbackRate = playbackRateRef.current;
       audioRef.current = audio;
       setPlayingId(row.id);
       audio.play();
@@ -201,9 +213,29 @@ export default function VocabularyTable() {
   };
 
   return (
-    <Grid size={{ xs: 12, md: 6 }} sx={{ mb: mobileDevice ? 12 : 12 }}>
-      <Card sx={{ borderRadius: 1, boxShadow: 2, mb: 3, height: '100%' }}>
-        <CardContent>
+    <Grid
+      size={{ xs: 12, md: 6 }}
+      sx={{ mb: mobileDevice ? 12 : 12, height: '100vh', minHeight: 400 }}
+    >
+      <Card
+        sx={{
+          borderRadius: 1,
+          boxShadow: 2,
+          mb: 3,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <CardContent
+          sx={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+            '&:last-child': { pb: 2 },
+          }}
+        >
           <Stack
             direction="row"
             alignItems="center"
@@ -314,7 +346,7 @@ export default function VocabularyTable() {
 
               <TableContainer
                 ref={tableContainerRef}
-                sx={{ width: '100%', overflowY: 'auto', maxHeight: 400 }}
+                sx={{ flex: 1, minHeight: 0, width: '100%', overflowY: 'auto' }}
               >
                 <Table
                   stickyHeader
