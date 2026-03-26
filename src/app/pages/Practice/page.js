@@ -621,7 +621,7 @@ export default function PracticePage() {
       <Box
         sx={{
           width: '100%',
-          maxWidth: 700,
+          maxWidth: 800,
           mx: 'auto',
           px: { xs: 2, sm: 0 },
           mt: 2,
