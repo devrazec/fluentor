@@ -36,7 +36,7 @@ export default function VocabularyTable() {
   const [playbackRate, setPlaybackRate] = useState(1);
   const [activeVoice, setActiveVoice] = useState('female');
 
-  const SPEEDS = [1, 1.2, 1.5];
+  const SPEEDS = [1, 2, 3];
   const VOICES = [
     {
       code: 'female',
@@ -80,6 +80,7 @@ export default function VocabularyTable() {
   useEffect(() => {
     return () => {
       playAllCancelRef.current = true;
+      clearTimeout(playNextTimerRef.current);
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
@@ -140,6 +141,7 @@ export default function VocabularyTable() {
   }, [words]);
 
   const playQueueRef = useRef([]);
+  const playNextTimerRef = useRef(null);
 
   const handlePlay = row => {
     if (!row.mp3) return;
@@ -154,6 +156,7 @@ export default function VocabularyTable() {
 
     // Cancel any running queue
     playAllCancelRef.current = true;
+    clearTimeout(playNextTimerRef.current);
     setIsPlayingAll(false);
 
     if (audioRef.current) {
@@ -171,6 +174,7 @@ export default function VocabularyTable() {
   const handlePlayAll = () => {
     if (isPlayingAll) {
       playAllCancelRef.current = true;
+      clearTimeout(playNextTimerRef.current);
       audioRef.current?.pause();
       audioRef.current = null;
       playQueueRef.current = [];
@@ -206,7 +210,10 @@ export default function VocabularyTable() {
       audioRef.current = audio;
       setPlayingId(row.id);
       audio.play();
-      audio.onended = () => playNext(index + 1);
+      audio.onended = () => {
+        const delay = Math.round(300 / playbackRateRef.current);
+        playNextTimerRef.current = setTimeout(() => playNext(index + 1), delay);
+      };
     };
 
     playNext(0);
