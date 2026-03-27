@@ -21,6 +21,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
@@ -98,6 +99,13 @@ export default function VocabularyTable() {
 
   const [filterCatVocab, setFilterCatVocab] = useState([]);
   const [filterSubCatVocab, setFilterSubCatVocab] = useState([]);
+  const [page, setPage] = useState(0);
+  const ROWS_PER_PAGE = 50;
+
+  // Reset page when filters change
+  useEffect(() => {
+    setPage(0);
+  }, [filterCatVocab, filterSubCatVocab]);
 
   // When category filter changes, reset subcategory filter
   const handleCatVocabChange = value => {
@@ -128,17 +136,22 @@ export default function VocabularyTable() {
     });
   }, [dbVocabulary, dbSubCatVocab, filterCatVocab, filterSubCatVocab]);
 
-  // Group filtered words by subcategory
+  const pagedWords = useMemo(
+    () => words.slice(page * ROWS_PER_PAGE, (page + 1) * ROWS_PER_PAGE),
+    [words, page, ROWS_PER_PAGE]
+  );
+
+  // Group paginated words by subcategory
   const grouped = useMemo(() => {
     const map = new Map();
-    for (const row of words) {
+    for (const row of pagedWords) {
       const key = row.id_subcatvocab;
       if (!map.has(key))
         map.set(key, { label: row.subcategory_en ?? '—', rows: [] });
       map.get(key).rows.push(row);
     }
     return Array.from(map.values());
-  }, [words]);
+  }, [pagedWords]);
 
   const playQueueRef = useRef([]);
   const playNextTimerRef = useRef(null);
@@ -222,7 +235,7 @@ export default function VocabularyTable() {
   return (
     <Grid
       size={{ xs: 12, md: 6 }}
-      sx={{ mb: mobileDevice ? 12 : 12, height: '150vh', minHeight: 400 }}
+      sx={{ mb: mobileDevice ? 12 : 12, height: '100vh', minHeight: 400 }}
     >
       <Card
         sx={{
@@ -672,6 +685,19 @@ export default function VocabularyTable() {
                 </TableBody>
               </Table>
             </TableContainer>
+            <TablePagination
+              component="div"
+              count={words.length}
+              page={page}
+              onPageChange={(_, newPage) => setPage(newPage)}
+              rowsPerPage={ROWS_PER_PAGE}
+              rowsPerPageOptions={[ROWS_PER_PAGE]}
+              sx={{
+                flexShrink: 0,
+                borderTop: '1px solid',
+                borderColor: 'divider',
+              }}
+            />
           </>
         </CardContent>
       </Card>
