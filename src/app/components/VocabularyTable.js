@@ -222,7 +222,7 @@ export default function VocabularyTable() {
   return (
     <Grid
       size={{ xs: 12, md: 6 }}
-      sx={{ mb: mobileDevice ? 12 : 12, height: '100vh', minHeight: 400 }}
+      sx={{ mb: mobileDevice ? 12 : 12, height: '150vh', minHeight: 400 }}
     >
       <Card
         sx={{
@@ -264,407 +264,415 @@ export default function VocabularyTable() {
               )}
             </IconButton>
           </Stack>
-          {!minimizedVocabulary && (
-            <>
-              <Divider sx={{ mb: 1.5 }} />
 
-              {/* Filters */}
-              <Box sx={{ display: 'flex', gap: 1.5, mb: 2, flexWrap: 'wrap' }}>
-                <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
-                  <InputLabel>Category</InputLabel>
-                  <Select
-                    multiple
-                    value={filterCatVocab}
-                    onChange={e => handleCatVocabChange(e.target.value)}
-                    input={<OutlinedInput label="Category" />}
-                    renderValue={selected =>
-                      selected.length === 0 ? '' : `${selected.length} selected`
-                    }
-                    MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
-                  >
-                    <MenuItem
-                      dense
-                      disabled={filterCatVocab.length === 0}
-                      onMouseDown={e => {
-                        e.preventDefault();
-                        handleCatVocabChange([]);
-                      }}
-                      sx={{
-                        justifyContent: 'center',
-                        color: 'error.main',
-                        fontWeight: 600,
-                      }}
-                    >
-                      Clear selection
-                    </MenuItem>
-                    <Divider />
-                    {[...(dbCatVocab ?? [])]
-                      .sort((a, b) => a.en.localeCompare(b.en))
-                      .map(cat => (
-                        <MenuItem key={cat.id} value={cat.id}>
-                          <Checkbox checked={filterCatVocab.includes(cat.id)} />
-                          <ListItemText primary={cat.en} />
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
+          <>
+            <Divider sx={{ mb: 1.5 }} />
 
-                <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
-                  <InputLabel>Subcategory</InputLabel>
-                  <Select
-                    multiple
-                    value={filterSubCatVocab}
-                    onChange={e => setFilterSubCatVocab(e.target.value)}
-                    input={<OutlinedInput label="Subcategory" />}
-                    renderValue={selected =>
-                      selected.length === 0 ? '' : `${selected.length} selected`
-                    }
-                    MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
-                  >
-                    <MenuItem
-                      dense
-                      disabled={filterSubCatVocab.length === 0}
-                      onMouseDown={e => {
-                        e.preventDefault();
-                        setFilterSubCatVocab([]);
-                      }}
-                      sx={{
-                        justifyContent: 'center',
-                        color: 'error.main',
-                        fontWeight: 600,
-                      }}
-                    >
-                      Clear selection
-                    </MenuItem>
-                    <Divider />
-                    {[...visibleSubCats]
-                      .sort((a, b) => a.en.localeCompare(b.en))
-                      .map(sc => (
-                        <MenuItem key={sc.id} value={sc.id}>
-                          <Checkbox
-                            checked={filterSubCatVocab.includes(sc.id)}
-                          />
-                          <ListItemText primary={sc.en} />
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-              </Box>
-
-              <TableContainer
-                ref={tableContainerRef}
-                sx={{ flex: 1, minHeight: 0, width: '100%', overflowY: 'auto' }}
-              >
-                <Table
-                  stickyHeader
-                  size="small"
-                  aria-label="vocabulary"
-                  sx={{ width: '100%', tableLayout: 'fixed' }}
+            {!minimizedVocabulary && (
+              <>
+                {/* Filters */}
+                <Box
+                  sx={{ display: 'flex', gap: 1.5, mb: 2, flexWrap: 'wrap' }}
                 >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
+                  <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                      multiple
+                      value={filterCatVocab}
+                      onChange={e => handleCatVocabChange(e.target.value)}
+                      input={<OutlinedInput label="Category" />}
+                      renderValue={selected =>
+                        selected.length === 0
+                          ? ''
+                          : `${selected.length} selected`
+                      }
+                      MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+                    >
+                      <MenuItem
+                        dense
+                        disabled={filterCatVocab.length === 0}
+                        onMouseDown={e => {
+                          e.preventDefault();
+                          handleCatVocabChange([]);
+                        }}
                         sx={{
-                          fontWeight: 700,
-                          color: 'primary.contrastText',
-                          width: '40%',
-                          backgroundColor: 'primary.main',
+                          justifyContent: 'center',
+                          color: 'error.main',
+                          fontWeight: 600,
                         }}
                       >
-                        English
-                      </TableCell>
-                      <TableCell
+                        Clear selection
+                      </MenuItem>
+                      <Divider />
+                      {[...(dbCatVocab ?? [])]
+                        .sort((a, b) => a.en.localeCompare(b.en))
+                        .map(cat => (
+                          <MenuItem key={cat.id} value={cat.id}>
+                            <Checkbox
+                              checked={filterCatVocab.includes(cat.id)}
+                            />
+                            <ListItemText primary={cat.en} />
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
+
+                  <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
+                    <InputLabel>Subcategory</InputLabel>
+                    <Select
+                      multiple
+                      value={filterSubCatVocab}
+                      onChange={e => setFilterSubCatVocab(e.target.value)}
+                      input={<OutlinedInput label="Subcategory" />}
+                      renderValue={selected =>
+                        selected.length === 0
+                          ? ''
+                          : `${selected.length} selected`
+                      }
+                      MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+                    >
+                      <MenuItem
+                        dense
+                        disabled={filterSubCatVocab.length === 0}
+                        onMouseDown={e => {
+                          e.preventDefault();
+                          setFilterSubCatVocab([]);
+                        }}
                         sx={{
-                          fontWeight: 700,
-                          color: 'primary.contrastText',
-                          width: '30%',
-                          backgroundColor: 'primary.main',
+                          justifyContent: 'center',
+                          color: 'error.main',
+                          fontWeight: 600,
                         }}
                       >
-                        <Box
-                          sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}
-                        >
-                          {LANGUAGES.map(lang => (
-                            <Tooltip key={lang.code} title={lang.title}>
-                              <Box
-                                component="button"
-                                onClick={() =>
-                                  setActiveLanguage(a =>
-                                    a === lang.code ? null : lang.code
-                                  )
-                                }
-                                sx={{
-                                  width: 26,
-                                  height: 26,
-                                  borderRadius: '50%',
-                                  border: '2px solid',
-                                  borderColor:
-                                    activeLanguage === lang.code
-                                      ? 'primary.contrastText'
-                                      : 'rgba(255,255,255,0.35)',
-                                  backgroundColor:
-                                    activeLanguage === lang.code
-                                      ? 'primary.contrastText'
-                                      : 'transparent',
-                                  color:
-                                    activeLanguage === lang.code
-                                      ? 'primary.main'
-                                      : 'primary.contrastText',
-                                  fontSize: '0.6rem',
-                                  fontWeight: 700,
-                                  cursor: 'pointer',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  p: 0,
-                                  lineHeight: 1,
-                                  transition: 'all 0.15s',
-                                  '&:hover': {
-                                    borderColor: 'primary.contrastText',
-                                  },
-                                }}
-                              >
-                                {lang.label}
-                              </Box>
-                            </Tooltip>
-                          ))}
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontWeight: 700,
-                          color: 'primary.contrastText',
-                          width: '30%',
-                          backgroundColor: 'primary.main',
-                          py: 0.5,
-                        }}
-                        align="center"
-                      >
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            gap: 0.5,
-                            flexWrap: 'wrap',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          {/* Play all */}
-                          <Tooltip title={isPlayingAll ? 'Stop' : 'Play all'}>
+                        Clear selection
+                      </MenuItem>
+                      <Divider />
+                      {[...visibleSubCats]
+                        .sort((a, b) => a.en.localeCompare(b.en))
+                        .map(sc => (
+                          <MenuItem key={sc.id} value={sc.id}>
+                            <Checkbox
+                              checked={filterSubCatVocab.includes(sc.id)}
+                            />
+                            <ListItemText primary={sc.en} />
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
+                </Box>
+              </>
+            )}
+            <TableContainer
+              ref={tableContainerRef}
+              sx={{ flex: 1, minHeight: 0, width: '100%', overflowY: 'auto' }}
+            >
+              <Table
+                stickyHeader
+                size="small"
+                aria-label="vocabulary"
+                sx={{ width: '100%', tableLayout: 'fixed' }}
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell
+                      sx={{
+                        fontWeight: 700,
+                        color: 'primary.contrastText',
+                        width: '34%',
+                        backgroundColor: 'primary.main',
+                      }}
+                    >
+                      English
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 700,
+                        color: 'primary.contrastText',
+                        width: '33%',
+                        backgroundColor: 'primary.main',
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                        {LANGUAGES.map(lang => (
+                          <Tooltip key={lang.code} title={lang.title}>
                             <Box
                               component="button"
-                              onClick={handlePlayAll}
+                              onClick={() =>
+                                setActiveLanguage(a =>
+                                  a === lang.code ? null : lang.code
+                                )
+                              }
                               sx={{
                                 width: 26,
                                 height: 26,
                                 borderRadius: '50%',
                                 border: '2px solid',
-                                borderColor: isPlayingAll
-                                  ? 'primary.contrastText'
-                                  : 'rgba(255,255,255,0.35)',
-                                backgroundColor: isPlayingAll
-                                  ? 'primary.contrastText'
-                                  : 'transparent',
-                                color: isPlayingAll
-                                  ? 'primary.main'
-                                  : 'primary.contrastText',
+                                borderColor:
+                                  activeLanguage === lang.code
+                                    ? 'primary.contrastText'
+                                    : 'rgba(255,255,255,0.35)',
+                                backgroundColor:
+                                  activeLanguage === lang.code
+                                    ? 'primary.contrastText'
+                                    : 'transparent',
+                                color:
+                                  activeLanguage === lang.code
+                                    ? 'primary.main'
+                                    : 'primary.contrastText',
+                                fontSize: '0.6rem',
+                                fontWeight: 700,
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 p: 0,
+                                lineHeight: 1,
                                 transition: 'all 0.15s',
                                 '&:hover': {
                                   borderColor: 'primary.contrastText',
                                 },
                               }}
                             >
-                              {isPlayingAll ? (
-                                <Pause variant="Bulk" size={14} />
-                              ) : (
-                                <Play variant="Bulk" size={14} />
-                              )}
+                              {lang.label}
                             </Box>
                           </Tooltip>
-                          {/* Voice */}
-                          {VOICES.map(v => (
-                            <Tooltip key={v.code} title={v.title}>
-                              <Box
-                                component="button"
-                                onClick={() => setActiveVoice(v.code)}
-                                sx={{
-                                  width: 26,
-                                  height: 26,
-                                  borderRadius: '50%',
-                                  border: '2px solid',
-                                  borderColor:
-                                    activeVoice === v.code
-                                      ? 'primary.contrastText'
-                                      : 'rgba(255,255,255,0.35)',
-                                  backgroundColor:
-                                    activeVoice === v.code
-                                      ? 'primary.contrastText'
-                                      : 'transparent',
-                                  color:
-                                    activeVoice === v.code
-                                      ? 'primary.main'
-                                      : 'primary.contrastText',
-                                  cursor: 'pointer',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  p: 0,
-                                  lineHeight: 1,
-                                  transition: 'all 0.15s',
-                                  '&:hover': {
-                                    borderColor: 'primary.contrastText',
-                                  },
-                                }}
-                              >
-                                {v.label}
-                              </Box>
-                            </Tooltip>
-                          ))}
-                          {/* Speed */}
-                          {SPEEDS.map(speed => (
-                            <Tooltip key={speed} title={`${speed}x speed`}>
-                              <Box
-                                component="button"
-                                onClick={() => setPlaybackRate(speed)}
-                                sx={{
-                                  width: 26,
-                                  height: 26,
-                                  borderRadius: '50%',
-                                  border: '2px solid',
-                                  borderColor:
-                                    playbackRate === speed
-                                      ? 'primary.contrastText'
-                                      : 'rgba(255,255,255,0.35)',
-                                  backgroundColor:
-                                    playbackRate === speed
-                                      ? 'primary.contrastText'
-                                      : 'transparent',
-                                  color:
-                                    playbackRate === speed
-                                      ? 'primary.main'
-                                      : 'primary.contrastText',
-                                  fontSize: '0.6rem',
-                                  fontWeight: 700,
-                                  cursor: 'pointer',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  p: 0,
-                                  lineHeight: 1,
-                                  transition: 'all 0.15s',
-                                  '&:hover': {
-                                    borderColor: 'primary.contrastText',
-                                  },
-                                }}
-                              >
-                                {speed}x
-                              </Box>
-                            </Tooltip>
-                          ))}
-                        </Box>
+                        ))}
+                      </Box>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 700,
+                        color: 'primary.contrastText',
+                        width: '33%',
+                        backgroundColor: 'primary.main',
+                        py: 0.5,
+                      }}
+                      align="center"
+                    >
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          gap: 0.5,
+                          flexWrap: 'wrap',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        {/* Play all */}
+                        <Tooltip title={isPlayingAll ? 'Stop' : 'Play all'}>
+                          <Box
+                            component="button"
+                            onClick={handlePlayAll}
+                            sx={{
+                              width: 26,
+                              height: 26,
+                              borderRadius: '50%',
+                              border: '2px solid',
+                              borderColor: isPlayingAll
+                                ? 'primary.contrastText'
+                                : 'rgba(255,255,255,0.35)',
+                              backgroundColor: isPlayingAll
+                                ? 'primary.contrastText'
+                                : 'transparent',
+                              color: isPlayingAll
+                                ? 'primary.main'
+                                : 'primary.contrastText',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              p: 0,
+                              transition: 'all 0.15s',
+                              '&:hover': {
+                                borderColor: 'primary.contrastText',
+                              },
+                            }}
+                          >
+                            {isPlayingAll ? (
+                              <Pause variant="Bulk" size={14} />
+                            ) : (
+                              <Play variant="Bulk" size={14} />
+                            )}
+                          </Box>
+                        </Tooltip>
+                        {/* Voice */}
+                        {VOICES.map(v => (
+                          <Tooltip key={v.code} title={v.title}>
+                            <Box
+                              component="button"
+                              onClick={() => setActiveVoice(v.code)}
+                              sx={{
+                                width: 26,
+                                height: 26,
+                                borderRadius: '50%',
+                                border: '2px solid',
+                                borderColor:
+                                  activeVoice === v.code
+                                    ? 'primary.contrastText'
+                                    : 'rgba(255,255,255,0.35)',
+                                backgroundColor:
+                                  activeVoice === v.code
+                                    ? 'primary.contrastText'
+                                    : 'transparent',
+                                color:
+                                  activeVoice === v.code
+                                    ? 'primary.main'
+                                    : 'primary.contrastText',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                p: 0,
+                                lineHeight: 1,
+                                transition: 'all 0.15s',
+                                '&:hover': {
+                                  borderColor: 'primary.contrastText',
+                                },
+                              }}
+                            >
+                              {v.label}
+                            </Box>
+                          </Tooltip>
+                        ))}
+                        {/* Speed */}
+                        {SPEEDS.map(speed => (
+                          <Tooltip key={speed} title={`${speed}x speed`}>
+                            <Box
+                              component="button"
+                              onClick={() => setPlaybackRate(speed)}
+                              sx={{
+                                width: 26,
+                                height: 26,
+                                borderRadius: '50%',
+                                border: '2px solid',
+                                borderColor:
+                                  playbackRate === speed
+                                    ? 'primary.contrastText'
+                                    : 'rgba(255,255,255,0.35)',
+                                backgroundColor:
+                                  playbackRate === speed
+                                    ? 'primary.contrastText'
+                                    : 'transparent',
+                                color:
+                                  playbackRate === speed
+                                    ? 'primary.main'
+                                    : 'primary.contrastText',
+                                fontSize: '0.6rem',
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                p: 0,
+                                lineHeight: 1,
+                                transition: 'all 0.15s',
+                                '&:hover': {
+                                  borderColor: 'primary.contrastText',
+                                },
+                              }}
+                            >
+                              {speed}x
+                            </Box>
+                          </Tooltip>
+                        ))}
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {grouped.length === 0 ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={3}
+                        align="center"
+                        sx={{ color: 'text.secondary', py: 3 }}
+                      >
+                        No vocabulary available.
                       </TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {grouped.length === 0 ? (
-                      <TableRow>
-                        <TableCell
-                          colSpan={3}
-                          align="center"
-                          sx={{ color: 'text.secondary', py: 3 }}
-                        >
-                          No vocabulary available.
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      grouped.map(group => (
-                        <React.Fragment key={group.label}>
-                          {/* Subcategory group header */}
-                          <TableRow>
-                            <TableCell
-                              colSpan={3}
-                              sx={{
-                                //backgroundColor: 'action.hover',
-                                bgcolor: 'rgba(0,167,111,0.2)',
-                                fontWeight: 700,
-                                fontSize: '0.75rem',
-                                color: 'text.secondary',
-                                letterSpacing: '0.08em',
-                                textTransform: 'uppercase',
-                                py: 0.5,
-                                pl: 1.5,
-                              }}
-                            >
-                              {group.label}
+                  ) : (
+                    grouped.map(group => (
+                      <React.Fragment key={group.label}>
+                        {/* Subcategory group header */}
+                        <TableRow>
+                          <TableCell
+                            colSpan={3}
+                            sx={{
+                              //backgroundColor: 'action.hover',
+                              bgcolor: 'rgba(0,167,111,0.2)',
+                              fontWeight: 700,
+                              fontSize: '0.75rem',
+                              color: 'text.secondary',
+                              letterSpacing: '0.08em',
+                              textTransform: 'uppercase',
+                              py: 0.5,
+                              pl: 1.5,
+                            }}
+                          >
+                            {group.label}
+                          </TableCell>
+                        </TableRow>
+                        {group.rows.map((row, idx) => (
+                          <TableRow
+                            key={row.id}
+                            data-row-id={row.id}
+                            hover
+                            sx={{
+                              cursor: 'default',
+                              backgroundColor:
+                                playingId === row.id
+                                  ? 'rgba(0,167,111,0.18)'
+                                  : idx % 2 === 0
+                                    ? 'transparent'
+                                    : 'action.hover',
+                              transition: 'background-color 0.2s',
+                            }}
+                          >
+                            <TableCell sx={{ width: '34%' }}>
+                              <Typography
+                                variant="body2"
+                                sx={{ fontWeight: 600 }}
+                              >
+                                {row.en}
+                              </Typography>
+                            </TableCell>
+                            <TableCell sx={{ width: '33%' }}>
+                              <Typography
+                                variant="body2"
+                                sx={{ color: 'text.secondary' }}
+                              >
+                                {activeLanguage
+                                  ? (row[activeLanguage] ?? '')
+                                  : ''}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="center" sx={{ width: '33%' }}>
+                              {row.mp3 && (
+                                <IconButton
+                                  size="small"
+                                  onClick={() => handlePlay(row)}
+                                  sx={{
+                                    bgcolor: '#00a76f',
+                                    color: '#fff',
+                                    '&:hover': { bgcolor: '#007a52' },
+                                  }}
+                                >
+                                  {playingId === row.id ? (
+                                    <Pause variant="Bulk" size={18} />
+                                  ) : (
+                                    <Play variant="Bulk" size={18} />
+                                  )}
+                                </IconButton>
+                              )}
                             </TableCell>
                           </TableRow>
-                          {group.rows.map((row, idx) => (
-                            <TableRow
-                              key={row.id}
-                              data-row-id={row.id}
-                              hover
-                              sx={{
-                                cursor: 'default',
-                                backgroundColor:
-                                  playingId === row.id
-                                    ? 'rgba(0,167,111,0.18)'
-                                    : idx % 2 === 0
-                                      ? 'transparent'
-                                      : 'action.hover',
-                                transition: 'background-color 0.2s',
-                              }}
-                            >
-                              <TableCell sx={{ width: '40%' }}>
-                                <Typography
-                                  variant="body2"
-                                  sx={{ fontWeight: 600 }}
-                                >
-                                  {row.en}
-                                </Typography>
-                              </TableCell>
-                              <TableCell sx={{ width: '30%' }}>
-                                <Typography
-                                  variant="body2"
-                                  sx={{ color: 'text.secondary' }}
-                                >
-                                  {activeLanguage
-                                    ? (row[activeLanguage] ?? '')
-                                    : ''}
-                                </Typography>
-                              </TableCell>
-                              <TableCell align="center" sx={{ width: '30%' }}>
-                                {row.mp3 && (
-                                  <IconButton
-                                    size="small"
-                                    onClick={() => handlePlay(row)}
-                                    sx={{
-                                      bgcolor: '#00a76f',
-                                      color: '#fff',
-                                      '&:hover': { bgcolor: '#007a52' },
-                                    }}
-                                  >
-                                    {playingId === row.id ? (
-                                      <Pause variant="Bulk" size={18} />
-                                    ) : (
-                                      <Play variant="Bulk" size={18} />
-                                    )}
-                                  </IconButton>
-                                )}
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </React.Fragment>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </>
-          )}
+                        ))}
+                      </React.Fragment>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </>
         </CardContent>
       </Card>
     </Grid>
