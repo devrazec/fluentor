@@ -68,6 +68,7 @@ import {
   Book,
   Messages1,
   MessageEdit,
+  Book1,
 } from 'iconsax-reactjs';
 
 import CardAlert from './CardAlert';
@@ -128,6 +129,7 @@ export default function DashboardLayout({ children }) {
     '/pages/Vocabulary/': 'Vocabulary',
     '/pages/Speak/': 'Speak',
     '/pages/Write/': 'Write',
+    '/pages/Dictionary/': 'Dictionary',
   };
   const pageTitle = pageTitles[pathname] ?? '';
 
@@ -254,6 +256,14 @@ export default function DashboardLayout({ children }) {
         open={desktopOpen}
         href="/pages/Write/"
         active={pathname === '/pages/Write/'}
+      />
+
+      <NavItem
+        icon={<Book1 variant="Bulk" color="#00a76f" />}
+        text="Dictionary"
+        open={desktopOpen}
+        href="/pages/Dictionary/"
+        active={pathname === '/pages/Dictionary/'}
       />
 
       {/* <NavItem icon={<Chart21 variant="Bulk" color="#00a76f" />} text="Analytics" open={desktopOpen} /> */}

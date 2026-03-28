@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d out",
     "clean_db": "node src/app/lib/db/clean_db.js",
     "migrate": "node src/app/lib/db/migrate.js",
+    "migrate_dictionary": "node src/app/lib/db/migrate_dictionary.js",
     "seed_category": "node src/app/lib/db/seed_category.js",
     "seed_tense": "node src/app/lib/db/seed_tense.js",
     "seed_question": "node src/app/lib/db/seed_question.js",
