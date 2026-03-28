@@ -256,7 +256,10 @@ export default function VocabularyTable() {
             '&:last-child': { pb: 2 },
           }}
         >
-          <Stack
+          <>
+            {/* <Divider sx={{ mb: 1.5 }} />
+
+            <Stack
             direction="row"
             alignItems="center"
             justifyContent="space-between"
@@ -276,105 +279,93 @@ export default function VocabularyTable() {
                 <ArrowDown2 size={18} />
               )}
             </IconButton>
-          </Stack>
+          </Stack> */}
 
-          <>
-            <Divider sx={{ mb: 1.5 }} />
-
-            {!minimizedVocabulary && (
-              <>
-                {/* Filters */}
-                <Box
-                  sx={{ display: 'flex', gap: 1.5, mb: 2, flexWrap: 'wrap' }}
-                >
-                  <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
-                    <InputLabel>Category</InputLabel>
-                    <Select
-                      multiple
-                      value={filterCatVocab}
-                      onChange={e => handleCatVocabChange(e.target.value)}
-                      input={<OutlinedInput label="Category" />}
-                      renderValue={selected =>
-                        selected.length === 0
-                          ? ''
-                          : `${selected.length} selected`
-                      }
-                      MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+            <>
+              {/* Filters */}
+              <Box sx={{ display: 'flex', gap: 1.5, mb: 2, flexWrap: 'wrap' }}>
+                <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
+                  <InputLabel>Category</InputLabel>
+                  <Select
+                    multiple
+                    value={filterCatVocab}
+                    onChange={e => handleCatVocabChange(e.target.value)}
+                    input={<OutlinedInput label="Category" />}
+                    renderValue={selected =>
+                      selected.length === 0 ? '' : `${selected.length} selected`
+                    }
+                    MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+                  >
+                    <MenuItem
+                      dense
+                      disabled={filterCatVocab.length === 0}
+                      onMouseDown={e => {
+                        e.preventDefault();
+                        handleCatVocabChange([]);
+                      }}
+                      sx={{
+                        justifyContent: 'center',
+                        color: 'error.main',
+                        fontWeight: 600,
+                      }}
                     >
-                      <MenuItem
-                        dense
-                        disabled={filterCatVocab.length === 0}
-                        onMouseDown={e => {
-                          e.preventDefault();
-                          handleCatVocabChange([]);
-                        }}
-                        sx={{
-                          justifyContent: 'center',
-                          color: 'error.main',
-                          fontWeight: 600,
-                        }}
-                      >
-                        Clear selection
-                      </MenuItem>
-                      <Divider />
-                      {[...(dbCatVocab ?? [])]
-                        .sort((a, b) => a.en.localeCompare(b.en))
-                        .map(cat => (
-                          <MenuItem key={cat.id} value={cat.id}>
-                            <Checkbox
-                              checked={filterCatVocab.includes(cat.id)}
-                            />
-                            <ListItemText primary={cat.en} />
-                          </MenuItem>
-                        ))}
-                    </Select>
-                  </FormControl>
+                      Clear selection
+                    </MenuItem>
+                    <Divider />
+                    {[...(dbCatVocab ?? [])]
+                      .sort((a, b) => a.en.localeCompare(b.en))
+                      .map(cat => (
+                        <MenuItem key={cat.id} value={cat.id}>
+                          <Checkbox checked={filterCatVocab.includes(cat.id)} />
+                          <ListItemText primary={cat.en} />
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
 
-                  <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
-                    <InputLabel>Subcategory</InputLabel>
-                    <Select
-                      multiple
-                      value={filterSubCatVocab}
-                      onChange={e => setFilterSubCatVocab(e.target.value)}
-                      input={<OutlinedInput label="Subcategory" />}
-                      renderValue={selected =>
-                        selected.length === 0
-                          ? ''
-                          : `${selected.length} selected`
-                      }
-                      MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+                <FormControl size="small" sx={{ minWidth: 160, flex: 1 }}>
+                  <InputLabel>Subcategory</InputLabel>
+                  <Select
+                    multiple
+                    value={filterSubCatVocab}
+                    onChange={e => setFilterSubCatVocab(e.target.value)}
+                    input={<OutlinedInput label="Subcategory" />}
+                    renderValue={selected =>
+                      selected.length === 0 ? '' : `${selected.length} selected`
+                    }
+                    MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+                  >
+                    <MenuItem
+                      dense
+                      disabled={filterSubCatVocab.length === 0}
+                      onMouseDown={e => {
+                        e.preventDefault();
+                        setFilterSubCatVocab([]);
+                      }}
+                      sx={{
+                        justifyContent: 'center',
+                        color: 'error.main',
+                        fontWeight: 600,
+                      }}
                     >
-                      <MenuItem
-                        dense
-                        disabled={filterSubCatVocab.length === 0}
-                        onMouseDown={e => {
-                          e.preventDefault();
-                          setFilterSubCatVocab([]);
-                        }}
-                        sx={{
-                          justifyContent: 'center',
-                          color: 'error.main',
-                          fontWeight: 600,
-                        }}
-                      >
-                        Clear selection
-                      </MenuItem>
-                      <Divider />
-                      {[...visibleSubCats]
-                        .sort((a, b) => a.en.localeCompare(b.en))
-                        .map(sc => (
-                          <MenuItem key={sc.id} value={sc.id}>
-                            <Checkbox
-                              checked={filterSubCatVocab.includes(sc.id)}
-                            />
-                            <ListItemText primary={sc.en} />
-                          </MenuItem>
-                        ))}
-                    </Select>
-                  </FormControl>
-                </Box>
-              </>
-            )}
+                      Clear selection
+                    </MenuItem>
+                    <Divider />
+                    {[...visibleSubCats]
+                      .sort((a, b) => a.en.localeCompare(b.en))
+                      .map(sc => (
+                        <MenuItem key={sc.id} value={sc.id}>
+                          <Checkbox
+                            checked={filterSubCatVocab.includes(sc.id)}
+                          />
+                          <ListItemText primary={sc.en} />
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            </>
+
             <TableContainer
               ref={tableContainerRef}
               sx={{ flex: 1, minHeight: 0, width: '100%', overflowY: 'auto' }}

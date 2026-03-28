@@ -66,6 +66,7 @@ import {
   UserAdd,
   MessageText1,
   Book,
+  Messages1,
 } from 'iconsax-reactjs';
 
 import CardAlert from './CardAlert';
@@ -123,6 +124,8 @@ export default function DashboardLayout({ children }) {
     '/pages/Answer/': 'Answer',
     '/pages/Practice/': 'Practice',
     '/pages/Test/': 'Test',
+    '/pages/Vocabulary/': 'Vocabulary',
+    '/pages/Speak/': 'Speak',
   };
   const pageTitle = pageTitles[pathname] ?? '';
 
@@ -221,7 +224,7 @@ export default function DashboardLayout({ children }) {
         active={pathname === '/pages/Practice/'}
       />
       <NavItem
-        icon={<Microphone2 variant="Bulk" color="#00a76f" />}
+        icon={<Chart21 variant="Bulk" color="#00a76f" />}
         text="Test"
         open={desktopOpen}
         href="/pages/Test/"
@@ -233,6 +236,14 @@ export default function DashboardLayout({ children }) {
         open={desktopOpen}
         href="/pages/Vocabulary/"
         active={pathname === '/pages/Vocabulary/'}
+      />
+
+      <NavItem
+        icon={<Microphone2 variant="Bulk" color="#00a76f" />}
+        text="Speak"
+        open={desktopOpen}
+        href="/pages/Speak/"
+        active={pathname === '/pages/Speak/'}
       />
 
       {/* <NavItem icon={<Chart21 variant="Bulk" color="#00a76f" />} text="Analytics" open={desktopOpen} /> */}
