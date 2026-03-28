@@ -248,13 +248,13 @@ export default function DashboardLayout({ children }) {
         active={pathname === '/pages/Speak/'}
       />
 
-      {/* <NavItem
+      <NavItem
         icon={<MessageEdit variant="Bulk" color="#00a76f" />}
         text="Write"
         open={desktopOpen}
         href="/pages/Write/"
         active={pathname === '/pages/Write/'}
-      /> */}
+      />
 
       {/* <NavItem icon={<Chart21 variant="Bulk" color="#00a76f" />} text="Analytics" open={desktopOpen} /> */}
 

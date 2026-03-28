@@ -1,74 +1,70 @@
-import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+import OpenAI from 'openai';
 
 export const runtime = 'nodejs';
 
-export async function POST(request) {
-  const formData = await request.formData();
-  const audioFile = formData.get('audio');
+const SYSTEM_PROMPT = `You are a friendly English writing tutor. The user will send you a sentence or short paragraph they wrote in English.
 
-  if (!audioFile) {
-    return Response.json({ error: 'No audio file provided' }, { status: 400 });
+Your task:
+1. Identify any grammar, spelling, or phrasing mistakes.
+2. Provide a corrected version if needed (skip this if the text is already correct).
+3. Give a brief, encouraging explanation of what was wrong (or praise if it's correct).
+
+Keep your response concise and easy to understand. Format:
+- If correct: just confirm it's correct and give a short compliment.
+- If incorrect: show the corrected version first, then explain the issues in 1–3 short bullet points.`;
+
+export async function POST(request) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ error: 'Invalid JSON body.' }, { status: 400 });
   }
 
-  const arrayBuffer = await audioFile.arrayBuffer();
-  const wavBuffer = Buffer.from(arrayBuffer);
+  const text = body?.text?.trim();
+  if (!text) {
+    return Response.json({ error: 'No text provided.' }, { status: 400 });
+  }
 
-  const speechConfig = sdk.SpeechConfig.fromSubscription(
-    process.env.NEXT_PUBLIC_SPEECH_KEY,
-    process.env.NEXT_PUBLIC_SPEECH_REGION
-  );
-  speechConfig.speechRecognitionLanguage =
-    process.env.NEXT_PUBLIC_LANGUAGE || 'en-US';
+  const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
+  const apiKey = process.env.AZURE_OPENAI_KEY;
+  const deployment = process.env.AZURE_OPENAI_DEPLOYMENT;
 
-  const audioConfig = sdk.AudioConfig.fromWavFileInput(wavBuffer);
-  const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
-
-  let fullText;
-  try {
-    fullText = await new Promise((resolve, reject) => {
-      const segments = [];
-
-      recognizer.recognized = (_s, e) => {
-        if (
-          e.result.reason === sdk.ResultReason.RecognizedSpeech &&
-          e.result.text
-        ) {
-          segments.push(e.result.text);
-        }
-      };
-
-      recognizer.canceled = (_s, e) => {
-        recognizer.stopContinuousRecognitionAsync();
-        if (e.reason === sdk.CancellationReason.Error) {
-          reject(new Error(e.errorDetails));
-        } else {
-          resolve(segments.join(' '));
-        }
-      };
-
-      recognizer.sessionStopped = () => {
-        recognizer.stopContinuousRecognitionAsync();
-        resolve(segments.join(' '));
-      };
-
-      recognizer.startContinuousRecognitionAsync(
-        () => {},
-        err => reject(new Error(err))
-      );
-    });
-  } catch (err) {
+  if (!endpoint || !apiKey || !deployment) {
     return Response.json(
-      { error: `Speech recognition failed: ${err.message}` },
+      { error: 'Azure OpenAI is not configured.' },
       { status: 500 }
     );
   }
 
-  if (!fullText?.trim()) {
+  const openai = new OpenAI({
+    baseURL: endpoint,
+    apiKey,
+    defaultHeaders: { 'api-key': apiKey },
+  });
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: deployment,
+      store: true,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: text },
+      ],
+      temperature: 0.4,
+      max_tokens: 400,
+    });
+
+    const feedback = completion.choices[0]?.message?.content?.trim();
+    if (!feedback) {
+      return Response.json({ error: 'No response from AI.' }, { status: 502 });
+    }
+
+    return Response.json({ feedback });
+  } catch (err) {
     return Response.json(
-      { error: 'No speech could be recognized from the audio.' },
-      { status: 422 }
+      { error: `AI request failed: ${err.message}` },
+      { status: 500 }
     );
   }
-
-  return Response.json({ user_text: fullText.trim() });
 }
