@@ -70,7 +70,7 @@ export default function DictionaryPage() {
       <Box
         sx={{
           width: '100%',
-          maxWidth: 900,
+          maxWidth: 800,
           mx: 'auto',
           px: { xs: 2, sm: 0 },
           mt: 2,
@@ -81,9 +81,9 @@ export default function DictionaryPage() {
           <CardContent
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
-            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            {/* <Typography variant="h6" sx={{ fontWeight: 600 }}>
               Dictionary
-            </Typography>
+            </Typography> */}
 
             <TextField
               size="small"
@@ -110,15 +110,38 @@ export default function DictionaryPage() {
               <Table size="small" stickyHeader>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 600 }}>Word</TableCell>
-                    {/* <TableCell sx={{ fontWeight: 600 }}>Phonetic</TableCell> */}
-                    {/* <TableCell sx={{ fontWeight: 600 }}>Related</TableCell> */}
-                    <TableCell sx={{ fontWeight: 600 }}>Meaning</TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 600,
+                        bgcolor: 'primary.main',
+                        color: 'white',
+                      }}
+                    >
+                      Word
+                    </TableCell>
+                    {/* <TableCell sx={{ fontWeight: 600, bgcolor: 'success.main', color: 'white' }}>Phonetic</TableCell> */}
+                    {/* <TableCell sx={{ fontWeight: 600, bgcolor: 'success.main', color: 'white' }}>Related</TableCell> */}
+                    <TableCell
+                      sx={{
+                        fontWeight: 600,
+                        bgcolor: 'primary.main',
+                        color: 'white',
+                      }}
+                    >
+                      Meaning
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {paged.map((row, i) => (
-                    <TableRow key={`${row.word}-${i}`} hover>
+                    <TableRow
+                      key={`${row.word}-${i}`}
+                      hover
+                      sx={{
+                        bgcolor:
+                          i % 2 === 0 ? 'action.hover' : 'background.paper',
+                      }}
+                    >
                       <TableCell>{row.word}</TableCell>
                       {/* <TableCell sx={{ color: 'text.secondary' }}>
                         {row.phonetic ?? '—'}
