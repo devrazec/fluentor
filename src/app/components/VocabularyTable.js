@@ -107,7 +107,7 @@ export default function VocabularyTable() {
         audioRef.current = null;
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -224,7 +224,9 @@ export default function VocabularyTable() {
     const audio = new Audio(`/mp3/vocabulary/${activeVoice}/${row.mp3}`);
     audio.playbackRate = playbackRate;
     audioRef.current = audio;
-    audio.addEventListener('loadedmetadata', () => setAudioDuration(audio.duration));
+    audio.addEventListener('loadedmetadata', () =>
+      setAudioDuration(audio.duration)
+    );
     audio.play();
     startHighlightRaf(audio);
     setPlayingId(row.id);
@@ -276,7 +278,9 @@ export default function VocabularyTable() {
       setCurrentTime(0);
       setAudioDuration(0);
       setPlayingId(row.id);
-      audio.addEventListener('loadedmetadata', () => setAudioDuration(audio.duration));
+      audio.addEventListener('loadedmetadata', () =>
+        setAudioDuration(audio.duration)
+      );
       audio.play();
       startHighlightRaf(audio);
       audio.onended = () => {
@@ -694,30 +698,36 @@ export default function VocabularyTable() {
                                 sx={{ fontWeight: 600 }}
                               >
                                 {playingId === row.id
-                                  ? row.en.split(' ').filter(Boolean).map((word, i) => (
-                                      <span
-                                        key={i}
-                                        style={{
-                                          transition: 'background 0.15s, color 0.15s',
-                                          backgroundColor:
-                                            activeWordIndex >= 0 && i <= activeWordIndex
-                                              ? i === activeWordIndex
-                                                ? '#00a76f'
-                                                : 'rgba(0,167,111,0.2)'
-                                              : 'transparent',
-                                          color:
-                                            activeWordIndex >= 0 && i === activeWordIndex
-                                              ? '#fff'
-                                              : 'inherit',
-                                          borderRadius: 4,
-                                          padding: '1px 3px',
-                                          marginRight: 2,
-                                          display: 'inline-block',
-                                        }}
-                                      >
-                                        {word}
-                                      </span>
-                                    ))
+                                  ? row.en
+                                      .split(' ')
+                                      .filter(Boolean)
+                                      .map((word, i) => (
+                                        <span
+                                          key={i}
+                                          style={{
+                                            transition:
+                                              'background 0.15s, color 0.15s',
+                                            backgroundColor:
+                                              activeWordIndex >= 0 &&
+                                              i <= activeWordIndex
+                                                ? i === activeWordIndex
+                                                  ? '#00a76f'
+                                                  : 'rgba(0,167,111,0.2)'
+                                                : 'transparent',
+                                            color:
+                                              activeWordIndex >= 0 &&
+                                              i === activeWordIndex
+                                                ? '#fff'
+                                                : 'inherit',
+                                            borderRadius: 4,
+                                            padding: '1px 3px',
+                                            marginRight: 2,
+                                            display: 'inline-block',
+                                          }}
+                                        >
+                                          {word}
+                                        </span>
+                                      ))
                                   : row.en}
                               </Typography>
                             </TableCell>
