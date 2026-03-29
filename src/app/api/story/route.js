@@ -7,7 +7,11 @@ export async function GET() {
     .prepare(
       `SELECT id, title, basic, intermediate, advanced,
               basic_mp3, intermediate_mp3, advanced_mp3, image, active
-       FROM story ORDER BY title`
+       FROM story
+       WHERE id IN (
+         SELECT MIN(id) FROM story GROUP BY title
+       )
+       ORDER BY title`
     )
     .all();
 

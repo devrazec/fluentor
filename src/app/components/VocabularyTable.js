@@ -36,6 +36,8 @@ export default function VocabularyTable() {
   const [activeLanguage, setActiveLanguage] = useState('pt');
   const [playbackRate, setPlaybackRate] = useState(1);
   const [activeVoice, setActiveVoice] = useState('female');
+  const [currentTime, setCurrentTime] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
 
   const SPEEDS = [0.75, 1, 1.2];
   const VOICES = [
@@ -68,6 +70,7 @@ export default function VocabularyTable() {
   const playAllCancelRef = useRef(false);
   const activeVoiceRef = useRef(activeVoice);
   const playbackRateRef = useRef(playbackRate);
+  const highlightRafRef = useRef(null);
 
   useEffect(() => {
     activeVoiceRef.current = activeVoice;
@@ -77,16 +80,34 @@ export default function VocabularyTable() {
     playbackRateRef.current = playbackRate;
   }, [playbackRate]);
 
+  const stopHighlightRaf = () => {
+    if (highlightRafRef.current) {
+      cancelAnimationFrame(highlightRafRef.current);
+      highlightRafRef.current = null;
+    }
+  };
+
+  const startHighlightRaf = audio => {
+    stopHighlightRaf();
+    const tick = () => {
+      if (audio) setCurrentTime(audio.currentTime);
+      highlightRafRef.current = requestAnimationFrame(tick);
+    };
+    highlightRafRef.current = requestAnimationFrame(tick);
+  };
+
   // Stop audio when navigating away
   useEffect(() => {
     return () => {
       playAllCancelRef.current = true;
       clearTimeout(playNextTimerRef.current);
+      stopHighlightRaf();
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -153,6 +174,23 @@ export default function VocabularyTable() {
     return Array.from(map.values());
   }, [pagedWords]);
 
+  const activeWordIndex = useMemo(() => {
+    if (!playingId || currentTime <= 0 || !audioDuration) return -1;
+    const playingRow = words.find(w => w.id === playingId);
+    if (!playingRow) return -1;
+    const wordArr = playingRow.en.split(' ').filter(Boolean);
+    const totalChars = wordArr.reduce((s, w) => s + w.length, 0) || 1;
+    let acc = 0;
+    let idx = 0;
+    for (let i = 0; i < wordArr.length; i++) {
+      const start = (acc / totalChars) * audioDuration;
+      if (start <= currentTime) idx = i;
+      else break;
+      acc += wordArr[i].length;
+    }
+    return idx;
+  }, [playingId, currentTime, audioDuration, words]);
+
   const playQueueRef = useRef([]);
   const playNextTimerRef = useRef(null);
 
@@ -161,7 +199,10 @@ export default function VocabularyTable() {
 
     if (playingId === row.id) {
       audioRef.current?.pause();
+      stopHighlightRaf();
       setPlayingId(null);
+      setCurrentTime(0);
+      setAudioDuration(0);
       playAllCancelRef.current = true;
       setIsPlayingAll(false);
       return;
@@ -171,17 +212,28 @@ export default function VocabularyTable() {
     playAllCancelRef.current = true;
     clearTimeout(playNextTimerRef.current);
     setIsPlayingAll(false);
+    stopHighlightRaf();
 
     if (audioRef.current) {
       audioRef.current.pause();
     }
 
+    setCurrentTime(0);
+    setAudioDuration(0);
+
     const audio = new Audio(`/mp3/vocabulary/${activeVoice}/${row.mp3}`);
     audio.playbackRate = playbackRate;
     audioRef.current = audio;
+    audio.addEventListener('loadedmetadata', () => setAudioDuration(audio.duration));
     audio.play();
+    startHighlightRaf(audio);
     setPlayingId(row.id);
-    audio.onended = () => setPlayingId(null);
+    audio.onended = () => {
+      stopHighlightRaf();
+      setPlayingId(null);
+      setCurrentTime(0);
+      setAudioDuration(0);
+    };
   };
 
   const handlePlayAll = () => {
@@ -221,9 +273,14 @@ export default function VocabularyTable() {
       );
       audio.playbackRate = playbackRateRef.current;
       audioRef.current = audio;
+      setCurrentTime(0);
+      setAudioDuration(0);
       setPlayingId(row.id);
+      audio.addEventListener('loadedmetadata', () => setAudioDuration(audio.duration));
       audio.play();
+      startHighlightRaf(audio);
       audio.onended = () => {
+        stopHighlightRaf();
         const delay = Math.round(300 / playbackRateRef.current);
         playNextTimerRef.current = setTimeout(() => playNext(index + 1), delay);
       };
@@ -636,7 +693,32 @@ export default function VocabularyTable() {
                                 variant="body2"
                                 sx={{ fontWeight: 600 }}
                               >
-                                {row.en}
+                                {playingId === row.id
+                                  ? row.en.split(' ').filter(Boolean).map((word, i) => (
+                                      <span
+                                        key={i}
+                                        style={{
+                                          transition: 'background 0.15s, color 0.15s',
+                                          backgroundColor:
+                                            activeWordIndex >= 0 && i <= activeWordIndex
+                                              ? i === activeWordIndex
+                                                ? '#00a76f'
+                                                : 'rgba(0,167,111,0.2)'
+                                              : 'transparent',
+                                          color:
+                                            activeWordIndex >= 0 && i === activeWordIndex
+                                              ? '#fff'
+                                              : 'inherit',
+                                          borderRadius: 4,
+                                          padding: '1px 3px',
+                                          marginRight: 2,
+                                          display: 'inline-block',
+                                        }}
+                                      >
+                                        {word}
+                                      </span>
+                                    ))
+                                  : row.en}
                               </Typography>
                             </TableCell>
                             <TableCell sx={{ width: '33%' }}>
