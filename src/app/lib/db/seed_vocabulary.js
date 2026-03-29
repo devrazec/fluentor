@@ -12,7 +12,8 @@ const xlsxPath = path.join(
   'src',
   'app',
   'store',
-  'Vocabulary.xlsx'
+  //'Vocabulary1.xlsx'
+  'Google_Vocabulary2.xlsx'
 );
 
 // Read + parse XLSX
@@ -42,69 +43,48 @@ const insertVocabulary = db.prepare(`
 `);
 
 // Insert catvocab
-const { count: countCatVocab } = db
-  .prepare('SELECT COUNT(*) AS count FROM catvocab')
-  .get();
-if (countCatVocab === 0) {
-  const tx = db.transaction(() => {
-    for (const json of jsonDataCatVocab) {
-      insertCatVocab.run({
-        description: null,
-        mp3: null,
-        image: null,
-        active: 1,
-        ...json,
-      });
-    }
-  });
-  tx();
-  console.log('🌱 catvocab seeded');
-} else {
-  console.log('ℹ️ catvocab already seeded');
-}
+const tx1 = db.transaction(() => {
+  for (const json of jsonDataCatVocab) {
+    insertCatVocab.run({
+      description: null,
+      mp3: null,
+      image: null,
+      active: 1,
+      ...json,
+    });
+  }
+});
+tx1();
+console.log('🌱 catvocab seeded');
 
 // Insert subcatvocab
-const { count: countSubCatVocab } = db
-  .prepare('SELECT COUNT(*) AS count FROM subcatvocab')
-  .get();
-if (countSubCatVocab === 0) {
-  const tx = db.transaction(() => {
-    for (const json of jsonDataSubCatVocab) {
-      insertSubCatVocab.run({
-        description: null,
-        mp3: null,
-        image: null,
-        active: 1,
-        ...json,
-      });
-    }
-  });
-  tx();
-  console.log('🌱 subcatvocab seeded');
-} else {
-  console.log('ℹ️ subcatvocab already seeded');
-}
+const tx2 = db.transaction(() => {
+  for (const json of jsonDataSubCatVocab) {
+    insertSubCatVocab.run({
+      description: null,
+      mp3: null,
+      image: null,
+      active: 1,
+      ...json,
+    });
+  }
+});
+tx2();
+console.log('🌱 subcatvocab seeded');
 
 // Insert vocabulary
-const { count: countVocabulary } = db
-  .prepare('SELECT COUNT(*) AS count FROM vocabulary')
-  .get();
-if (countVocabulary === 0) {
-  const tx = db.transaction(() => {
-    for (const json of jsonDataVocab) {
-      insertVocabulary.run({
-        description: null,
-        mp3: null,
-        image: null,
-        active: 1,
-        ...json,
-      });
-    }
-  });
-  tx();
-  console.log('🌱 vocabulary seeded');
-} else {
-  console.log('ℹ️ vocabulary already seeded');
-}
+const tx3 = db.transaction(() => {
+  for (const json of jsonDataVocab) {
+    insertVocabulary.run({
+      description: null,
+      mp3: null,
+      image: null,
+      active: 1,
+      ...json,
+    });
+  }
+});
+tx3();
+console.log('🌱 vocabulary seeded');
 
 export default db;
