@@ -112,6 +112,19 @@ CREATE TABLE IF NOT EXISTS vocabulary (
   FOREIGN KEY(id_subcatvocab) REFERENCES subcatvocab(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS story (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT,
+  basic TEXT,
+  intermediate TEXT,
+  advanced TEXT,
+  basic_mp3 TEXT,
+  intermediate_mp3 TEXT,
+  advanced_mp3 TEXT,
+  image TEXT,
+  active TEXT
+);
+
 COMMIT;
 `;
 

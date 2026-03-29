@@ -20,7 +20,8 @@
     "seed_answer": "node src/app/lib/db/seed_answer.js",
     "seed_result": "node src/app/lib/db/seed_result.js",
     "seed_record": "node src/app/lib/db/seed_record.js",
-    "seed_vocabulary": "node src/app/lib/db/seed_vocabulary.js"
+    "seed_vocabulary": "node src/app/lib/db/seed_vocabulary.js",
+    "seed_story": "node src/app/lib/db/seed_story.js"
   },
   "dependencies": {
     "@clerk/backend": "^3.0.1",

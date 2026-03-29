@@ -69,6 +69,7 @@ import {
   Messages1,
   MessageEdit,
   Book1,
+  MusicPlay,
 } from 'iconsax-reactjs';
 
 import CardAlert from './CardAlert';
@@ -130,6 +131,7 @@ export default function DashboardLayout({ children }) {
     '/pages/Speak/': 'Speak',
     '/pages/Write/': 'Write',
     '/pages/Dictionary/': 'Dictionary',
+    '/pages/Story/': 'Story',
   };
   const pageTitle = pageTitles[pathname] ?? '';
 
@@ -256,6 +258,14 @@ export default function DashboardLayout({ children }) {
         open={desktopOpen}
         href="/pages/Write/"
         active={pathname === '/pages/Write/'}
+      />
+
+      <NavItem
+        icon={<MusicPlay variant="Bulk" color="#00a76f" />}
+        text="Story"
+        open={desktopOpen}
+        href="/pages/Story/"
+        active={pathname === '/pages/Story/'}
       />
 
       <NavItem

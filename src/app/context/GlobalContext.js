@@ -18,6 +18,7 @@ export function GlobalProvider({ children }) {
   const [dbVocabulary, setDbVocabulary] = useState([]);
   const [dbCatVocab, setDbCatVocab] = useState([]);
   const [dbSubCatVocab, setDbSubCatVocab] = useState([]);
+  const [dbStory, setDbStory] = useState([]);
 
   const [selectedPage, setSelectedPage] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -93,6 +94,8 @@ export function GlobalProvider({ children }) {
     fetchTable('/api/vocabulary', setDbVocabulary);
     fetchTable('/api/catvocab', setDbCatVocab);
     fetchTable('/api/subcatvocab', setDbSubCatVocab);
+    fetchTable('/api/story', setDbStory);
+
     //fetchTable('/api/record', setDbRecord);
 
     fetchAllAnswers();
@@ -129,6 +132,8 @@ export function GlobalProvider({ children }) {
         setDbCatVocab,
         dbSubCatVocab,
         setDbSubCatVocab,
+        dbStory,
+        setDbStory,
 
         selectedCategory,
         setSelectedCategory,
